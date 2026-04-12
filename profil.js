@@ -149,8 +149,8 @@ function renderRecipeDetail(food) {
 }
 
 function showRecipeDetail(foodName) {
-  const food = [...generatedPantryRecipes, ...(profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
-  if (!food) return;
+  const food = [...generatedPantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
+  if (!food || hasUserBlockedFood(food, profile.dietOther)) return;
   document.querySelector("#recipe-detail-pane").innerHTML = renderRecipeDetail(food);
 }
 
@@ -160,6 +160,26 @@ function normalizeText(value) {
     .replaceAll("ı", "i")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+}
+
+function splitBlockedFoods(value) {
+  const ignoredWords = new Set(["ve", "veya", "ile", "ben", "bana", "yemem", "yemiyorum", "sevmem", "istemiyorum", "alerjim", "var", "yok", "asla", "hic"]);
+  return normalizeText(value)
+    .split(/[^a-z0-9]+/)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 2 && !ignoredWords.has(item));
+}
+
+function recipeSearchText(food) {
+  const details = recipeDetails[food.name] || food;
+  return normalizeText([food.name, food.note, ...(details.ingredients || []), ...(food.ingredients || []), ...(food.tags || [])].join(" "));
+}
+
+function hasUserBlockedFood(food, dietOther) {
+  const blockedFoods = splitBlockedFoods(dietOther);
+  if (!blockedFoods.length) return false;
+  const text = recipeSearchText(food);
+  return blockedFoods.some((word) => text.includes(word));
 }
 
 function parsePantryInput(input) {
@@ -244,7 +264,7 @@ function getRecipeCoreTerms(food) {
 
 function findPantryRecipe(available) {
   const normalizedAvailable = available.map(normalizeText);
-  const recipes = [...pantryRecipes, ...(profile.recommendations || []), ...catalogRecipes];
+  const recipes = [...pantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...catalogRecipes];
   const scored = recipes
     .map((food) => {
       const coreTerms = getRecipeCoreTerms(food);
@@ -358,6 +378,7 @@ if (!profile) {
   `;
 } else {
   const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
+  profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasUserBlockedFood(food, profile.dietOther));
 
   profilePage.innerHTML = `
     <section class="profile-dashboard">
@@ -379,7 +400,7 @@ if (!profile) {
           <div class="section-title"><h2>Haftalık önerilen tarifler</h2></div>
           <div class="weekly-recipe-layout">
             <div class="suggestion-list weekly-recipe-list">
-              ${renderRecipeCards(profile.recommendations)}
+              ${renderRecipeCards(profile.filteredRecommendations)}
             </div>
             <aside class="recipe-detail-pane" id="recipe-detail-pane">
               <p class="eyebrow compact">Tarif detayı</p>

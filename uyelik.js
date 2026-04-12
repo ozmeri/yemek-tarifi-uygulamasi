@@ -117,11 +117,15 @@ function normalizeText(value) {
 }
 
 function splitOtherFoods(value) {
-  return normalizeText(value).split(/[,;\n]+/).map((item) => item.trim()).filter(Boolean);
+  const ignoredWords = new Set(["ve", "veya", "ile", "ben", "bana", "yemem", "yemiyorum", "sevmem", "istemiyorum", "alerjim", "var", "yok", "asla", "hic", "hi?"]);
+  return normalizeText(value)
+    .split(/[^a-z0-9]+/)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 2 && !ignoredWords.has(item));
 }
 
 function foodSearchText(food) {
-  return normalizeText([food.name, food.note, ...(food.tags || []), ...(food.allergens || [])].join(" "));
+  return normalizeText([food.name, food.note, ...(food.ingredients || []), ...(food.tags || []), ...(food.allergens || [])].join(" "));
 }
 
 function dietConflicts(food, diet, dietOther) {
