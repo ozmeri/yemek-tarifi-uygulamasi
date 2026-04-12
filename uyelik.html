@@ -3,39 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fit Tarifler | Uyelik</title>
+    <title>Fit Tarifler | Üyelik</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app-shell">
-      <nav class="site-nav" aria-label="Site menusu">
+      <nav class="site-nav" aria-label="Site menüsü">
         <a class="brand" href="index.html">Fit Tarifler</a>
         <div class="nav-links">
           <a href="index.html">Ana sayfa</a>
-          <a class="active" href="uyelik.html">Uye ol</a>
-          <a href="giris.html">Uye girisi</a>
+          <a class="active" href="uyelik.html">Üye ol</a>
+          <a href="giris.html">Üye girişi</a>
         </div>
       </nav>
 
       <section class="auth-layout" id="auth-layout">
         <form class="member-form auth-card" id="signup-form">
-          <p class="eyebrow compact">Uyelik</p>
+          <p class="eyebrow compact">Üyelik</p>
           <div class="form-grid single-column">
             <label>
               Ad soyad
-              <input name="fullName" type="text" placeholder="Ornek: Ayse Yilmaz" required />
+              <input name="fullName" type="text" placeholder="Örnek: Ayşe Yılmaz" required />
             </label>
             <label>
               E-posta
               <input name="email" type="email" placeholder="ornek@mail.com" required />
             </label>
             <label>
-              Sifre
+              Şifre
               <input name="password" type="password" minlength="6" placeholder="En az 6 karakter" required />
             </label>
           </div>
-          <button class="primary-link form-submit" type="submit">Uyeligimi olustur</button>
-          <p class="form-note" id="signup-message">Firebase ayarlari girilene kadar demo uyelik bu tarayicida saklanir.</p>
+          <button class="primary-link form-submit" type="submit">Üyeliğimi oluştur</button>
+          <p class="form-note" id="signup-message">Firebase ayarları girilene kadar demo üyelik bu tarayıcıda saklanır.</p>
         </form>
       </section>
 
@@ -43,11 +43,11 @@
         <div class="wizard-backdrop"></div>
         <div class="wizard-shell">
           <div class="wizard-card">
-            <button class="wizard-close" id="wizard-close" type="button" aria-label="Analizden cik">x</button>
+            <button class="wizard-close" id="wizard-close" type="button" aria-label="Analizden çık">x</button>
             <div class="wizard-head">
               <p class="eyebrow compact" id="wizard-step-label">Profil botu</p>
-              <h2 id="wizard-title">Baslayalim</h2>
-              <p id="wizard-helper">Sorulari sirayla cevapla, sonunda sana uygun tarifleri listeleyelim.</p>
+              <h2 id="wizard-title">Başlayalım</h2>
+              <p id="wizard-helper">Soruları sırayla cevapla, sonunda sana uygun tarifleri listeleyelim.</p>
             </div>
 
             <div class="wizard-progress" aria-hidden="true">
@@ -58,7 +58,7 @@
               <div class="wizard-body" id="wizard-body"></div>
               <div class="wizard-actions">
                 <button class="secondary-link" id="wizard-back" type="button">Geri</button>
-                <button class="primary-link" id="wizard-next" type="submit">Ileri</button>
+                <button class="primary-link" id="wizard-next" type="submit">İleri</button>
               </div>
             </form>
           </div>

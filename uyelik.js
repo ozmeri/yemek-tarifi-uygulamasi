@@ -1,54 +1,54 @@
 ﻿const foods = [
-  { name: "Tavuklu Kinoa Salatasi", calories: 465, protein: 41, carbs: 32, fat: 14, time: 20, tags: ["weight-loss", "muscle", "balanced"], allergens: [], avoidFor: [], note: "Protein ve lif dengesi yuksek, oglen icin uygun." },
-  { name: "Kabak Spagetti Tavuklu", calories: 360, protein: 37, carbs: 15, fat: 17, time: 22, tags: ["weight-loss", "low-carb", "muscle"], allergens: [], avoidFor: [], note: "Karbonhidrati azaltmak isteyenler icin hafif aksam tabagi." },
-  { name: "Somon ve Firin Sebze", calories: 510, protein: 38, carbs: 24, fat: 28, time: 28, tags: ["balanced", "low-carb"], allergens: ["fish"], avoidFor: [], note: "Omega 3 ve protein destegi olan doyurucu tabak." },
-  { name: "Mercimekli Sebze Corbasi", calories: 310, protein: 18, carbs: 36, fat: 8, time: 25, tags: ["weight-loss", "balanced"], allergens: [], avoidFor: ["stomach", "reflux", "ibs", "ulcer"], note: "Lifli ve ekonomik; mide hassasiyetinde baharat azalt." },
-  { name: "Nohutlu Ton Baligi Kasesi", calories: 445, protein: 39, carbs: 34, fat: 15, time: 11, tags: ["muscle", "balanced"], allergens: ["fish", "legume"], avoidFor: ["gout", "ibs"], note: "Ocak acmadan hazirlanan proteinli kase." },
-  { name: "Karnabahar Pilavi Tavuklu", calories: 385, protein: 40, carbs: 18, fat: 16, time: 24, tags: ["weight-loss", "low-carb", "muscle"], allergens: [], avoidFor: ["ibs"], note: "Pilav hissi veren dusuk karbonhidratli alternatif." },
-  { name: "Bulgurlu Yogurtlu Semizotu", calories: 285, protein: 15, carbs: 34, fat: 9, time: 14, tags: ["weight-loss", "balanced"], allergens: ["dairy", "gluten"], avoidFor: ["celiac"], note: "Ferah ve hafif; sut/gluten hassasiyeti olanlara uygun degil." },
-  { name: "Protein Omlet Bowl", calories: 420, protein: 36, carbs: 18, fat: 22, time: 12, tags: ["muscle", "low-carb", "balanced"], allergens: ["egg", "dairy"], avoidFor: ["cholesterol"], note: "Yuksek proteinli kahvalti; yumurta/sut hassasiyetinde secme." },
-  { name: "Peynirli Roka Salatasi", calories: 275, protein: 20, carbs: 12, fat: 16, time: 8, tags: ["weight-loss", "low-carb", "balanced"], allergens: ["dairy", "nuts"], avoidFor: [], note: "Hafif ve pratik salata; peynir ve ceviz icerir." },
-  { name: "Hindi Kofteli Salata Tabagi", calories: 430, protein: 43, carbs: 22, fat: 18, time: 30, tags: ["weight-loss", "muscle", "balanced"], allergens: ["dairy"], avoidFor: [], note: "Antrenman sonrasi icin protein agirlikli temiz tabak." }
+  { name: "Tavuklu Kinoa Salatası", calories: 465, protein: 41, carbs: 32, fat: 14, time: 20, tags: ["weight-loss", "muscle", "balanced"], allergens: [], avoidFor: [], note: "Protein ve lif dengesi yüksek, öğlen icin uygun." },
+  { name: "Kabak Spagetti Tavuklu", calories: 360, protein: 37, carbs: 15, fat: 17, time: 22, tags: ["weight-loss", "low-carb", "muscle"], allergens: [], avoidFor: [], note: "Karbonhidratı azaltmak isteyenler için hafif akşam tabağı." },
+  { name: "Somon ve Fırın Sebze", calories: 510, protein: 38, carbs: 24, fat: 28, time: 28, tags: ["balanced", "low-carb"], allergens: ["fish"], avoidFor: [], note: "Omega 3 ve protein destegi olan doyurucu tabak." },
+  { name: "Mercimekli Sebze Çorbasi", calories: 310, protein: 18, carbs: 36, fat: 8, time: 25, tags: ["weight-loss", "balanced"], allergens: [], avoidFor: ["stomach", "reflux", "ibs", "ulcer"], note: "Lifli ve ekonomik; mide hassasiyetinde baharat azalt." },
+  { name: "Nohutlu Ton Balığı Kasesi", calories: 445, protein: 39, carbs: 34, fat: 15, time: 11, tags: ["muscle", "balanced"], allergens: ["fish", "legume"], avoidFor: ["gout", "ibs"], note: "Ocak açmadan hazırlanan proteinli kase." },
+  { name: "Karnabahar Pilavı Tavuklu", calories: 385, protein: 40, carbs: 18, fat: 16, time: 24, tags: ["weight-loss", "low-carb", "muscle"], allergens: [], avoidFor: ["ibs"], note: "Pilav hissi veren düşük karbonhidratlı alternatif." },
+  { name: "Bulgurlu Yoğurtlu Semizotu", calories: 285, protein: 15, carbs: 34, fat: 9, time: 14, tags: ["weight-loss", "balanced"], allergens: ["dairy", "gluten"], avoidFor: ["celiac"], note: "Ferah ve hafif; sut/gluten hassasiyeti olanlara uygun degil." },
+  { name: "Protein Omlet Bowl", calories: 420, protein: 36, carbs: 18, fat: 22, time: 12, tags: ["muscle", "low-carb", "balanced"], allergens: ["egg", "dairy"], avoidFor: ["cholesterol"], note: "Yüksek proteinli kahvaltı; yumurta/sut hassasiyetinde seçme." },
+  { name: "Peynirli Roka Salatası", calories: 275, protein: 20, carbs: 12, fat: 16, time: 8, tags: ["weight-loss", "low-carb", "balanced"], allergens: ["dairy", "nuts"], avoidFor: [], note: "Hafif ve pratik salata; peynir ve ceviz içerir." },
+  { name: "Hindi Köfteli Salata Tabağı", calories: 430, protein: 43, carbs: 22, fat: 18, time: 30, tags: ["weight-loss", "muscle", "balanced"], allergens: ["dairy"], avoidFor: [], note: "Antrenman sonrası için protein ağırlıklı temiz tabak." }
 ];
 
 foods.push(...(window.fitRecipeCatalog || []));
 
 const conditionOptions = [
-  ["diabetes", "Diyabet / kan sekeri hassasiyeti"],
-  ["hypertension", "Yuksek tansiyon"],
+  ["diabetes", "Diyabet / kan şekeri hassasiyeti"],
+  ["hypertension", "Yüksek tansiyon"],
   ["cholesterol", "Kolesterol hassasiyeti"],
-  ["heart", "Kalp-damar rahatsizligi"],
-  ["kidney", "Bobrek rahatsizligi"],
-  ["liver", "Karaciger rahatsizligi"],
-  ["thyroid", "Tiroid rahatsizligi"],
+  ["heart", "Kalp-damar rahatsızlığı"],
+  ["kidney", "Böbrek rahatsızlığı"],
+  ["liver", "Karaciğer rahatsızlığı"],
+  ["thyroid", "Tiroid rahatsızlığı"],
   ["pcos", "PCOS / hormonal hassasiyet"],
-  ["insulin", "Insulin direnci"],
-  ["reflux", "Reflu"],
+  ["insulin", "İnsülin direnci"],
+  ["reflux", "Reflü"],
   ["gastritis", "Gastrit"],
-  ["ulcer", "Ulser"],
-  ["ibs", "Hassas bagirsak"],
-  ["celiac", "Colyak"],
+  ["ulcer", "Ülser"],
+  ["ibs", "Hassas bağırsak"],
+  ["celiac", "Çölyak"],
   ["gout", "Gut"],
   ["migraine", "Migren"],
-  ["anemia", "Kansizlik"],
+  ["anemia", "Kansızlık"],
   ["none", "Belirtmek istemiyorum / yok"]
 ];
 
 const allergyOptions = [
-  ["dairy", "Sut urunleri / laktoz"],
+  ["dairy", "Süt ürünleri / laktoz"],
   ["egg", "Yumurta"],
   ["fish", "Balik"],
-  ["shellfish", "Kabuklu deniz urunleri"],
-  ["nuts", "Kuruyemis"],
-  ["peanut", "Yer fistigi"],
-  ["gluten", "Gluten / bugday"],
+  ["shellfish", "Kabuklu deniz ürünleri"],
+  ["nuts", "Kuruyemiş"],
+  ["peanut", "Yer fıstığı"],
+  ["gluten", "Gluten / buğday"],
   ["soy", "Soya"],
   ["sesame", "Susam"],
   ["tomato", "Domates"],
-  ["strawberry", "Cilek"],
+  ["strawberry", "Çilek"],
   ["cocoa", "Kakao"],
   ["honey", "Bal"],
-  ["corn", "Misir"],
+  ["corn", "Mısır"],
   ["legume", "Baklagil"],
   ["none", "Belirtmek istemiyorum / yok"]
 ];
@@ -71,21 +71,21 @@ let stepIndex = 0;
 let profileDraft = {};
 
 const dietOptions = [
-  ["standard", "Ozel bir beslenme tarzim yok"],
+  ["standard", "Özel bir beslenme tarzım yok"],
   ["vegetarian", "Vejetaryenim"],
   ["vegan", "Veganım"],
-  ["no-red-meat", "Kirmizi et yemem"],
+  ["no-red-meat", "Kırmızı et yemem"],
   ["no-chicken", "Tavuk / hindi yemem"],
-  ["no-fish", "Balik yemem"]
+  ["no-fish", "Balık yemem"]
 ];
 
-const steps = [{ key: "gender", title: "Cinsiyetini sec", helper: "Bu bilgi ileride kalori hesabini daha dogru yapmak icin kullanilabilir.", render: () => choiceGroup("gender", [["female", "Kadin"], ["male", "Erkek"], ["other", "Belirtmek istemiyorum"]], true) },
-  { key: "body", title: "Temel bilgilerini gir", helper: "Yas, boy ve kilo ile yaklasik hedef kalori hesaplayacagiz.", render: () => `<div class="wizard-fields"><label>Yas <input name="age" type="number" min="12" max="100" placeholder="28" required></label><label>Boy (cm) <input name="height" type="number" min="120" max="230" placeholder="170" required></label><label>Kilo (kg) <input name="weight" type="number" min="35" max="250" placeholder="75" required></label></div>` },
-  { key: "goal", title: "Hedeflerin neler?", helper: "Birden fazla hedef secebilirsin. Tarifleri bu hedeflere gore onceliklendirecegiz.", render: () => choiceGroup("goal", [["weight-loss", "Kilo vermek"], ["muscle", "Protein agirlikli beslenmek"], ["balanced", "Dengeli beslenmek"], ["low-carb", "Karbonhidrati azaltmak"]], false) },
-  { key: "diet", title: "Yemedigin yiyecekler var mi?", helper: "Vegan, vejetaryen veya sevmedigin/yemedigin sebze, meyve, et gibi yiyecekleri burada belirt.", render: () => multiChoiceWithOther("diet", dietOptions, "Ornek: mantar, kabak, muz, tavuk, sogan") },
-  { key: "conditions", title: "Kronik rahatsizlik var mi?", helper: "Birden fazla secim yapabilirsin. Listede yoksa Diger alanina kendin yaz.", render: () => multiChoiceWithOther("conditions", conditionOptions, "Baska rahatsizlik varsa yaz") },
-  { key: "allergies", title: "Alerji veya hassasiyet sec", helper: "Birden fazla secim yapabilirsin. Listede yoksa Diger alanina kendin yaz.", render: () => multiChoiceWithOther("allergies", allergyOptions, "Baska alerji varsa yaz") },
-  { key: "activity", title: "Aktivite durumun", helper: "Gunluk kalori hedefini kabaca ayarlamak icin kullanilir.", render: () => choiceGroup("activity", [["low", "Az hareketli"], ["medium", "Orta hareketli"], ["high", "Cok hareketli"]], true) }
+const steps = [{ key: "gender", title: "Cinsiyetini seç", helper: "Bu bilgi ileride kalori hesabını daha doğru yapmak için kullanılabilir.", render: () => choiceGroup("gender", [["female", "Kadın"], ["male", "Erkek"], ["other", "Belirtmek istemiyorum"]], true) },
+  { key: "body", title: "Temel bilgilerini gir", helper: "Yaş, boy ve kilo ile yaklaşık hedef kalori hesaplayacağız.", render: () => `<div class="wizard-fields"><label>Yaş <input name="age" type="number" min="12" max="100" placeholder="28" required></label><label>Boy (cm) <input name="height" type="number" min="120" max="230" placeholder="170" required></label><label>Kilo (kg) <input name="weight" type="number" min="35" max="250" placeholder="75" required></label></div>` },
+  { key: "goal", title: "Hedeflerin neler?", helper: "Birden fazla hedef seçebilirsin. Tarifleri bu hedeflere göre önceliklendireceğiz.", render: () => choiceGroup("goal", [["weight-loss", "Kilo vermek"], ["muscle", "Protein ağırlıklı beslenmek"], ["balanced", "Dengeli beslenmek"], ["low-carb", "Karbonhidratı azaltmak"]], false) },
+  { key: "diet", title: "Yemediğin yiyecekler var mı?", helper: "Vegan, vejetaryen veya sevmediğin/yemediğin sebze, meyve, et gibi yiyecekleri burada belirt.", render: () => multiChoiceWithOther("diet", dietOptions, "Örnek: mantar, kabak, muz, tavuk, soğan") },
+  { key: "conditions", title: "Kronik rahatsızlık var mı?", helper: "Birden fazla seçim yapabilirsin. Listede yoksa Diğer alanına kendin yaz.", render: () => multiChoiceWithOther("conditions", conditionOptions, "Başka rahatsızlık varsa yaz") },
+  { key: "allergies", title: "Alerji veya hassasiyet seç", helper: "Birden fazla seçim yapabilirsin. Listede yoksa Diğer alanına kendin yaz.", render: () => multiChoiceWithOther("allergies", allergyOptions, "Başka alerji varsa yaz") },
+  { key: "activity", title: "Aktivite durumun", helper: "Günlük kalori hedefini kabaca ayarlamak için kullanılır.", render: () => choiceGroup("activity", [["low", "Az hareketli"], ["medium", "Orta hareketli"], ["high", "Çok hareketli"]], true) }
 ];
 
 function choiceGroup(name, options, required) {
@@ -94,7 +94,7 @@ function choiceGroup(name, options, required) {
 }
 
 function multiChoiceWithOther(name, options, placeholder) {
-  return `${choiceGroup(name, options, false)}<label class="wizard-other">Diger<input name="${name}Other" type="text" placeholder="${placeholder}"></label>`;
+  return `${choiceGroup(name, options, false)}<label class="wizard-other">Diğer<input name="${name}Other" type="text" placeholder="${placeholder}"></label>`;
 }
 
 function saveMember(member) { localStorage.setItem(memberKey, JSON.stringify(member)); }
@@ -166,12 +166,12 @@ function closeWizard() {
 }
 function renderStep() {
   const step = steps[stepIndex];
-  wizardStepLabel.textContent = `${stepIndex + 1}. adim / ${steps.length}`;
+  wizardStepLabel.textContent = `${stepIndex + 1}. adım / ${steps.length}`;
   wizardTitle.textContent = step.title;
   wizardHelper.textContent = step.helper;
   wizardBody.innerHTML = step.render();
   wizardBack.disabled = stepIndex === 0;
-  wizardNext.textContent = stepIndex === steps.length - 1 ? "Profili tamamla" : "Ileri";
+  wizardNext.textContent = stepIndex === steps.length - 1 ? "Profili tamamla" : "İleri";
   wizardProgressBar.style.width = `${((stepIndex + 1) / steps.length) * 100}%`;
 }
 
@@ -226,19 +226,19 @@ signupForm.addEventListener("submit", async (event) => {
   try {
     let member = { fullName, email, createdAt: new Date().toISOString() };
     if (window.fitFirebase?.enabled) {
-      signupMessage.textContent = "Uyelik Firebase uzerinden olusturuluyor...";
+      signupMessage.textContent = "Üyelik Firebase üzerinden oluşturuluyor...";
       member = await window.fitFirebase.createMember(email, password, fullName);
     }
     saveMember(member);
     signupMessage.textContent = window.fitFirebase?.enabled
-      ? "Uyelik olusturuldu. Simdi profil bilgilerini tamamlayalim."
-      : "Demo uyelik olusturuldu. Firebase ayarlari girilince bilgiler veritabaninda saklanacak.";
+      ? "Üyelik oluşturuldu. Şimdi profil bilgilerini tamamlayalım."
+      : "Demo üyelik oluşturuldu. Firebase ayarları girilince bilgiler veritabanında saklanacak.";
     stepIndex = 0;
     profileDraft = {};
     wizardForm.classList.remove("hidden");
     showWizard();
   } catch (error) {
-    signupMessage.textContent = error.message || "Uyelik olusturulamadi. Bilgileri kontrol edip tekrar dene.";
+    signupMessage.textContent = error.message || "Üyelik oluşturulamadı. Bilgileri kontrol edip tekrar dene.";
   }
 });
 

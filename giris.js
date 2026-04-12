@@ -10,13 +10,13 @@ loginForm.addEventListener("submit", async (event) => {
 
   if (window.fitFirebase?.enabled) {
     try {
-      loginMessage.textContent = "Firebase ile giris yapiliyor...";
+      loginMessage.textContent = "Firebase ile giriş yapılıyor...";
       const member = await window.fitFirebase.signIn(email, password);
       localStorage.setItem("fitTariflerMember", JSON.stringify(member));
       const profile = await window.fitFirebase.loadProfile();
       window.location.href = profile ? "profil.html" : "uyelik.html";
     } catch (error) {
-      loginMessage.textContent = error.message || "Giris yapilamadi. E-posta ve sifreyi kontrol et.";
+      loginMessage.textContent = error.message || "Giriş yapılamadı. E-posta ve şifreyi kontrol et.";
     }
     return;
   }
@@ -25,12 +25,12 @@ loginForm.addEventListener("submit", async (event) => {
   const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
 
   if (!member) {
-    loginMessage.textContent = "Bu tarayicida kayitli uyelik yok. Firebase ayarlari girilince hesaplar veritabanindan acilacak.";
+    loginMessage.textContent = "Bu tarayıcıda kayıtlı üyelik yok. Firebase ayarları girilince hesaplar veritabanından açılacak.";
     return;
   }
 
   if (member.email.toLowerCase() !== email) {
-    loginMessage.textContent = "Bu e-posta ile kayitli uyelik bulamadik.";
+    loginMessage.textContent = "Bu e-posta ile kayıtlı üyelik bulamadık.";
     return;
   }
 

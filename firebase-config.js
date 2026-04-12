@@ -1,5 +1,5 @@
 ﻿// Firebase Console > Project settings > Your apps > Web app config.
-// Bu ayarlar gizli sifre degildir; guvenlik Firestore Rules ve Authentication ile saglanir.
+// Bu ayarlar gizli şifre değildir; güvenlik Firestore Rules ve Authentication ile sağlanır.
 window.fitFirebaseConfig = {
   apiKey: "AIzaSyBn_R8mmo4hg5LJk8SnH2CAMfoed1LMMSc",
   authDomain: "yemek-tarifi-uygulamasi-5943f.firebaseapp.com",
