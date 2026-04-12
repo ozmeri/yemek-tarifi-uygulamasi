@@ -1,6 +1,7 @@
 ﻿const profilePage = document.querySelector("#profile-page");
 const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
 const catalogRecipes = window.fitRecipeCatalog || [];
+let generatedPantryRecipes = [];
 const recipeDetails = {
   "Tavuklu Kinoa Salatasi": {
     ingredients: ["120 g izgara tavuk", "80 g haslanmis kinoa", "Marul", "Salatalik", "Limonlu sos"],
@@ -148,7 +149,7 @@ function renderRecipeDetail(food) {
 }
 
 function showRecipeDetail(foodName) {
-  const food = [...(profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
+  const food = [...generatedPantryRecipes, ...(profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
   if (!food) return;
   document.querySelector("#recipe-detail-pane").innerHTML = renderRecipeDetail(food);
 }
@@ -168,6 +169,60 @@ function parsePantryInput(input) {
     .split(/[^a-z0-9]+/)
     .map((item) => item.trim())
     .filter((item) => item.length > 2 && !commonWords.has(item));
+}
+function normalizePantryTerm(term) {
+  const aliases = {
+    karnibahar: "karnabahar",
+    karnıbahar: "karnabahar",
+    karnibaharli: "karnabahar",
+    kiyma: "kiyma",
+    kıyma: "kiyma",
+    patlican: "patlican",
+    patlıcan: "patlican",
+    havuc: "havuc",
+    havuç: "havuc",
+    kapya: "biber",
+    yesil: "biber",
+    kirmizi: "biber",
+    domates: "domates",
+    patates: "patates"
+  };
+  return aliases[term] || term;
+}
+
+function displayIngredient(term) {
+  const labels = {
+    kiyma: "kiyma",
+    tavuk: "tavuk",
+    hindi: "hindi",
+    yumurta: "yumurta",
+    balik: "balik",
+    ton: "ton baligi",
+    somon: "somon",
+    yogurt: "yogurt",
+    peynir: "peynir",
+    karnabahar: "karnabahar",
+    brokoli: "brokoli",
+    kabak: "kabak",
+    patlican: "patlican",
+    patates: "patates",
+    havuc: "havuc",
+    biber: "biber",
+    bezelye: "bezelye",
+    mantar: "mantar",
+    ispanak: "ispanak",
+    domates: "domates",
+    sogan: "sogan",
+    nohut: "nohut",
+    mercimek: "mercimek",
+    fasulye: "fasulye"
+  };
+  return labels[term] || term;
+}
+
+function titleIngredient(term) {
+  const label = displayIngredient(term);
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 function getRecipeSearchText(food) {
   const details = recipeDetails[food.name] || food;
@@ -207,6 +262,51 @@ function findPantryRecipe(available) {
     .sort((a, b) => b.score - a.score);
 
   return scored[0]?.food || null;
+}
+
+function buildPantryRecipe(available) {
+  const uniqueItems = [...new Set(available.map(normalizePantryTerm))];
+  const proteinTerms = ["kiyma", "tavuk", "hindi", "yumurta", "balik", "somon", "ton", "yogurt", "peynir", "nohut", "mercimek", "fasulye"];
+  const proteins = uniqueItems.filter((item) => proteinTerms.includes(item));
+  const vegetables = uniqueItems.filter((item) => !proteinTerms.includes(item));
+  const mainProtein = proteins[0] || "sebze";
+  const mainItems = [...proteins, ...vegetables];
+  const displayItems = mainItems.map(displayIngredient);
+  const vegetableTitle = vegetables.slice(0, 3).map(titleIngredient).join(" ");
+  const proteinTitle = mainProtein === "sebze" ? "Sebzeli" : `${titleIngredient(mainProtein)}li`;
+  const method = proteins.length ? (vegetables.includes("patates") || vegetables.includes("karnabahar") ? "Tencere Yemegi" : "Sote") : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "Firin" : "Sebze Sote");
+  const name = `${proteinTitle} ${vegetableTitle || "Dolap"} ${method}`.replace(/\s+/g, " ").trim();
+  const calories = Math.min(620, 240 + proteins.length * 120 + vegetables.length * 45 + (vegetables.includes("patates") ? 90 : 0));
+  const protein = proteins.includes("kiyma") ? 30 : proteins.includes("tavuk") || proteins.includes("hindi") ? 36 : proteins.length ? 18 + proteins.length * 5 : 8;
+  const carbs = vegetables.includes("patates") ? 42 : 16 + vegetables.length * 6;
+  const fat = proteins.includes("kiyma") ? 22 : proteins.length ? 14 : 9;
+  const ingredients = [...displayItems, "az su", "baharat", "varsa 1 tatli kasigi zeytinyagi"];
+  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini dogra.` : "Sebzeleri dogra.";
+  const cookProtein = mainProtein === "kiyma"
+    ? "Kiymayi tavada suyunu cekene kadar pisir."
+    : mainProtein === "tavuk" || mainProtein === "hindi"
+      ? `${displayIngredient(mainProtein)} etini kucuk parcalara ayirip tavada pisir.`
+      : proteins.length
+        ? `${proteins.map(displayIngredient).join(", ")} malzemesini tavaya veya tencereye al.`
+        : "Sebzeleri tavaya veya firin kabina al.";
+  const combineStep = method.includes("Firin")
+    ? "Tum malzemeleri firin kabina al, az zeytinyagi ve baharatla 180 derecede yumusayana kadar pisir."
+    : method.includes("Tencere")
+      ? "Sebzeleri ekle, az su ilave et ve kisik ateste yumusayana kadar pisir."
+      : "Sebzeleri ekle, baharatla birlikte orta ateste yumusayana kadar sotele.";
+
+  return {
+    name,
+    note: `Dolabinda yazdigin ${displayItems.join(", ")} ile ekstra ana malzeme gerektirmeden olusturulan tarif.`,
+    calories,
+    protein,
+    carbs,
+    fat,
+    time: method.includes("Firin") ? 30 : 22,
+    pantryCore: uniqueItems,
+    ingredients,
+    steps: [prepVegetables, cookProtein, combineStep, "Tadim yapip sicak servis et."]
+  };
 }
 function labelGoal(goal) {
   const labels = {
@@ -391,7 +491,8 @@ if (!profile) {
       return;
     }
 
-    const matched = findPantryRecipe(available);
+    const matched = findPantryRecipe(available) || buildPantryRecipe(available);
+    generatedPantryRecipes = matched ? [matched] : [];
 
     result.classList.remove("hidden");
     result.innerHTML = matched
@@ -419,6 +520,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
