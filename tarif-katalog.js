@@ -11,16 +11,16 @@
   ];
 
   const proteins = [
-    { name: "tavuk", label: "Tavuk", cook: "Tavuğu kusbasi doğrayıp tavada suyunu cekene kadar pişir.", allergens: [], avoidFor: [], dietBlock: ["vegan", "vegetarian", "no-chicken"] },
+    { name: "tavuk", label: "Tavuk", cook: "Tavuğu ku\u015fba\u015f\u0131 doğrayıp tavada suyunu \u00e7ekene kadar pişir.", allergens: [], avoidFor: [], dietBlock: ["vegan", "vegetarian", "no-chicken"] },
     { name: "hindi", label: "Hindi", cook: "Hindiyi ince dilimleyip tavada hafifçe kızart.", allergens: [], avoidFor: [], dietBlock: ["vegan", "vegetarian", "no-chicken"] },
-    { name: "somon", label: "Somon", cook: "Somonu limon ve baharatla tatlandırip izgara veya fırında pişir.", allergens: ["fish"], avoidFor: [], dietBlock: ["vegan", "vegetarian", "no-fish"] },
+    { name: "somon", label: "Somon", cook: "Somonu limon ve baharatla tatlandırip \u0131zgara veya fırında pişir.", allergens: ["fish"], avoidFor: [], dietBlock: ["vegan", "vegetarian", "no-fish"] },
     { name: "ton balığı", label: "Ton Balığı", cook: "Ton balığınin suyunu süzüp çatalla iri parçalara ayır.", allergens: ["fish"], avoidFor: ["gout"], dietBlock: ["vegan", "vegetarian", "no-fish"] },
     { name: "yumurta", label: "Yumurta", cook: "Yumurtayı çırpip kısık ateşte yumuşak kıvamda pişir.", allergens: ["egg"], avoidFor: ["cholesterol"], dietBlock: ["vegan"] },
     { name: "lor peyniri", label: "Lor Peynirli", cook: "Lor peynirini taze ot ve baharatla karıştır.", allergens: ["dairy"], avoidFor: [], dietBlock: ["vegan"] },
     { name: "mercimek", label: "Mercimek", cook: "Mercimeği yıkayip yumuşayana kadar haşla.", allergens: ["legume"], avoidFor: ["ibs", "gout"], dietBlock: [] },
     { name: "nohut", label: "Nohut", cook: "Haşlanmış nohudu sudan geçirip baharatla harmanla.", allergens: ["legume"], avoidFor: ["ibs", "gout"], dietBlock: [] },
     { name: "fasulye", label: "Fasulye", cook: "Haşlanmış fasulyeyi zeytinyağı ve baharatla tavada çevir.", allergens: ["legume"], avoidFor: ["ibs"], dietBlock: [] },
-    { name: "tofu", label: "Tofu", cook: "Tofuyu küp doğrayıp tavada her yuzunu kızart.", allergens: ["soy"], avoidFor: [], dietBlock: [] },
+    { name: "tofu", label: "Tofu", cook: "Tofuyu küp doğrayıp tavada her y\u00fcz\u00fcn\u00fc kızart.", allergens: ["soy"], avoidFor: [], dietBlock: [] },
     { name: "dana", label: "Dana", cook: "Danayı ince doğrayıp yüksek ateşte kısa süre mühürle.", allergens: [], avoidFor: ["cholesterol", "heart"], dietBlock: ["vegan", "vegetarian", "no-red-meat"] },
     { name: "yoğurt", label: "Yoğurtlu", cook: "Yoğurdu limon ve baharatla puruzsüz bir sos haline getir.", allergens: ["dairy"], avoidFor: [], dietBlock: ["vegan"] }
   ];
@@ -31,7 +31,7 @@
     { name: "kinoa", prep: "Kinoayı yıkayip tane tane haşla.", allergens: [], avoidFor: [] },
     { name: "karabuğday", prep: "Karabuğdayı haşlayıp fazla suyunu süz.", allergens: [], avoidFor: [] },
     { name: "yulaf", prep: "Yulafı az su veya yoğurtla yumuşat.", allergens: ["gluten"], avoidFor: ["celiac"] },
-    { name: "tam buğday lavaş", prep: "Lavasi tavada kısa süre ısıt.", allergens: ["gluten"], avoidFor: ["celiac"] },
+    { name: "tam buğday lavaş", prep: "Lava\u015f\u0131 tavada kısa süre ısıt.", allergens: ["gluten"], avoidFor: ["celiac"] },
     { name: "esmer pirinç", prep: "Esmer pirinci önceden haşlayıp dinlendir.", allergens: [], avoidFor: [] },
     { name: "tatlı patates", prep: "Tatlı patatesi küp doğrayıp fırında yumuşat.", allergens: [], avoidFor: [] },
     { name: "karnabahar pilavi", prep: "Karnabaharı rondodan geçirip tavada 4-5 dakika çevir.", allergens: [], avoidFor: ["ibs"] }
@@ -107,25 +107,47 @@
     return pick(carbs, index, 3);
   }
 
+  function vegetablePrepStep(items, context = "sote") {
+    const rawItems = new Set(["salatalik", "domates", "marul", "roka", "semizotu"]);
+    const labels = unique(items).map((item) => ({ raw: rawItems.has(item), label: cap(item) }));
+    const rawLabels = labels.filter((item) => item.raw).map((item) => item.label);
+    const cookLabels = labels.filter((item) => !item.raw).map((item) => item.label);
+    const steps = [];
+    const subject = (items) => items.map((item, index) => index ? item.charAt(0).toLocaleLowerCase("tr-TR") + item.slice(1) : item).join(", ");
+
+    if (cookLabels.length) {
+      const verb = context === "firin" ? "f\u0131r\u0131n kab\u0131na al" : "tavada 3-5 dakika sotele";
+      steps.push(`${subject(cookLabels)}: y\u0131ka, do\u011fra ve ${verb}.`);
+    }
+
+    if (rawLabels.length) {
+      steps.push(`${subject(rawLabels)}: \u00e7i\u011f kullanmak i\u00e7in y\u0131ka ve ince do\u011fra.`);
+    }
+
+    return steps.join(" ");
+  }
+
   function buildSteps(method, protein, vegetableA, vegetableB, carb, sauce, lowCarb) {
+    const vegetables = [vegetableA, vegetableB];
     const basePrep = `${cap(vegetableA)} ve ${displayFood(vegetableB)} malzemelerini yıka, ayıkla ve doğra.`;
     const carbPrep = lowCarb ? "Yeşillikleri yıka ve servis tabağına al." : carb.prep;
-    const finish = `${cap(sauce)} ekleyip porsiyonu dengeli şekilde servis et.`;
+    const wrapVegetables = vegetablePrepStep(vegetables, "wrap");
+    const cookedVegetables = vegetablePrepStep(vegetables, method === "Fırın" ? "firin" : "sote");
 
     const templates = {
-      Kase: [basePrep, protein.cook, carbPrep, `Tüm malzemeleri kaseye al, ${sauce} ile karıştır.`],
-      Salata: [basePrep, protein.cook, `${cap(vegetableA)}, ${displayFood(vegetableB)} ve yeşillikleri geniş kasede harmanla.`, `${cap(protein.name)} ekleyip ${sauce} ile servis et.`],
-      Fırın: [basePrep, `${cap(vegetableA)} ve ${displayFood(vegetableB)} malzemelerini fırın kabına yay.`, protein.cook, `${cap(sauce)} ekleyip 180 derecede kontrollü pişir.`],
-      Sote: [basePrep, protein.cook, `${cap(vegetableA)} ve ${displayFood(vegetableB)} malzemelerini tavaya ekleyip sotele.`, `${cap(sauce)} ile tatlandırip sıcak servis et.`],
-      Çorba: [basePrep, `${cap(vegetableA)}, ${displayFood(vegetableB)} ve ${displayFood(protein.name)} malzemesini tencereye al.`, "Üzerini geçecek kadar su ekleyip yumuşayana kadar pişir.", "Gerekirse blenderdan geçirip ılık servis et."],
-      Wrap: [carbPrep, protein.cook, `${cap(vegetableA)} ve ${displayFood(vegetableB)} malzemelerini ince doğra.`, `Lavaşa veya yeşilliğe malzemeleri yerleştirip ${sauce} ile sar.`],
-      Omlet: [basePrep, protein.cook, `${cap(vegetableA)} ve ${displayFood(vegetableB)} malzemelerini tavada hafifçe çevir.`, "Yumurtalı karışımı ekleyip kısık ateşte pişir."],
-      Tabak: [basePrep, protein.cook, carbPrep, `Tabağa önce sebzeleri, sonra ana malzemeyi koyup ${sauce} ekle.`],
-      Bowl: [basePrep, protein.cook, carbPrep, `Kasede katmanlayıp ${sauce} ile tamamla.`],
-      "Pratik Öğün": [basePrep, protein.cook, carbPrep, `Tüm malzemeleri tek tabakta birleştirip ${sauce} ile servis et.`]
+      Kase: [protein.cook, carbPrep, cookedVegetables, `Tüm malzemeleri kaseye al, ${displayFood(sauce)} ile karıştır.`],
+      Salata: [protein.cook, `${cap(vegetableA)}, ${displayFood(vegetableB)} ve yeşillikleri geniş kasede harmanla; pişmesi gereken sebze varsa önce kısa süre sotele.`, `${cap(protein.name)} ekleyip ${displayFood(sauce)} ile servis et.`],
+      Fırın: [cookedVegetables, protein.cook, `${cap(sauce)} ekleyip 180 derecede sebzeler yumuşayana kadar pişir.`],
+      Sote: [protein.cook, cookedVegetables, `${cap(sauce)} ile tatlandırıp sıcak servis et.`],
+      Çorba: [basePrep, `${cap(vegetableA)}, ${displayFood(vegetableB)} ve ${displayFood(protein.name)} malzemesini tencereye al.`, "Üzerini geçecek kadar su ekleyip sebzeler yumuşayana kadar pişir.", "Gerekirse blenderdan geçirip ılık servis et."],
+      Wrap: [carbPrep, protein.cook, wrapVegetables, `Lavaşın içine ${displayFood(sauce)} sür; pişmiş ve çiğ malzemeleri ekleyip sıkıca sar.`],
+      Omlet: [cookedVegetables, protein.cook, "Yumurtalı karışımı ekleyip kısık ateşte pişir."],
+      Tabak: [protein.cook, carbPrep, cookedVegetables, `Tabağa önce sebzeleri, sonra ana malzemeyi koyup ${displayFood(sauce)} ekle.`],
+      Bowl: [protein.cook, carbPrep, cookedVegetables, `Kasede katmanlayıp ${displayFood(sauce)} ile tamamla.`],
+      "Pratik Öğün": [protein.cook, carbPrep, cookedVegetables, `Tüm malzemeleri tek tabakta birleştirip ${displayFood(sauce)} ile servis et.`]
     };
 
-    return templates[method] || [basePrep, protein.cook, carbPrep, finish];
+    return templates[method] || [basePrep, protein.cook, carbPrep, cookedVegetables];
   }
 
   function makeRecipe(index) {
