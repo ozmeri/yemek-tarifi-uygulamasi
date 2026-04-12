@@ -1,0 +1,70 @@
+﻿<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Tarifler | Tarifler</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="site-nav" aria-label="Site menusu">
+        <a class="brand" href="index.html">Fit Tarifler</a>
+        <div class="nav-links">
+          <a href="index.html">Ana sayfa</a>
+          <a href="uyelik.html">Uye ol</a>
+          <a href="giris.html">Uye girisi</a>
+        </div>
+      </nav>
+
+      <section class="recipe-page-hero">
+        <div>
+          <p class="eyebrow compact">Tarif paneli</p>
+          <h1>Tarifleri burada filtrele.</h1>
+          <p class="hero-text">
+            Ana sayfayi temiz tuttuk. Burasi sadece tarif aramak, kategori secmek ve detaylari incelemek icin.
+          </p>
+        </div>
+      </section>
+
+      <section class="stats-row" aria-label="Ozet bilgiler">
+        <article><span id="total-recipes">0</span><p>tarif</p></article>
+        <article><span id="avg-calories">0</span><p>ortalama kcal</p></article>
+        <article><span id="avg-protein">0g</span><p>ortalama protein</p></article>
+      </section>
+
+      <section class="controls" aria-label="Tarif arama ve filtreleme">
+        <div class="search-wrap">
+          <label class="search-label" for="search">Tarif veya malzeme ara</label>
+          <input id="search" type="search" placeholder="Ornek: tavuk, yogurt, somon, corba" />
+        </div>
+        <div class="filters" id="filters"></div>
+      </section>
+
+      <section class="content-grid" id="recipes">
+        <div>
+          <div class="section-title">
+            <div>
+              <p class="eyebrow compact">Sec, pisir, plana sadik kal</p>
+              <h2>Tarifler</h2>
+            </div>
+            <span id="recipe-count"></span>
+          </div>
+          <div class="recipe-list" id="recipe-list"></div>
+        </div>
+
+        <aside class="detail-card" id="recipe-detail" aria-label="Secili tarif detayi"></aside>
+      </section>
+    </main>
+
+    <script src="tarif-katalog.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Tarifler | Uye Girisi</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="site-nav" aria-label="Site menusu">
+        <a class="brand" href="index.html">Fit Tarifler</a>
+        <div class="nav-links">
+          <a href="index.html">Ana sayfa</a>
+          <a href="uyelik.html">Uye ol</a>
+          <a class="active" href="giris.html">Uye girisi</a>
+        </div>
+      </nav>
+
+      <section class="auth-layout">
+        <form class="member-form auth-card" id="login-form">
+          <p class="eyebrow compact">Uye girisi</p>
+          <div class="form-grid single-column">
+            <label>
+              E-posta
+              <input name="email" type="email" placeholder="ornek@mail.com" required />
+            </label>
+            <label>
+              Sifre
+              <input name="password" type="password" placeholder="Sifren" required />
+            </label>
+          </div>
+          <button class="primary-link form-submit" type="submit">Giris yap</button>
+          <p class="form-note" id="login-message">Demo giris: Daha once bu tarayicida uye olduysan e-posta eslesmesi kontrol edilir.</p>
+        </form>
+      </section>
+    </main>
+
+    <script src="giris.js"></script>
+  </body>
+</html>
+
