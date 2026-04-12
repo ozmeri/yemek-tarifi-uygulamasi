@@ -54,6 +54,7 @@ const allergyOptions = [
 ];
 
 const signupForm = document.querySelector("#signup-form");
+const signupMessage = document.querySelector("#signup-message");
 const wizardSection = document.querySelector("#wizard-section");
 const wizardForm = document.querySelector("#wizard-form");
 const wizardBody = document.querySelector("#wizard-body");
@@ -193,7 +194,7 @@ function collectStepData() {
 
 function normalizeArray(value) { if (!value) return []; return Array.isArray(value) ? value : [value]; }
 
-function finishWizard() {
+async function finishWizard() {
   const member = getMember();
   const allergies = normalizeArray(profileDraft.allergies);
   const conditions = normalizeArray(profileDraft.conditions);
@@ -208,28 +209,46 @@ function finishWizard() {
   profile.needsExpertReview = Boolean(profile.conditionsOther || profile.allergiesOther || profile.dietOther);
 
   localStorage.setItem(profileKey, JSON.stringify(profile));
+  if (window.fitFirebase?.enabled) {
+    await window.fitFirebase.saveProfile(profile);
+  }
   window.location.href = "profil.html";
 }
 
-signupForm.addEventListener("submit", (event) => {
+signupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(signupForm);
   const password = String(formData.get("password"));
+  const fullName = String(formData.get("fullName")).trim();
+  const email = String(formData.get("email")).trim().toLowerCase();
   if (password.length < 6) return;
-  saveMember({ fullName: String(formData.get("fullName")).trim(), email: String(formData.get("email")).trim(), createdAt: new Date().toISOString() });
-  stepIndex = 0;
-  profileDraft = {};
-  wizardForm.classList.remove("hidden");
-  showWizard();
+
+  try {
+    let member = { fullName, email, createdAt: new Date().toISOString() };
+    if (window.fitFirebase?.enabled) {
+      signupMessage.textContent = "Uyelik Firebase uzerinden olusturuluyor...";
+      member = await window.fitFirebase.createMember(email, password, fullName);
+    }
+    saveMember(member);
+    signupMessage.textContent = window.fitFirebase?.enabled
+      ? "Uyelik olusturuldu. Simdi profil bilgilerini tamamlayalim."
+      : "Demo uyelik olusturuldu. Firebase ayarlari girilince bilgiler veritabaninda saklanacak.";
+    stepIndex = 0;
+    profileDraft = {};
+    wizardForm.classList.remove("hidden");
+    showWizard();
+  } catch (error) {
+    signupMessage.textContent = error.message || "Uyelik olusturulamadi. Bilgileri kontrol edip tekrar dene.";
+  }
 });
 
 wizardClose.addEventListener("click", closeWizard);
 wizardBack.addEventListener("click", () => { if (stepIndex === 0) return; stepIndex -= 1; renderStep(); });
-wizardForm.addEventListener("submit", (event) => {
+wizardForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   collectStepData();
   if (stepIndex < steps.length - 1) { stepIndex += 1; renderStep(); return; }
-  finishWizard();
+  await finishWizard();
 });
 if (sessionStorage.getItem("startProfileWizard") === "1" && getMember()) {
   sessionStorage.removeItem("startProfileWizard");
@@ -238,6 +257,7 @@ if (sessionStorage.getItem("startProfileWizard") === "1" && getMember()) {
   wizardForm.classList.remove("hidden");
   showWizard();
 }
+
 
 
 

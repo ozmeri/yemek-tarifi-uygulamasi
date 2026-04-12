@@ -409,13 +409,17 @@ if (!profile) {
     window.location.href = "uyelik.html";
   });
 
-  document.querySelector("#logout").addEventListener("click", () => {
+  document.querySelector("#logout").addEventListener("click", async () => {
+    if (window.fitFirebase?.enabled) {
+      await window.fitFirebase.signOut();
+    }
     localStorage.removeItem("fitTariflerMember");
     localStorage.removeItem("fitTariflerProfile");
     localStorage.removeItem("fitTariflerWeeklyChange");
     window.location.href = "index.html";
   });
 }
+
 
 
 
