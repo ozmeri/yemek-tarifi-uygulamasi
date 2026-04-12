@@ -85,6 +85,19 @@ const pantryRecipes = [
     steps: ["Patlicani, kabagi ve kapya biberi dogra.", "Kiymayi tavada suyunu cekene kadar pisir.", "Sebzeleri ekleyip kisik ateste yumusayana kadar sotele.", "Baharat ekleyip sicak servis et."]
   },
   {
+    name: "Kiymali Patlican Patates Yemegi",
+    note: "Dolabinda kiyma, patlican ve patates varsa tencerede yapabilecegin doyurucu bir ana yemek.",
+    calories: 480,
+    protein: 32,
+    carbs: 42,
+    fat: 22,
+    time: 35,
+    keywords: ["kiyma", "kıyma", "patlican", "patlıcan", "patates", "tencere", "yemek"],
+    pantryCore: ["kiyma", "patlican", "patates"],
+    ingredients: ["120 g kiyma", "1 patlican", "1 kucuk patates", "1 kucuk sogan", "Domates sosu", "1 tatli kasigi zeytinyagi", "Karabiber"],
+    steps: ["Patlicani ve patatesi kup kup dogra.", "Sogani zeytinyaginda cevirip kiymayi ekle ve suyunu cekene kadar pisir.", "Patates ve patlicani tencereye al, domates sosu ve az su ekle.", "Sebzeler yumusayana kadar kisik ateste pisirip sicak servis et."]
+  },
+  {
     name: "Karnabahar Brokoli Firin",
     note: "Dolabinda karnabahar ve brokoli varsa hafif, doyurucu bir firin tabagi.",
     calories: 320,
@@ -403,6 +416,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
