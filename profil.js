@@ -2,6 +2,7 @@
 const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
 const catalogRecipes = window.fitRecipeCatalog || [];
 let generatedPantryRecipes = [];
+let generatedDailyMeals = [];
 const recipeDetails = {
   "Tavuklu Kinoa Salatası": {
     ingredients: ["120 g izgara tavuk", "80 g haşlanmış kinoa", "Marul", "Salatalık", "Limonlu sos"],
@@ -129,7 +130,7 @@ const pantryRecipes = [
 function renderRecipeDetail(food) {
   const details = recipeDetails[food.name] || food || { ingredients: ["Malzeme bilgisi yakinda eklenecek."], steps: ["Hazırlanış bilgisi yakinda eklenecek."] };
   return `
-    <p class="eyebrow compact">Tarif detayı</p>
+    <p class="eyebrow compact">${food.mealType === "Ara öğün" ? "Öğün detayı" : "Tarif detayı"}</p>
     <h2>${food.name}</h2>
     <p>${food.note}</p>
     <div class="recipe-meta detail-meta-row">
@@ -138,18 +139,18 @@ function renderRecipeDetail(food) {
       <span>${food.time} dk</span>
     </div>
     <div class="detail-section compact-detail-section">
-      <h3>Malzemeler</h3>
+      <h3>${food.mealType === "Ara öğün" ? "Tüketilecekler" : "Malzemeler"}</h3>
       <ul>${details.ingredients.map((item) => `<li>${item}</li>`).join("")}</ul>
     </div>
     <div class="detail-section compact-detail-section">
-      <h3>Hazırlanış</h3>
+      <h3>${food.mealType === "Ara öğün" ? "Nasıl tüketilir" : "Hazırlanış"}</h3>
       <ol>${details.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
     </div>
   `;
 }
 
 function showRecipeDetail(foodName) {
-  const food = [...generatedPantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
+  const food = [...generatedDailyMeals, ...generatedPantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
   if (!food || hasUserBlockedFood(food, profile.dietOther)) return;
   document.querySelector("#recipe-detail-pane").innerHTML = renderRecipeDetail(food);
 }
@@ -463,6 +464,89 @@ function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
   return choice;
 }
 
+function buildSnackOptions() {
+  return [
+    {
+      name: "Kefir ve Badem",
+      note: "Düşük kalorili, tok tutan pratik ara öğün.",
+      calories: 165,
+      protein: 9,
+      carbs: 8,
+      fat: 10,
+      time: 2,
+      mealType: "Ara öğün",
+      ingredients: ["1 su bardağı kefir", "5 adet çiğ badem"],
+      steps: ["Kefiri soğuk şekilde bardağa koy.", "Yanına 5 adet çiğ badem ekleyip ara öğün olarak tüket."],
+      tags: ["ara öğün", "kefir", "badem"]
+    },
+    {
+      name: "Yeşil Elma",
+      note: "Tek malzemeli, hafif ve hızlı ara öğün seçeneği.",
+      calories: 72,
+      protein: 0,
+      carbs: 19,
+      fat: 0,
+      time: 1,
+      mealType: "Ara öğün",
+      ingredients: ["1 adet yeşil elma"],
+      steps: ["Elmayı yıka.", "Tek başına ara öğün olarak tüket."],
+      tags: ["ara öğün", "meyve", "hafif"]
+    },
+    {
+      name: "Yoğurt ve Tarçın",
+      note: "Tatlı isteğini daha kontrollü karşılayan hafif ara öğün.",
+      calories: 118,
+      protein: 8,
+      carbs: 9,
+      fat: 5,
+      time: 2,
+      mealType: "Ara öğün",
+      ingredients: ["3 yemek kaşığı yoğurt", "1 çay kaşığı tarçın"],
+      steps: ["Yoğurdu kaseye al.", "Üzerine tarçın ekleyip karıştırmadan veya karıştırarak tüket."],
+      tags: ["ara öğün", "yoğurt", "hafif"]
+    },
+    {
+      name: "Salatalık ve Ayran",
+      note: "Tuzlu hafiflik isteyenler için serin ara öğün.",
+      calories: 95,
+      protein: 5,
+      carbs: 8,
+      fat: 4,
+      time: 3,
+      mealType: "Ara öğün",
+      ingredients: ["1 küçük salatalık", "1 bardak ayran"],
+      steps: ["Salatalığı yıka ve dilimle.", "Ayranla birlikte ara öğün olarak tüket."],
+      tags: ["ara öğün", "ayran", "salatalık"]
+    },
+    {
+      name: "Muzun Yarısı ve Ceviz",
+      note: "Enerji düşüşü için küçük porsiyon dengeli ara öğün.",
+      calories: 132,
+      protein: 2,
+      carbs: 15,
+      fat: 7,
+      time: 2,
+      mealType: "Ara öğün",
+      ingredients: ["Yarım muz", "2 tam ceviz"],
+      steps: ["Muzu dilimle.", "Yanına 2 tam ceviz ekleyip küçük porsiyon ara öğün olarak tüket."],
+      tags: ["ara öğün", "muz", "ceviz"]
+    },
+    {
+      name: "Havuç Çubukları ve Yoğurt",
+      note: "Çıtır ve hafif bir ara öğün alternatifi.",
+      calories: 104,
+      protein: 5,
+      carbs: 12,
+      fat: 3,
+      time: 4,
+      mealType: "Ara öğün",
+      ingredients: ["1 küçük havuç", "2 yemek kaşığı yoğurt"],
+      steps: ["Havucu soyup çubuk şeklinde kes.", "Yoğurdu yanında dip sos gibi kullanarak tüket."],
+      tags: ["ara öğün", "havuç", "yoğurt"]
+    }
+  ].filter((snack) => !hasUserBlockedFood(snack, profile.dietOther));
+}
+
 function buildDailyMealPlan(recommendations = []) {
   const safePool = uniqueRecipesByName([
     ...recommendations,
@@ -472,25 +556,28 @@ function buildDailyMealPlan(recommendations = []) {
   if (!safePool.length) return [];
 
   const breakfastPool = safePool.filter(isBreakfastRecipe);
-  const snackPool = safePool.filter(isSnackRecipe);
+  const snackPool = buildSnackOptions();
   const lightPool = safePool.filter((food) => food.calories <= 380);
   const mainMealPool = safePool.filter((food) => !isSnackRecipe(food) && (food.protein >= 15 || food.calories >= 340));
   const dinnerPool = mainMealPool.filter((food) => !isBreakfastRecipe(food) || food.calories >= 360);
   const usedNames = new Set();
+  const usedSnackNames = new Set();
   const seed = getDaySeed();
 
   const mealDefinitions = [
-    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: lightPool, offset: 0 },
-    { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah enerjisini dengeleyen hafif seçenek", pool: snackPool, fallback: lightPool, offset: 2 },
-    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4 },
-    { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını dengeleyen ara öğün", pool: snackPool, fallback: lightPool, offset: 6 },
-    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 8 },
-    { key: "snack-3", label: "Ara öğün", time: "21:30", helper: "Gecenin sonuna uygun hafif kapanış", pool: snackPool, fallback: lightPool, offset: 10 }
+    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: lightPool, offset: 0, kind: "meal" },
+    { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah sonrası küçük ve hafif atıştırmalık", pool: snackPool, fallback: snackPool, offset: 2, kind: "snack" },
+    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4, kind: "meal" },
+    { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını bastıran hafif seçenek", pool: snackPool, fallback: snackPool, offset: 6, kind: "snack" },
+    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 8, kind: "meal" },
+    { key: "snack-3", label: "Ara öğün", time: "21:30", helper: "Geceyi ağırlaştırmayan küçük kapanış", pool: snackPool, fallback: snackPool, offset: 10, kind: "snack" }
   ];
 
   return mealDefinitions.map((meal) => ({
     ...meal,
-    recipe: pickRotatingRecipe(meal.pool, seed + meal.offset, usedNames, meal.fallback || safePool)
+    recipe: meal.kind === "snack"
+      ? pickRotatingRecipe(meal.pool, seed + meal.offset, usedSnackNames, meal.fallback || snackPool)
+      : pickRotatingRecipe(meal.pool, seed + meal.offset, usedNames, meal.fallback || safePool)
   })).filter((meal) => meal.recipe);
 }
 
@@ -528,6 +615,7 @@ if (!profile) {
   const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
   profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasUserBlockedFood(food, profile.dietOther));
   const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
+  generatedDailyMeals = dailyMealPlan.map((item) => item.recipe);
 
   profilePage.innerHTML = `
     <section class="profile-dashboard">
@@ -693,6 +781,8 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
+
 
 
 
