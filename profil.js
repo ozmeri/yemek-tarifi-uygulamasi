@@ -444,8 +444,10 @@ function uniqueRecipesByName(recipes = []) {
 
 function isBreakfastRecipe(food) {
   const text = getRecipeSearchText(food);
-  return ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti"].some((item) => text.includes(item))
-    || (food.calories <= 380 && food.protein >= 10 && food.carbs <= 35);
+  const breakfastWords = ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti", "tost", "pankek", "labne", "avokado"];
+  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "pilav", "corba", "makarna"];
+  return breakfastWords.some((item) => text.includes(item))
+    && !mainMealWords.some((item) => text.includes(item));
 }
 
 function isSnackRecipe(food) {
@@ -739,7 +741,7 @@ function buildDailyMealPlan(recommendations = []) {
   const seed = getDaySeed();
 
   const mealDefinitions = [
-    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: lightPool, offset: 0, kind: "meal" },
+    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: breakfastPool, offset: 0, kind: "meal" },
     { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah sonrası küçük ve hafif atıştırmalık", pool: snackPool, fallback: snackPool, offset: 2, kind: "snack" },
     { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4, kind: "meal" },
     { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını bastıran hafif seçenek", pool: snackPool, fallback: snackPool, offset: 6, kind: "snack" },
@@ -955,6 +957,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
