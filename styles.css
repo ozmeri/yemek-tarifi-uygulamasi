@@ -2627,3 +2627,46 @@ h2 {
     flex-direction: column;
   }
 }
+
+
+.recipe-results-column {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: calc(100vh - 190px);
+}
+
+.recipe-list-refined {
+  max-height: calc(100vh - 330px);
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.recipe-list-refined::-webkit-scrollbar,
+.detail-card-refined::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recipe-list-refined::-webkit-scrollbar-thumb,
+.detail-card-refined::-webkit-scrollbar-thumb {
+  background: rgba(33, 72, 58, 0.18);
+  border-radius: 999px;
+}
+
+.detail-card-refined {
+  position: sticky;
+  top: 14px;
+  max-height: calc(100vh - 28px);
+  overflow: auto;
+}
+
+@media (max-width: 1100px) {
+  .recipe-results-column {
+    min-height: auto;
+  }
+
+  .recipe-list-refined,
+  .detail-card-refined {
+    max-height: none;
+    overflow: visible;
+  }
+}

@@ -329,10 +329,10 @@ function renderRecipes() {
   const searchValue = searchInput.value.trim();
   recipeCount.textContent = `${filteredRecipes.length} tarif bulundu`;
   searchSummary.textContent = searchValue
-    ? `"${searchValue}" aramas?na g?re sonu?lar? g?r?yorsun.`
-    : selectedCategory === "T?m Tarifler"
-      ? "?u anda t?m tarifler listeleniyor."
-      : `?u anda ${selectedCategory.toLocaleLowerCase("tr-TR")} kategorisini g?r?yorsun.`;
+    ? `"${searchValue}" aramasına göre sonuçları görüyorsun.`
+    : selectedCategory === "Tüm Tarifler"
+      ? "Şu anda tüm tarifler listeleniyor."
+      : `Şu anda ${selectedCategory.toLocaleLowerCase("tr-TR")} kategorisini görüyorsun.`;
 
   if (!filteredRecipes.length) {
     recipeList.innerHTML = `<div class="empty">Bu filtreyle tarif bulamadık. Aramayi kısaltmayi veya farkli kategori seçmeyi deneyelim.</div>`;
