@@ -423,21 +423,91 @@ function listOrEmpty(items, other) {
   return list.length ? list.join(", ") : "Belirtilmedi";
 }
 
-function renderRecipeCards(recommendations = []) {
-  if (!recommendations.length) {
-    return `<div class="empty">Bu profile uygun tarif bulamadık. Bilgileri güncelleyip tekrar analiz yapalim.</div>`;
+function getTodayLabel() {
+  return new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric" }).format(new Date());
+}
+
+function getDaySeed() {
+  const now = new Date();
+  return Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+}
+
+function uniqueRecipesByName(recipes = []) {
+  const seen = new Set();
+  return recipes.filter((food) => {
+    if (!food?.name || seen.has(food.name)) return false;
+    seen.add(food.name);
+    return true;
+  });
+}
+
+function isBreakfastRecipe(food) {
+  const text = getRecipeSearchText(food);
+  return ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti"].some((item) => text.includes(item))
+    || (food.calories <= 380 && food.protein >= 10 && food.carbs <= 35);
+}
+
+function isSnackRecipe(food) {
+  const text = getRecipeSearchText(food);
+  return ["yogurt", "kase", "salata", "roka", "semizotu", "corba", "smoothie"].some((item) => text.includes(item))
+    || food.calories <= 320;
+}
+
+function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
+  const uniquePool = uniqueRecipesByName([...pool, ...fallbackPool]);
+  const freshPool = uniquePool.filter((food) => !usedNames.has(food.name));
+  const targetPool = freshPool.length ? freshPool : uniquePool;
+  if (!targetPool.length) return null;
+  const choice = targetPool[((seed % targetPool.length) + targetPool.length) % targetPool.length];
+  usedNames.add(choice.name);
+  return choice;
+}
+
+function buildDailyMealPlan(recommendations = []) {
+  const safePool = uniqueRecipesByName([
+    ...recommendations,
+    ...catalogRecipes.filter((food) => !hasUserBlockedFood(food, profile.dietOther))
+  ]);
+
+  if (!safePool.length) return [];
+
+  const breakfastPool = safePool.filter(isBreakfastRecipe);
+  const snackPool = safePool.filter(isSnackRecipe);
+  const lightPool = safePool.filter((food) => food.calories <= 380);
+  const mainMealPool = safePool.filter((food) => !isSnackRecipe(food) && (food.protein >= 15 || food.calories >= 340));
+  const dinnerPool = mainMealPool.filter((food) => !isBreakfastRecipe(food) || food.calories >= 360);
+  const usedNames = new Set();
+  const seed = getDaySeed();
+
+  const mealDefinitions = [
+    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: lightPool, offset: 0 },
+    { key: "snack", label: "Ara öğün", time: "11:00", helper: "Tokluk ve denge için hafif seçenek", pool: snackPool, fallback: lightPool, offset: 2 },
+    { key: "lunch", label: "Öğle", time: "13:30", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4 },
+    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 6 }
+  ];
+
+  return mealDefinitions.map((meal) => ({
+    ...meal,
+    recipe: pickRotatingRecipe(meal.pool, seed + meal.offset, usedNames, meal.fallback || safePool)
+  })).filter((meal) => meal.recipe);
+}
+
+function renderDailyMealCards(plan = []) {
+  if (!plan.length) {
+    return `<div class="empty">Bu profile uygun günlük menü bulamadık. Bilgileri güncelleyip tekrar analiz yapalim.</div>`;
   }
 
-  return recommendations.map((food) => `
-    <article class="suggestion-card profile-recipe-card" data-recipe-name="${food.name}">
-      <h3>${food.name}</h3>
-      <p>${food.note}</p>
+  return plan.map((item) => `
+    <article class="suggestion-card profile-meal-card" data-recipe-name="${item.recipe.name}">
+      <p class="eyebrow compact">${item.label} · ${item.time}</p>
+      <h3>${item.recipe.name}</h3>
+      <p>${item.helper}</p>
       <div class="recipe-meta">
-        <span>${food.calories} kcal</span>
-        <span>${food.protein} g protein</span>
-        <span>${food.carbs} g karbonhidrat</span>
-        <span>${food.fat} g yağ</span>
-        <span>${food.time} dk</span>
+        <span>${item.recipe.calories} kcal</span>
+        <span>${item.recipe.protein} g protein</span>
+        <span>${item.recipe.carbs} g karbonhidrat</span>
+        <span>${item.recipe.fat} g yağ</span>
+        <span>${item.recipe.time} dk</span>
       </div>
     </article>
   `).join("");
@@ -455,33 +525,35 @@ if (!profile) {
 } else {
   const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
   profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasUserBlockedFood(food, profile.dietOther));
+  const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
 
   profilePage.innerHTML = `
     <section class="profile-dashboard">
       <div class="profile-main-panel">
         <div class="profile-hero-card compact-profile-hero">
           <p class="eyebrow compact">Kişisel yemek listesi</p>
-          <h1>Bu haftanın sana uygun tarifleri</h1>
-          <p>Hedeflerine, hassasiyetlerine ve yemeyi tercih etmediğin yiyeceklere göre hazırlanan liste.</p>
+          <h1>Bugünün sana uygun öğün planı</h1>
+          <p>Hedeflerine, hassasiyetlerine ve yemeyi tercih etmediğin yiyeceklere göre hazırlanan günlük menü.</p>
           <div class="profile-summary">
             <span>Hedef: ${labelGoal(profile.goal)}</span>
             <span>Günlük hedef: ${profile.calorieTarget} kcal</span>
             <span>BKI: ${profile.bmi.toFixed(1)}</span>
             <span>Aktivite: ${labelActivity(profile.activity)}</span>
+            <span>Tarih: ${getTodayLabel()}</span>
           </div>
           <p class="warning-note">Kronik rahatsızlıklariniz veya alerjik reaksiyon riskleriniz olabileceği için, yemek tariflerini denemeden önce lütfen doktorunuzla ya da diyetisyeninizle görüşünüz. Bu öneriler tibbi tavsiye yerine geçmez.</p>
         </div>
 
         <div class="profile-recommendations panel-block">
-          <div class="section-title"><h2>Haftalık önerilen tarifler</h2></div>
+          <div class="section-title"><h2>Günlük öğün planı</h2></div>
           <div class="weekly-recipe-layout">
             <div class="suggestion-list weekly-recipe-list">
-              ${renderRecipeCards(profile.filteredRecommendations)}
+              ${renderDailyMealCards(dailyMealPlan)}
             </div>
             <aside class="recipe-detail-pane" id="recipe-detail-pane">
               <p class="eyebrow compact">Tarif detayı</p>
-              <h2>Bir tarif seç</h2>
-              <p>Soldaki haftalık tariflerden birine tıklayınca malzemeler ve hazırlanış burada görünecek.</p>
+              <h2>Bir öğün seç</h2>
+              <p>Soldaki günlük öğünlerden birine tıklayınca malzemeler ve hazırlanış burada görünecek.</p>
             </aside>
           </div>
         </div>
@@ -539,9 +611,13 @@ if (!profile) {
     </section>
   `;
 
-  document.querySelectorAll(".profile-recipe-card").forEach((card) => {
+  document.querySelectorAll(".profile-meal-card").forEach((card) => {
     card.addEventListener("click", () => showRecipeDetail(card.dataset.recipeName));
   });
+
+  if (dailyMealPlan.length) {
+    showRecipeDetail(dailyMealPlan[0].recipe.name);
+  }
 
   document.querySelector("#pantry-result").addEventListener("click", (event) => {
     const button = event.target.closest(".pantry-recipe-link");
@@ -615,6 +691,9 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
+
+
 
 
 
