@@ -267,20 +267,9 @@ const filters = document.querySelector("#filters");
 const recipeList = document.querySelector("#recipe-list");
 const recipeCount = document.querySelector("#recipe-count");
 const recipeDetail = document.querySelector("#recipe-detail");
-const totalRecipes = document.querySelector("#total-recipes");
-const avgCalories = document.querySelector("#avg-calories");
-const avgProtein = document.querySelector("#avg-protein");
 const activeCategoryLabel = document.querySelector("#active-category-label");
 const searchSummary = document.querySelector("#search-summary");
 
-function renderStats() {
-  const calorieAverage = Math.round(recipes.reduce((sum, recipe) => sum + recipe.calories, 0) / recipes.length);
-  const proteinAverage = Math.round(recipes.reduce((sum, recipe) => sum + recipe.protein, 0) / recipes.length);
-
-  totalRecipes.textContent = recipes.length;
-  avgCalories.textContent = calorieAverage;
-  avgProtein.textContent = `${proteinAverage}g`;
-}
 
 function renderFilters() {
   activeCategoryLabel.textContent = selectedCategory;
@@ -415,7 +404,6 @@ function renderDetail() {
 }
 
 function renderApp() {
-  renderStats();
   renderFilters();
   renderRecipes();
   renderDetail();
