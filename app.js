@@ -227,6 +227,17 @@
 
 recipes.push(...(window.fitRecipeCatalog || []));
 
+const uniqueRecipes = [];
+const seenRecipeNames = new Set();
+for (const recipe of recipes) {
+  const key = recipe.name.trim().toLocaleLowerCase("tr-TR");
+  if (seenRecipeNames.has(key)) continue;
+  seenRecipeNames.add(key);
+  uniqueRecipes.push(recipe);
+}
+recipes.length = 0;
+recipes.push(...uniqueRecipes);
+
 function inferRecipeType(recipe) {
   const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.ingredients || []), ...(recipe.tags || [])]
     .join(" ")
