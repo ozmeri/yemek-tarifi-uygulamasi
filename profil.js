@@ -481,9 +481,11 @@ function buildDailyMealPlan(recommendations = []) {
 
   const mealDefinitions = [
     { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: lightPool, offset: 0 },
-    { key: "snack", label: "Ara öğün", time: "11:00", helper: "Tokluk ve denge için hafif seçenek", pool: snackPool, fallback: lightPool, offset: 2 },
-    { key: "lunch", label: "Öğle", time: "13:30", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4 },
-    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 6 }
+    { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah enerjisini dengeleyen hafif seçenek", pool: snackPool, fallback: lightPool, offset: 2 },
+    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4 },
+    { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını dengeleyen ara öğün", pool: snackPool, fallback: lightPool, offset: 6 },
+    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 8 },
+    { key: "snack-3", label: "Ara öğün", time: "21:30", helper: "Gecenin sonuna uygun hafif kapanış", pool: snackPool, fallback: lightPool, offset: 10 }
   ];
 
   return mealDefinitions.map((meal) => ({
@@ -691,6 +693,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
