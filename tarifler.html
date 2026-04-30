@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
@@ -8,52 +8,80 @@
   </head>
   <body>
     <main class="app-shell">
-      <nav class="site-nav" aria-label="Site menüsü">
+      <nav class="site-nav" aria-label="Site men?s?">
         <a class="brand" href="index.html">Fit Tarifler</a>
         <div class="nav-links">
           <a href="index.html">Ana sayfa</a>
-          <a href="uyelik.html">Üye ol</a>
-          <a href="giris.html">Üye girişi</a>
+          <a href="uyelik.html">?ye ol</a>
+          <a href="giris.html">?ye giri?i</a>
         </div>
       </nav>
 
-      <section class="recipe-page-hero">
-        <div>
+      <section class="recipe-page-hero recipe-page-hero-refined">
+        <div class="recipe-hero-copy">
           <p class="eyebrow compact">Tarif paneli</p>
-          <h1>Tarifleri burada filtrele.</h1>
+          <h1>Tarifleri daha rahat bul, kar??la?t?r ve se?.</h1>
           <p class="hero-text">
-            Ana sayfayı temiz tuttuk. Burası sadece tarif aramak, kategori seçmek ve detayları incelemek için.
+            Bu sayfay? listeyi kaybolmadan gezebilmen i?in d?zenledik. Solda tarifler, sa?da se?ti?in tarifin t?m detay? var.
           </p>
+        </div>
+        <div class="recipe-hero-guide">
+          <article>
+            <span>1</span>
+            <h3>Ara</h3>
+            <p>Malzeme ya da yemek ad? yazarak listeyi daralt.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Kategori se?</h3>
+            <p>Ana yemek, tatl?, salata gibi gruplar aras?nda ge?.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Detaya bak</h3>
+            <p>Bir karta t?klay?nca sa? tarafta malzeme ve haz?rlan?? a??l?r.</p>
+          </article>
         </div>
       </section>
 
-      <section class="stats-row" aria-label="Özet bilgiler">
-        <article><span id="total-recipes">0</span><p>tarif</p></article>
+      <section class="stats-row" aria-label="?zet bilgiler">
+        <article><span id="total-recipes">0</span><p>toplam tarif</p></article>
         <article><span id="avg-calories">0</span><p>ortalama kcal</p></article>
         <article><span id="avg-protein">0g</span><p>ortalama protein</p></article>
       </section>
 
-      <section class="controls" aria-label="Tarif arama ve filtreleme">
-        <div class="search-wrap">
+      <section class="controls recipe-toolbar" aria-label="Tarif arama ve filtreleme">
+        <div class="search-wrap recipe-search-panel">
           <label class="search-label" for="search">Tarif veya malzeme ara</label>
-          <input id="search" type="search" placeholder="Örnek: tavuk, yoğurt, somon, çorba" />
+          <input id="search" type="search" placeholder="?rnek: tavuk, yo?urt, somon, ?orba" />
+          <p class="toolbar-help">Yazd?k?a sonu?lar an?nda daral?r.</p>
         </div>
-        <div class="filters" id="filters"></div>
+        <div class="recipe-filter-panel">
+          <div class="toolbar-head">
+            <div>
+              <p class="eyebrow compact">Kategoriler</p>
+              <h3>Tarif t?r?ne g?re filtrele</h3>
+            </div>
+            <span id="active-category-label">T?m Tarifler</span>
+          </div>
+          <div class="filters" id="filters"></div>
+        </div>
       </section>
 
-      <section class="content-grid" id="recipes">
-        <div>
-          <div class="section-title">
+      <section class="content-grid refined-content-grid" id="recipes">
+        <div class="recipe-results-column">
+          <div class="section-title recipe-results-header">
             <div>
-              <p class="eyebrow compact">Seç, pişir, plana sadık kal</p>
-              <h2>Tarifler</h2>
+              <p class="eyebrow compact">Se?, pi?ir, plana sad?k kal</p>
+              <h2>Tarif listesi</h2>
+              <p class="results-helper" id="search-summary">?u anda t?m tarifler listeleniyor.</p>
             </div>
             <span id="recipe-count"></span>
           </div>
-          <div class="recipe-list" id="recipe-list"></div>
+          <div class="recipe-list recipe-list-refined" id="recipe-list"></div>
         </div>
 
-        <aside class="detail-card" id="recipe-detail" aria-label="Seçili tarif detayı"></aside>
+        <aside class="detail-card detail-card-refined" id="recipe-detail" aria-label="Se?ili tarif detay?"></aside>
       </section>
     </main>
 
@@ -61,10 +89,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
-
-
-
-
-
-

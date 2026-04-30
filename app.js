@@ -270,6 +270,8 @@ const recipeDetail = document.querySelector("#recipe-detail");
 const totalRecipes = document.querySelector("#total-recipes");
 const avgCalories = document.querySelector("#avg-calories");
 const avgProtein = document.querySelector("#avg-protein");
+const activeCategoryLabel = document.querySelector("#active-category-label");
+const searchSummary = document.querySelector("#search-summary");
 
 function renderStats() {
   const calorieAverage = Math.round(recipes.reduce((sum, recipe) => sum + recipe.calories, 0) / recipes.length);
@@ -281,6 +283,7 @@ function renderStats() {
 }
 
 function renderFilters() {
+  activeCategoryLabel.textContent = selectedCategory;
   filters.innerHTML = categories
     .map((category) => {
       const activeClass = category === selectedCategory ? " active" : "";
@@ -323,7 +326,13 @@ function renderRecipeCard(recipe) {
 
 function renderRecipes() {
   const filteredRecipes = getFilteredRecipes();
+  const searchValue = searchInput.value.trim();
   recipeCount.textContent = `${filteredRecipes.length} tarif bulundu`;
+  searchSummary.textContent = searchValue
+    ? `"${searchValue}" aramas?na g?re sonu?lar? g?r?yorsun.`
+    : selectedCategory === "T?m Tarifler"
+      ? "?u anda t?m tarifler listeleniyor."
+      : `?u anda ${selectedCategory.toLocaleLowerCase("tr-TR")} kategorisini g?r?yorsun.`;
 
   if (!filteredRecipes.length) {
     recipeList.innerHTML = `<div class="empty">Bu filtreyle tarif bulamadık. Aramayi kısaltmayi veya farkli kategori seçmeyi deneyelim.</div>`;
