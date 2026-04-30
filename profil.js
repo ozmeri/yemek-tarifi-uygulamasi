@@ -464,87 +464,261 @@ function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
   return choice;
 }
 
+function profileTokenSet(...values) {
+  return new Set(values
+    .flatMap((value) => Array.isArray(value) ? value : [value])
+    .map((item) => normalizeText(item))
+    .flatMap((item) => item.split(/[^a-z0-9]+/))
+    .filter((item) => item.length > 2));
+}
+
+function snackScore(snack, preferences) {
+  let score = 0;
+
+  if (preferences.goals.has("weight-loss")) {
+    score += snack.calories <= 150 ? 4 : 1;
+    score += snack.protein >= 6 ? 2 : 0;
+  }
+  if (preferences.goals.has("muscle")) {
+    score += snack.protein >= 8 ? 4 : snack.protein >= 5 ? 2 : 0;
+  }
+  if (preferences.goals.has("low-carb")) {
+    score += snack.carbs <= 10 ? 4 : snack.carbs <= 16 ? 2 : -2;
+  }
+  if (preferences.goals.has("balanced")) {
+    score += snack.protein >= 4 ? 2 : 1;
+  }
+  if (preferences.conditions.has("diyabet") || preferences.conditions.has("insulin") || preferences.conditions.has("prediyabet")) {
+    score += snack.carbs <= 12 ? 4 : snack.carbs <= 18 ? 1 : -4;
+  }
+  if (preferences.conditions.has("reflu") || preferences.conditions.has("gastrit") || preferences.conditions.has("ulser")) {
+    score += snack.softOption ? 3 : -2;
+    score += snack.acidicOption ? -4 : 0;
+  }
+  if (preferences.styles.has("vegan")) {
+    score += snack.vegan ? 3 : -10;
+  } else if (preferences.styles.has("vejetaryen")) {
+    score += snack.vegetarian ? 2 : -10;
+  }
+  if (preferences.conditions.has("hipertansiyon")) {
+    score += snack.lowSodium ? 2 : 0;
+  }
+
+  return score;
+}
+
 function buildSnackOptions() {
-  return [
+  const preferences = {
+    goals: new Set(Array.isArray(profile.goal) ? profile.goal : [profile.goal].filter(Boolean)),
+    conditions: profileTokenSet(profile.conditions, profile.conditionsOther),
+    allergies: profileTokenSet(profile.allergies, profile.allergiesOther),
+    diet: profileTokenSet(profile.diet, profile.dietOther)
+  };
+  preferences.styles = new Set([...preferences.diet, ...preferences.conditions]);
+
+  const snacks = [
     {
       name: "Kefir ve Badem",
-      note: "Düşük kalorili, tok tutan pratik ara öğün.",
+      note: "D???k kalorili, tok tutan pratik ara ???n.",
       calories: 165,
       protein: 9,
       carbs: 8,
       fat: 10,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["1 su bardağı kefir", "5 adet çiğ badem"],
-      steps: ["Kefiri soğuk şekilde bardağa koy.", "Yanına 5 adet çiğ badem ekleyip ara öğün olarak tüket."],
-      tags: ["ara öğün", "kefir", "badem"]
+      mealType: "Ara ???n",
+      ingredients: ["1 su barda?? kefir", "5 adet ?i? badem"],
+      steps: ["Kefiri so?uk ?ekilde barda?a koy.", "Yan?na 5 adet ?i? badem ekleyip ara ???n olarak t?ket."],
+      tags: ["ara ???n", "kefir", "badem"],
+      vegetarian: true,
+      lowSodium: true,
+      hasDairy: true,
+      hasNuts: true
     },
     {
-      name: "Yeşil Elma",
-      note: "Tek malzemeli, hafif ve hızlı ara öğün seçeneği.",
+      name: "Ye?il Elma",
+      note: "Tek malzemeli, hafif ve h?zl? ara ???n se?ene?i.",
       calories: 72,
       protein: 0,
       carbs: 19,
       fat: 0,
       time: 1,
-      mealType: "Ara öğün",
-      ingredients: ["1 adet yeşil elma"],
-      steps: ["Elmayı yıka.", "Tek başına ara öğün olarak tüket."],
-      tags: ["ara öğün", "meyve", "hafif"]
+      mealType: "Ara ???n",
+      ingredients: ["1 adet ye?il elma"],
+      steps: ["Elmay? y?ka.", "Tek ba??na ara ???n olarak t?ket."],
+      tags: ["ara ???n", "meyve", "hafif"],
+      vegetarian: true,
+      vegan: true,
+      lowSodium: true,
+      acidicOption: true
     },
     {
-      name: "Yoğurt ve Tarçın",
-      note: "Tatlı isteğini daha kontrollü karşılayan hafif ara öğün.",
+      name: "Yo?urt ve Tar??n",
+      note: "Tatl? iste?ini daha kontroll? kar??layan hafif ara ???n.",
       calories: 118,
       protein: 8,
       carbs: 9,
       fat: 5,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["3 yemek kaşığı yoğurt", "1 çay kaşığı tarçın"],
-      steps: ["Yoğurdu kaseye al.", "Üzerine tarçın ekleyip karıştırmadan veya karıştırarak tüket."],
-      tags: ["ara öğün", "yoğurt", "hafif"]
+      mealType: "Ara ???n",
+      ingredients: ["3 yemek ka???? yo?urt", "1 ?ay ka???? tar??n"],
+      steps: ["Yo?urdu kaseye al.", "?zerine tar??n ekleyip kar??t?rmadan veya kar??t?rarak t?ket."],
+      tags: ["ara ???n", "yo?urt", "hafif"],
+      vegetarian: true,
+      softOption: true,
+      lowSodium: true,
+      hasDairy: true
     },
     {
-      name: "Salatalık ve Ayran",
-      note: "Tuzlu hafiflik isteyenler için serin ara öğün.",
+      name: "Salatal?k ve Ayran",
+      note: "Tuzlu hafiflik isteyenler i?in serin ara ???n.",
       calories: 95,
       protein: 5,
       carbs: 8,
       fat: 4,
       time: 3,
-      mealType: "Ara öğün",
-      ingredients: ["1 küçük salatalık", "1 bardak ayran"],
-      steps: ["Salatalığı yıka ve dilimle.", "Ayranla birlikte ara öğün olarak tüket."],
-      tags: ["ara öğün", "ayran", "salatalık"]
+      mealType: "Ara ???n",
+      ingredients: ["1 k???k salatal?k", "1 bardak ayran"],
+      steps: ["Salatal??? y?ka ve dilimle.", "Ayranla birlikte ara ???n olarak t?ket."],
+      tags: ["ara ???n", "ayran", "salatal?k"],
+      vegetarian: true,
+      softOption: true,
+      hasDairy: true
     },
     {
-      name: "Muzun Yarısı ve Ceviz",
-      note: "Enerji düşüşü için küçük porsiyon dengeli ara öğün.",
+      name: "Muzun Yar?s? ve Ceviz",
+      note: "Enerji d????? i?in k???k porsiyon dengeli ara ???n.",
       calories: 132,
       protein: 2,
       carbs: 15,
       fat: 7,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["Yarım muz", "2 tam ceviz"],
-      steps: ["Muzu dilimle.", "Yanına 2 tam ceviz ekleyip küçük porsiyon ara öğün olarak tüket."],
-      tags: ["ara öğün", "muz", "ceviz"]
+      mealType: "Ara ???n",
+      ingredients: ["Yar?m muz", "2 tam ceviz"],
+      steps: ["Muzu dilimle.", "Yan?na 2 tam ceviz ekleyip k???k porsiyon ara ???n olarak t?ket."],
+      tags: ["ara ???n", "muz", "ceviz"],
+      vegetarian: true,
+      vegan: true,
+      softOption: true,
+      lowSodium: true,
+      hasNuts: true
     },
     {
-      name: "Havuç Çubukları ve Yoğurt",
-      note: "Çıtır ve hafif bir ara öğün alternatifi.",
+      name: "Havu? ?ubuklar? ve Yo?urt",
+      note: "??t?r ve hafif bir ara ???n alternatifi.",
       calories: 104,
       protein: 5,
       carbs: 12,
       fat: 3,
       time: 4,
-      mealType: "Ara öğün",
-      ingredients: ["1 küçük havuç", "2 yemek kaşığı yoğurt"],
-      steps: ["Havucu soyup çubuk şeklinde kes.", "Yoğurdu yanında dip sos gibi kullanarak tüket."],
-      tags: ["ara öğün", "havuç", "yoğurt"]
+      mealType: "Ara ???n",
+      ingredients: ["1 k???k havu?", "2 yemek ka???? yo?urt"],
+      steps: ["Havucu soyup ?ubuk ?eklinde kes.", "Yo?urdu yan?nda dip sos gibi kullanarak t?ket."],
+      tags: ["ara ???n", "havu?", "yo?urt"],
+      vegetarian: true,
+      lowSodium: true,
+      hasDairy: true
+    },
+    {
+      name: "?ilek ve Sade Yo?urt",
+      note: "Protein ve meyveyi hafif ?ekilde birle?tiren ara ???n.",
+      calories: 126,
+      protein: 7,
+      carbs: 12,
+      fat: 4,
+      time: 3,
+      mealType: "Ara ???n",
+      ingredients: ["3 yemek ka???? sade yo?urt", "4-5 adet ?ilek"],
+      steps: ["Yo?urdu k???k kaseye al.", "?zerine do?ranm?? ?ilek ekleyip t?ket."],
+      tags: ["ara ???n", "?ilek", "yo?urt"],
+      vegetarian: true,
+      lowSodium: true,
+      hasDairy: true
+    },
+    {
+      name: "Ha?lanm?? Yumurta ve Salatal?k",
+      note: "Protein a??rl?kl?, tok tutan ara ???n se?ene?i.",
+      calories: 142,
+      protein: 9,
+      carbs: 4,
+      fat: 9,
+      time: 4,
+      mealType: "Ara ???n",
+      ingredients: ["1 ha?lanm?? yumurta", "1 k???k salatal?k"],
+      steps: ["Yumurtay? ha?lay?p soy.", "Salatal?kla birlikte ara ???n olarak t?ket."],
+      tags: ["ara ???n", "yumurta", "protein"],
+      vegetarian: true,
+      lowSodium: true
+    },
+    {
+      name: "Leblebi ve Bitki ?ay?",
+      note: "Sade, ekonomik ve kontroll? porsiyon ara ???n.",
+      calories: 109,
+      protein: 5,
+      carbs: 17,
+      fat: 2,
+      time: 2,
+      mealType: "Ara ???n",
+      ingredients: ["2 yemek ka???? leblebi", "1 kupa ?ekersiz bitki ?ay?"],
+      steps: ["Leblebiyi k???k porsiyon halinde haz?rla.", "Yan?nda ?ekersiz bitki ?ay? ile t?ket."],
+      tags: ["ara ???n", "leblebi", "hafif"],
+      vegetarian: true,
+      vegan: true,
+      lowSodium: true
+    },
+    {
+      name: "Avokado Dilimleri",
+      note: "D???k karbonhidrat odakl? hafif ara ???n.",
+      calories: 128,
+      protein: 2,
+      carbs: 6,
+      fat: 11,
+      time: 3,
+      mealType: "Ara ???n",
+      ingredients: ["Yar?m k???k avokado", "Bir tutam limonsuz baharat"],
+      steps: ["Avokadoyu dilimle.", "?stersen ?ok az baharat ekleyip k???k porsiyon halinde t?ket."],
+      tags: ["ara ???n", "avokado", "dusuk karbonhidrat"],
+      vegetarian: true,
+      vegan: true,
+      lowSodium: true,
+      softOption: true
+    },
+    {
+      name: "Armut Dilimleri",
+      note: "Mideyi yormayan meyve bazl? hafif ara ???n.",
+      calories: 86,
+      protein: 1,
+      carbs: 22,
+      fat: 0,
+      time: 2,
+      mealType: "Ara ???n",
+      ingredients: ["1 k???k armut"],
+      steps: ["Armutu y?ka ve dilimle.", "Tek ba??na hafif ara ???n olarak t?ket."],
+      tags: ["ara ???n", "meyve", "armut"],
+      vegetarian: true,
+      vegan: true,
+      softOption: true,
+      lowSodium: true
     }
-  ].filter((snack) => !hasUserBlockedFood(snack, profile.dietOther));
+  ];
+
+  return snacks
+    .filter((snack) => !hasUserBlockedFood(snack, profile.dietOther))
+    .filter((snack) => {
+      if ((preferences.allergies.has("sut") || preferences.allergies.has("laktoz") || preferences.diet.has("laktoz")) && snack.hasDairy) {
+        return false;
+      }
+      if ((preferences.allergies.has("kuruyemis") || preferences.allergies.has("badem") || preferences.allergies.has("ceviz") || preferences.allergies.has("fistik")) && snack.hasNuts) {
+        return false;
+      }
+      if (preferences.styles.has("vegan") && !snack.vegan) {
+        return false;
+      }
+      if (preferences.styles.has("vejetaryen") && !snack.vegetarian) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a, b) => snackScore(b, preferences) - snackScore(a, preferences));
 }
 
 function buildDailyMealPlan(recommendations = []) {
