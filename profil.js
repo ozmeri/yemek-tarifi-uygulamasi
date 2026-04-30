@@ -732,8 +732,8 @@ function buildDailyMealPlan(recommendations = []) {
   const breakfastPool = safePool.filter(isBreakfastRecipe);
   const snackPool = buildSnackOptions();
   const lightPool = safePool.filter((food) => food.calories <= 380);
-  const mainMealPool = safePool.filter((food) => !isSnackRecipe(food) && (food.protein >= 15 || food.calories >= 340));
-  const dinnerPool = mainMealPool.filter((food) => !isBreakfastRecipe(food) || food.calories >= 360);
+  const mainMealPool = safePool.filter((food) => !isSnackRecipe(food) && !isBreakfastRecipe(food) && (food.protein >= 15 || food.calories >= 340));
+  const dinnerPool = mainMealPool.filter((food) => food.calories >= 320 || food.protein >= 20);
   const usedNames = new Set();
   const usedSnackNames = new Set();
   const seed = getDaySeed();
@@ -955,6 +955,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
