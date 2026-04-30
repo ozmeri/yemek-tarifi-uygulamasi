@@ -227,7 +227,37 @@
 
 recipes.push(...(window.fitRecipeCatalog || []));
 
-const categories = ["Tüm Tarifler", ...new Set(recipes.map((recipe) => recipe.category))];
+function inferRecipeType(recipe) {
+  const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.ingredients || []), ...(recipe.tags || [])]
+    .join(" ")
+    .toLocaleLowerCase("tr-TR");
+
+  if (["tatli", "pankek", "kup", "muhallebi", "top", "bar", "chia"].some((item) => text.includes(item))) {
+    return "Tatlı";
+  }
+  if (["salata", "roka", "semizotu", "kase", "bowl"].some((item) => text.includes(item))) {
+    return "Salata";
+  }
+  if (["corba", "çorba", "soup"].some((item) => text.includes(item))) {
+    return "Çorba";
+  }
+  if (["kahvalti", "kahvaltı", "omlet", "tost", "yumurta"].some((item) => text.includes(item))) {
+    return "Kahvaltı";
+  }
+  if (["wrap", "sandvic", "sandviç", "atistirmalik", "aperatif", "ara öğün", "ara ogun"].some((item) => text.includes(item))) {
+    return "Aperatif";
+  }
+  if (recipe.calories <= 320) {
+    return "Aperatif";
+  }
+  return "Ana yemek";
+}
+
+recipes.forEach((recipe) => {
+  recipe.type = recipe.type || inferRecipeType(recipe);
+});
+
+const categories = ["Tüm Tarifler", ...new Set(recipes.map((recipe) => recipe.type))];
 
 let selectedCategory = "Tüm Tarifler";
 let selectedRecipe = recipes[0];
@@ -260,15 +290,35 @@ function renderFilters() {
 }
 
 function getFilteredRecipes() {
-  const search = searchInput.value.trim().toLowerCase();
+  const search = searchInput.value.trim().toLocaleLowerCase("tr-TR");
 
   return recipes.filter((recipe) => {
-    const matchesCategory = selectedCategory === "Tüm Tarifler" || recipe.category === selectedCategory;
-    const searchableText = [recipe.name, recipe.category, recipe.summary, ...recipe.ingredients, ...recipe.tags].join(" ").toLowerCase();
+    const matchesCategory = selectedCategory === "Tüm Tarifler" || recipe.type === selectedCategory;
+    const searchableText = [recipe.name, recipe.type, recipe.category, recipe.summary, ...recipe.ingredients, ...recipe.tags].join(" ").toLocaleLowerCase("tr-TR");
     const matchesSearch = !search || searchableText.includes(search);
 
     return matchesCategory && matchesSearch;
   });
+}
+
+function renderRecipeCard(recipe) {
+  const selectedClass = recipe === selectedRecipe ? " selected" : "";
+  return `
+    <article class="recipe-card fade-in${selectedClass}" data-name="${recipe.name}" style="--card-color: ${recipe.color}">
+      <div class="recipe-tags">
+        <span class="pill">${recipe.type}</span>
+        <span class="pill">${recipe.category}</span>
+        <span class="pill">${recipe.time} dk</span>
+      </div>
+      <h3>${recipe.name}</h3>
+      <p>${recipe.summary}</p>
+      <div class="recipe-meta">
+        <span>${recipe.calories} kcal</span>
+        <span>${recipe.protein} g protein</span>
+        <span>${recipe.carbs} g karbonhidrat</span>
+      </div>
+    </article>
+  `;
 }
 
 function renderRecipes() {
@@ -284,25 +334,34 @@ function renderRecipes() {
     selectedRecipe = filteredRecipes[0];
   }
 
-  recipeList.innerHTML = filteredRecipes
-    .map((recipe) => {
-      const selectedClass = recipe === selectedRecipe ? " selected" : "";
-      return `
-        <article class="recipe-card fade-in${selectedClass}" data-name="${recipe.name}" style="--card-color: ${recipe.color}">
-          <div class="recipe-tags">
-            <span class="pill">${recipe.category}</span>
-            <span class="pill">${recipe.time} dk</span>
+  if (selectedCategory !== "Tüm Tarifler") {
+    recipeList.innerHTML = filteredRecipes.map(renderRecipeCard).join("");
+    return;
+  }
+
+  const grouped = categories
+    .filter((category) => category !== "Tüm Tarifler")
+    .map((category) => ({
+      category,
+      recipes: filteredRecipes.filter((recipe) => recipe.type === category)
+    }))
+    .filter((group) => group.recipes.length);
+
+  recipeList.innerHTML = grouped
+    .map((group) => `
+      <section class="recipe-group-block">
+        <div class="section-title recipe-group-title">
+          <div>
+            <p class="eyebrow compact">Kategori</p>
+            <h3>${group.category}</h3>
           </div>
-          <h3>${recipe.name}</h3>
-          <p>${recipe.summary}</p>
-          <div class="recipe-meta">
-            <span>${recipe.calories} kcal</span>
-            <span>${recipe.protein} g protein</span>
-            <span>${recipe.carbs} g karbonhidrat</span>
-          </div>
-        </article>
-      `;
-    })
+          <span>${group.recipes.length} tarif</span>
+        </div>
+        <div class="recipe-group-grid">
+          ${group.recipes.map(renderRecipeCard).join("")}
+        </div>
+      </section>
+    `)
     .join("");
 }
 
@@ -311,6 +370,7 @@ function renderDetail() {
   recipeDetail.innerHTML = `
     <div class="detail-hero">
       <div class="detail-meta">
+        <span class="pill">${selectedRecipe.type}</span>
         <span class="pill">${selectedRecipe.category}</span>
         <span class="pill">${selectedRecipe.calories} kcal</span>
         <span class="pill">${selectedRecipe.time} dk</span>
@@ -371,5 +431,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 renderApp();
+
+
 
 

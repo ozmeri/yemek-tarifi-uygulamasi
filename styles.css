@@ -2434,3 +2434,18 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+.recipe-group-block {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.recipe-group-title {
+  margin-bottom: 0.25rem;
+}
+
+.recipe-group-grid {
+  display: grid;
+  gap: 1rem;
+}
