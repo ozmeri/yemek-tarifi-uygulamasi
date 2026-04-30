@@ -243,29 +243,40 @@ function inferRecipeType(recipe) {
     .join(" ")
     .toLocaleLowerCase("tr-TR");
 
-  if (["tatli", "pankek", "kup", "muhallebi", "top", "bar", "chia"].some((item) => text.includes(item))) {
-    return "Tatlı";
-  }
-  if (["salata", "roka", "semizotu", "kase", "bowl"].some((item) => text.includes(item))) {
-    return "Salata";
-  }
-  if (["corba", "çorba", "soup"].some((item) => text.includes(item))) {
-    return "Çorba";
-  }
-  if (["kahvalti", "kahvaltı", "omlet", "tost", "yumurta"].some((item) => text.includes(item))) {
+  const hasAny = (words) => words.some((item) => text.includes(item));
+  const breakfastMatch = hasAny(["kahvalti", "kahvaltı", "omlet", "tost", "yumurta", "menemen", "yulaf", "labne", "peynir"]);
+  const soupMatch = hasAny(["corba", "çorba", "soup"]);
+  const saladMatch = hasAny(["salata", "roka", "semizotu", "marul", "yesillik"]);
+  const dessertMatch = hasAny(["tatli", "tatlı", "muhallebi", "kup", "kurabiye", "kek", "puding", "brownie", "cheesecake", "topları", "toplari"]);
+  const snackMatch = hasAny(["wrap", "sandvic", "sandviç", "atistirmalik", "aperatif", "ara öğün", "ara ogun", "smoothie", "bar"]);
+  const mainMealMatch = hasAny(["tavuk", "hindi", "somon", "balik", "kiyma", "köfte", "kofte", "sote", "firin", "fırın", "pilav", "makarna", "izgara", "ana yemek", "et"]);
+
+  if (breakfastMatch && !mainMealMatch && !saladMatch && !soupMatch) {
     return "Kahvaltı";
   }
-  if (["wrap", "sandvic", "sandviç", "atistirmalik", "aperatif", "ara öğün", "ara ogun"].some((item) => text.includes(item))) {
+  if (soupMatch) {
+    return "Çorba";
+  }
+  if (saladMatch) {
+    return "Salata";
+  }
+  if (dessertMatch && !breakfastMatch) {
+    return "Tatlı";
+  }
+  if (snackMatch) {
     return "Aperatif";
   }
-  if (recipe.calories <= 320) {
+  if (mainMealMatch || recipe.protein >= 18 || recipe.calories >= 340) {
+    return "Ana yemek";
+  }
+  if (recipe.calories <= 220) {
     return "Aperatif";
   }
   return "Ana yemek";
 }
 
 recipes.forEach((recipe) => {
-  recipe.type = recipe.type || inferRecipeType(recipe);
+  recipe.type = inferRecipeType(recipe);
 });
 
 const categories = ["Tüm Tarifler", ...new Set(recipes.map((recipe) => recipe.type))];
