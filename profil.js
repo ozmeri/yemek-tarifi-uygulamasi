@@ -185,9 +185,30 @@ function hasUserBlockedFood(food, dietOther) {
 function parsePantryInput(input) {
   const normalized = normalizeText(input);
   const commonWords = new Set(["ve", "ile", "var", "bir", "az", "tane", "adet", "elimde", "dolabimda", "dolabinda", "bunlar"]);
-  return normalized
-    .split(/[^a-z0-9]+/)
-    .map((item) => item.trim())
+  const phraseMap = {
+    "tam buday lavas": "tam_bugday_lavas",
+    "tam bugday lavas": "tam_bugday_lavas",
+    "tam buday ekmegi": "tam_bugday_ekmegi",
+    "tam bugday ekmegi": "tam_bugday_ekmegi",
+    "suzme yogurt": "suzme_yogurt",
+    "kapya biber": "kapya_biber",
+    "yesil biber": "yesil_biber",
+    "kirmizi biber": "kirmizi_biber",
+    "kirmizi lahana": "kirmizi_lahana",
+    "mor lahana": "mor_lahana",
+    "yesil fasulye": "yesil_fasulye",
+    "ton baligi": "ton_baligi",
+    "lor peyniri": "lor_peyniri",
+    "tatli patates": "tatli_patates"
+  };
+
+  const prepared = Object.entries(phraseMap)
+    .sort((a, b) => b[0].length - a[0].length)
+    .reduce((result, [phrase, token]) => result.replaceAll(phrase, token), normalized);
+
+  return prepared
+    .split(/[^a-z0-9_]+/)
+    .map((item) => item.trim().replaceAll("_", " "))
     .filter((item) => item.length > 2 && !commonWords.has(item));
 }
 function normalizePantryTerm(term) {
@@ -200,10 +221,22 @@ function normalizePantryTerm(term) {
     kapya: "biber",
     yesil: "biber",
     kirmizi: "biber",
+    "kapya biber": "biber",
+    "yesil biber": "biber",
+    "kirmizi biber": "biber",
     domates: "domates",
     patates: "patates",
+    "tatli patates": "tatli patates",
     yogurt: "yogurt",
-    sogan: "sogan"
+    "suzme yogurt": "yogurt",
+    sogan: "sogan",
+    "ton baligi": "ton",
+    "lor peyniri": "peynir",
+    "mor lahana": "lahana",
+    "kirmizi lahana": "lahana",
+    "yesil fasulye": "yesil fasulye",
+    "tam buday lavas": "tam bugday lavas",
+    "tam buday ekmegi": "tam bugday ekmegi"
   };
   return aliases[term] || term;
 }
@@ -224,6 +257,7 @@ function displayIngredient(term) {
     kabak: "kabak",
     patlican: "patlıcan",
     patates: "patates",
+    "tatli patates": "tatlı patates",
     havuc: "havuç",
     biber: "biber",
     bezelye: "bezelye",
@@ -233,14 +267,40 @@ function displayIngredient(term) {
     sogan: "soğan",
     nohut: "nohut",
     mercimek: "mercimek",
-    fasulye: "fasulye"
+    fasulye: "fasulye",
+    "yesil fasulye": "yeşil fasulye",
+    "tam bugday lavas": "tam buğday lavaş",
+    "tam bugday ekmegi": "tam buğday ekmeği"
   };
   return labels[term] || term;
 }
 
 function titleIngredient(term) {
   const label = displayIngredient(term);
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  return label
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function proteinStyleTitle(term) {
+  const labels = {
+    sebze: "Sebzeli",
+    kiyma: "Kıymalı",
+    tavuk: "Tavuklu",
+    hindi: "Hindili",
+    yumurta: "Yumurtalı",
+    balik: "Balıklı",
+    ton: "Ton balıklı",
+    somon: "Somonlu",
+    yogurt: "Yoğurtlu",
+    peynir: "Peynirli",
+    nohut: "Nohutlu",
+    mercimek: "Mercimekli",
+    fasulye: "Fasulyeli"
+  };
+  return labels[term] || `${titleIngredient(term)}li`;
 }
 function getRecipeSearchText(food) {
   const details = recipeDetails[food.name] || food;
@@ -285,33 +345,49 @@ function findPantryRecipe(available) {
 function buildPantryRecipe(available) {
   const uniqueItems = [...new Set(available.map(normalizePantryTerm))];
   const proteinTerms = ["kiyma", "tavuk", "hindi", "yumurta", "balik", "somon", "ton", "yogurt", "peynir", "nohut", "mercimek", "fasulye"];
+  const carbTerms = ["tam bugday lavas", "tam bugday ekmegi", "tatli patates", "patates", "bulgur", "kinoa", "yulaf", "esmer pirinc"];
   const proteins = uniqueItems.filter((item) => proteinTerms.includes(item));
-  const vegetables = uniqueItems.filter((item) => !proteinTerms.includes(item));
+  const carbsPantry = uniqueItems.filter((item) => carbTerms.includes(item));
+  const vegetables = uniqueItems.filter((item) => !proteinTerms.includes(item) && !carbTerms.includes(item));
+  const wrapBase = carbsPantry.find((item) => item === "tam bugday lavas" || item === "tam bugday ekmegi");
   const mainProtein = proteins[0] || "sebze";
-  const mainItems = [...proteins, ...vegetables];
+  const mainItems = [...proteins, ...vegetables, ...carbsPantry];
   const displayItems = mainItems.map(displayIngredient);
-  const vegetableTitle = vegetables.slice(0, 3).map(titleIngredient).join(" ");
-  const proteinTitle = mainProtein === "sebze" ? "Sebzeli" : `${titleIngredient(mainProtein)}li`;
-  const method = proteins.length ? (vegetables.includes("patates") || vegetables.includes("karnabahar") ? "Tencere Yemeği" : "Sote") : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "Fırın" : "Sebze Sote");
-  const name = `${proteinTitle} ${vegetableTitle || "Dolap"} ${method}`.replace(/\s+/g, " ").trim();
-  const calories = Math.min(620, 240 + proteins.length * 120 + vegetables.length * 45 + (vegetables.includes("patates") ? 90 : 0));
+  const vegetableTitle = vegetables.slice(0, 2).map(titleIngredient).join(" ");
+  const carbTitle = carbsPantry.filter((item) => item !== wrapBase).slice(0, 1).map(titleIngredient).join(" ");
+  const detailTitle = [vegetableTitle, carbTitle].filter(Boolean).join(" ");
+  const proteinTitle = proteinStyleTitle(mainProtein);
+  const method = wrapBase
+    ? "Wrap"
+    : proteins.length
+      ? (carbsPantry.includes("patates") || carbsPantry.includes("tatli patates") || vegetables.includes("karnabahar") ? "Tencere Yemeği" : "Sote")
+      : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "Fırın" : "Sebze Sote");
+  const name = `${proteinTitle} ${detailTitle || "Dolap"} ${method}`.replace(/\s+/g, " ").trim();
+  const calories = Math.min(680, 220 + proteins.length * 120 + vegetables.length * 40 + carbsPantry.length * 70);
   const protein = proteins.includes("kiyma") ? 30 : proteins.includes("tavuk") || proteins.includes("hindi") ? 36 : proteins.length ? 18 + proteins.length * 5 : 8;
-  const carbs = vegetables.includes("patates") ? 42 : 16 + vegetables.length * 6;
+  const carbs = carbsPantry.length * 18 + vegetables.length * 5 + (wrapBase ? 12 : 0);
   const fat = proteins.includes("kiyma") ? 22 : proteins.length ? 14 : 9;
-  const ingredients = [...displayItems, "az su", "baharat", "varsa 1 tatlı kaşığı zeytinyağı"];
-  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini doğra.` : "Sebzeleri doğra.";
+  const ingredients = [...displayItems, "baharat", wrapBase ? "varsa yoğurtlu sos" : "varsa 1 tatlı kaşığı zeytinyağı"];
+  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini doğra.` : "Sebzeleri hazırlayıp küçük parçalara ayır.";
   const cookProtein = mainProtein === "kiyma"
     ? "Kıymayı tavada suyunu çekene kadar pişir."
     : mainProtein === "tavuk" || mainProtein === "hindi"
-      ? `${displayIngredient(mainProtein)} etini küçük parçalara ayırip tavada pişir.`
+      ? `${displayIngredient(mainProtein)} etini küçük parçalara ayırıp tavada pişir.`
       : proteins.length
         ? `${proteins.map(displayIngredient).join(", ")} malzemesini tavaya veya tencereye al.`
-        : "Sebzeleri tavaya veya fırın kabına al.";
-  const combineStep = method.includes("Fırın")
-    ? "Tüm malzemeleri fırın kabına al, az zeytinyağı ve baharatla 180 derecede yumuşayana kadar pişir."
-    : method.includes("Tencere")
-      ? "Sebzeleri ekle, az su ilave et ve kısık ateşte yumuşayana kadar pişir."
-      : "Sebzeleri ekle, baharatla birlikte orta ateşte yumuşayana kadar sotele.";
+        : method.includes("Fırın")
+          ? "Sebzeleri fırın kabına al."
+          : "Sebzeleri tavaya al.";
+
+  let combineStep = "Sebzeleri ekle, baharatla birlikte orta ateşte yumuşayana kadar sotele.";
+  if (method.includes("Fırın")) {
+    combineStep = "Tüm malzemeleri fırın kabına al, az zeytinyağı ve baharatla 180 derecede yumuşayana kadar pişir.";
+  } else if (method.includes("Tencere")) {
+    combineStep = "Sebzeleri ve karbonhidrat grubunu ekle, az su ilave et ve kısık ateşte yumuşayana kadar pişir.";
+  } else if (method === "Wrap") {
+    const wrapLabel = displayIngredient(wrapBase);
+    combineStep = `${wrapLabel} içine pişen malzemeleri yerleştir, istersen yoğurtlu sos ekleyip sar.`;
+  }
 
   return {
     name,
@@ -320,7 +396,7 @@ function buildPantryRecipe(available) {
     protein,
     carbs,
     fat,
-    time: method.includes("Fırın") ? 30 : 22,
+    time: method.includes("Fırın") ? 30 : method === "Wrap" ? 18 : 22,
     pantryCore: uniqueItems,
     ingredients,
     steps: [prepVegetables, cookProtein, combineStep, "Tadım yapıp sıcak servis et."]
@@ -539,6 +615,9 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
+
+
 
 
 
