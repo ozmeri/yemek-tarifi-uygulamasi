@@ -2794,3 +2794,17 @@ h2 {
   font-size: 0.6rem;
   line-height: 1.14;
 }
+
+.recipe-toolbar {
+  position: static;
+  top: auto;
+  z-index: auto;
+}
+
+.refined-content-grid {
+  align-items: start;
+}
+
+.recipe-results-column {
+  padding-top: 0;
+}
