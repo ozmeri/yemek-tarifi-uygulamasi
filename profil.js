@@ -590,7 +590,7 @@ function isDessertRecipe(food) {
 
 function isBreakfastRecipe(food) {
   const text = getRecipeSearchText(food);
-  const breakfastWords = ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti", "tost", "pankek", "labne", "avokado"];
+  const breakfastWords = ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti", "tost", "pankek", "labne", "avokado", "menemen"];
   const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "pilav", "makarna", "et"];
   return hasRecipeKeyword(text, breakfastWords)
     && !hasRecipeKeyword(text, mainMealWords)
@@ -618,7 +618,7 @@ function isMainMealRecipe(food) {
     && !isSaladRecipe(food)
     && !isDessertRecipe(food)
     && !isSoupRecipe(food)
-    && (hasRecipeKeyword(text, mainMealWords) || food.protein >= 18 || food.calories >= 340);
+    && (hasRecipeKeyword(text, mainMealWords) || food.protein >= 22 || food.calories >= 360);
 }
 
 function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
@@ -1126,6 +1126,7 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
 
 
 
