@@ -551,11 +551,20 @@ function getDaySeed() {
   return Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
 }
 
+function canonicalRecipeName(value) {
+  return String(value || "")
+    .toLocaleLowerCase("tr-TR")
+    .replace(/\s+\d+$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function uniqueRecipesByName(recipes = []) {
   const seen = new Set();
   return recipes.filter((food) => {
-    if (!food?.name || seen.has(food.name)) return false;
-    seen.add(food.name);
+    const key = canonicalRecipeName(food?.name);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
     return true;
   });
 }
@@ -618,7 +627,7 @@ function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
   const targetPool = freshPool.length ? freshPool : uniquePool;
   if (!targetPool.length) return null;
   const choice = targetPool[((seed % targetPool.length) + targetPool.length) % targetPool.length];
-  usedNames.add(choice.name);
+  usedNames.add(canonicalRecipeName(choice.name));
   return choice;
 }
 
@@ -1117,6 +1126,7 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
 
 
 
