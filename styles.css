@@ -2937,3 +2937,33 @@ body {
     top: 8px !important;
   }
 }
+
+body {
+  padding-top: 78px !important;
+}
+
+.app-shell {
+  padding-top: 0 !important;
+}
+
+.site-nav {
+  position: fixed !important;
+  top: 8px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(calc(100% - 24px), 1180px) !important;
+  margin: 0 !important;
+  z-index: 200 !important;
+}
+
+@media (max-width: 680px) {
+  body {
+    padding-top: 68px !important;
+  }
+
+  .site-nav {
+    top: 6px !important;
+    width: calc(100% - 16px) !important;
+  }
+}
