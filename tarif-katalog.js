@@ -151,54 +151,59 @@
   }
 
   function makeRecipe(index) {
-    const category = pick(categories, index);
-    const method = pick(methods, index, 5);
-    const lowCarb = category.goals.includes("low-carb");
-    const protein = chooseProtein(method, category, index);
-    const vegetableA = pick(vegetables, index, 2);
-    const vegetableB = pick(vegetables, index, 7);
-    const carb = chooseCarb(method, lowCarb, index);
-    const sauce = pick(sauces, index, 1);
-    const time = 10 + (index % 31);
-    const calories = 240 + ((index * 37) % 360);
-    const proteinValue = category.baseProtein + (index % 13);
-    const carbsValue = lowCarb ? 10 + (index % 18) : 18 + (index % 45);
-    const fat = 7 + (index % 24);
-    const name = `${protein.label} ${cap(vegetableA)} ${cap(vegetableB)} ${method}`.replace(/\s+/g, " ").trim();
-    const ingredients = unique([
-      protein.name,
-      vegetableA,
-      vegetableB,
-      lowCarb ? "yesillik" : carb.name,
-      sauce,
-      "limon",
-      "baharat"
-    ]).map(displayFood);
-    const allergens = unique([...(protein.allergens || []), ...(lowCarb ? [] : carb.allergens || [])]);
-    const avoidFor = unique([...(protein.avoidFor || []), ...(lowCarb ? [] : carb.avoidFor || [])]);
-    const goalTags = unique([...category.goals, calories <= 430 ? "weight-loss" : "balanced", proteinValue >= 35 ? "muscle" : "balanced", lowCarb ? "low-carb" : "balanced"]);
-    const extraTags = unique([category.name.toLowerCase(), ...goalTags, pick(tags, index), pick(tags, index, 4), vegetableA, vegetableB, protein.name, method.toLowerCase()]);
-    const summary = `${cap(vegetableA)}, ${displayFood(vegetableB)} ve ${displayFood(protein.name)} ile hazırlanan ${method.toLowerCase()} tarzı fit tarif.`;
-
-    return {
-      id: `catalog-${String(index + 1).padStart(4, "0")}`,
-      name,
-      category: category.name,
-      calories,
-      protein: proteinValue,
-      carbs: carbsValue,
-      fat,
-      time,
-      color: category.color,
-      summary,
-      note: summary,
-      ingredients,
-      steps: buildSteps(method, protein, vegetableA, vegetableB, carb, sauce, lowCarb),
-      tags: extraTags,
-      allergens,
-      avoidFor
-    };
+  const category = categories[index % categories.length];
+  const method = methods[Math.floor(index / categories.length) % methods.length];
+  const lowCarb = category.goals.includes("low-carb");
+  const proteinSeed = Math.floor(index / (categories.length * methods.length));
+  const protein = chooseProtein(method, category, proteinSeed);
+  const vegetableA = vegetables[Math.floor(index / 3) % vegetables.length];
+  let vegetableB = vegetables[(Math.floor(index / 7) + 5) % vegetables.length];
+  if (vegetableB === vegetableA) {
+    vegetableB = vegetables[(vegetables.indexOf(vegetableA) + 1) % vegetables.length];
   }
+  const carb = chooseCarb(method, lowCarb, Math.floor(index / 5) + 3);
+  const sauce = sauces[(Math.floor(index / 11) + index) % sauces.length];
+  const time = 10 + (index % 31);
+  const calories = 240 + ((index * 37) % 360);
+  const proteinValue = category.baseProtein + (index % 13);
+  const carbsValue = lowCarb ? 10 + (index % 18) : 18 + (index % 45);
+  const fat = 7 + (index % 24);
+  const baseCarbName = lowCarb ? "yeşillik" : carb.name;
+  const name = `${protein.label} ${cap(vegetableA)} ${cap(vegetableB)} ${cap(baseCarbName)} ${method}`.replace(/\s+/g, " ").trim();
+  const ingredients = unique([
+    protein.name,
+    vegetableA,
+    vegetableB,
+    lowCarb ? "yesillik" : carb.name,
+    sauce,
+    "limon",
+    "baharat"
+  ]).map(displayFood);
+  const allergens = unique([...(protein.allergens || []), ...(lowCarb ? [] : carb.allergens || [])]);
+  const avoidFor = unique([...(protein.avoidFor || []), ...(lowCarb ? [] : carb.avoidFor || [])]);
+  const goalTags = unique([...category.goals, calories <= 430 ? "weight-loss" : "balanced", proteinValue >= 35 ? "muscle" : "balanced", lowCarb ? "low-carb" : "balanced"]);
+  const extraTags = unique([category.name.toLowerCase(), ...goalTags, pick(tags, index), pick(tags, index, 4), vegetableA, vegetableB, protein.name, method.toLowerCase()]);
+  const summary = `${cap(vegetableA)}, ${displayFood(vegetableB)} ve ${displayFood(protein.name)} ile hazırlanan ${method.toLowerCase()} tarzı fit tarif.`;
+
+  return {
+    id: `catalog-${String(index + 1).padStart(4, "0")}`,
+    name,
+    category: category.name,
+    calories,
+    protein: proteinValue,
+    carbs: carbsValue,
+    fat,
+    time,
+    color: category.color,
+    summary,
+    note: summary,
+    ingredients,
+    steps: buildSteps(method, protein, vegetableA, vegetableB, carb, sauce, lowCarb),
+    tags: extraTags,
+    allergens,
+    avoidFor
+  };
+}
 
   function normalizeRecipeName(value) {
   return String(value || "")
@@ -207,7 +212,7 @@
     .trim();
 }
 
-const rawCatalog = Array.from({ length: 2000 }, (_, index) => makeRecipe(index));
+const rawCatalog = Array.from({ length: 4000 }, (_, index) => makeRecipe(index));
 const seenNames = new Set();
 const catalog = rawCatalog.filter((recipe) => {
   const key = normalizeRecipeName(recipe.name);
@@ -218,6 +223,7 @@ const catalog = rawCatalog.filter((recipe) => {
 
   window.fitRecipeCatalog = catalog;
 })();
+
 
 
 
