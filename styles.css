@@ -3262,3 +3262,57 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.recipe-list.recipe-list-refined.single-category-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  align-items: start !important;
+}
+
+.recipe-list.recipe-list-refined.single-category-grid .recipe-card {
+  min-height: 96px !important;
+  padding: 10px 11px !important;
+  border-radius: 14px !important;
+}
+
+.recipe-list.recipe-list-refined.single-category-grid .recipe-card h3 {
+  font-size: 0.8rem !important;
+  line-height: 1.04 !important;
+  margin: 6px 0 3px !important;
+}
+
+.recipe-list.recipe-list-refined.single-category-grid .recipe-card p {
+  font-size: 0.64rem !important;
+  line-height: 1.2 !important;
+}
+
+.recipe-list.recipe-list-refined.single-category-grid .recipe-tags,
+.recipe-list.recipe-list-refined.single-category-grid .recipe-meta {
+  gap: 4px !important;
+}
+
+.recipe-list.recipe-list-refined.single-category-grid .recipe-tags .pill,
+.recipe-list.recipe-list-refined.single-category-grid .recipe-meta .pill,
+.recipe-list.recipe-list-refined.single-category-grid .recipe-meta span {
+  font-size: 0.58rem !important;
+  padding: 3px 6px !important;
+}
+
+@media (max-width: 1280px) {
+  .recipe-list.recipe-list-refined.single-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .recipe-list.recipe-list-refined.single-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .recipe-list.recipe-list-refined.single-category-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
