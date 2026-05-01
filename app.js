@@ -331,7 +331,8 @@ function renderRecipeCard(recipe) {
 }
 
 function renderRecipes() {
-  const filteredRecipes = getFilteredRecipes();`r`n  recipeList.classList.toggle("single-category-grid", selectedCategory !== "Tüm Tarifler");
+  const filteredRecipes = getFilteredRecipes();
+  recipeList.classList.toggle('single-category-grid', selectedCategory !== 'Tüm Tarifler');
   const searchValue = searchInput.value.trim();
   recipeCount.textContent = `${filteredRecipes.length} tarif bulundu`;
   searchSummary.textContent = searchValue
@@ -445,6 +446,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 renderApp();
+
 
 
 
