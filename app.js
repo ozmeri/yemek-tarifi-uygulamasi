@@ -273,7 +273,7 @@ recipes.forEach((recipe) => {
   recipe.type = inferRecipeType(recipe);
 });
 
-const categories = ["Tüm Tarifler", ...new Set(recipes.map((recipe) => recipe.type))];
+const orderedRecipeTypes = ["Ana yemek", "Salata", "Çorba", "Kahvaltı", "Aperatif", "Tatlı"];`r`nconst categories = ["Tüm Tarifler", ...orderedRecipeTypes.filter((type) => recipes.some((recipe) => recipe.type === type))];
 
 let selectedCategory = "Tüm Tarifler";
 let selectedRecipe = recipes[0];
@@ -444,6 +444,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 renderApp();
+
 
 
 
