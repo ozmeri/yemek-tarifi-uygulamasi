@@ -244,35 +244,29 @@ function inferRecipeType(recipe) {
     .toLocaleLowerCase("tr-TR");
 
   const hasAny = (words) => words.some((item) => text.includes(item));
-  const breakfastMatch = hasAny(["kahvalti", "kahvaltı", "omlet", "tost", "yumurta", "menemen", "yulaf", "labne", "peynir"]);
-  const soupMatch = hasAny(["corba", "çorba", "soup"]);
-  const saladMatch = hasAny(["salata", "roka", "semizotu", "marul", "yesillik"]);
-  const dessertMatch = hasAny(["tatli", "tatlı", "muhallebi", "kup", "kurabiye", "kek", "puding", "brownie", "cheesecake", "topları", "toplari"]);
-  const snackMatch = hasAny(["wrap", "sandvic", "sandviç", "atistirmalik", "aperatif", "ara öğün", "ara ogun", "smoothie", "bar"]);
-  const mainMealMatch = hasAny(["tavuk", "hindi", "somon", "balik", "kiyma", "köfte", "kofte", "sote", "firin", "fırın", "pilav", "makarna", "izgara", "ana yemek", "et"]);
+  const breakfastWords = ["kahvalti", "kahvaltı", "omlet", "tost", "yumurta", "menemen", "yulaf", "labne", "peynir", "avokado", "pankek", "bowl"];
+  const soupWords = ["corba", "çorba", "soup"];
+  const saladWords = ["salata", "roka", "semizotu", "marul", "yesillik"];
+  const dessertWords = ["tatli", "tatlı", "muhallebi", "kup", "kurabiye", "kek", "puding", "brownie", "cheesecake", "topları", "toplari"];
+  const snackWords = ["atistirmalik", "aperatif", "ara öğün", "ara ogun", "smoothie", "bar"];
+  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "köfte", "kofte", "sote", "firin", "fırın", "pilav", "makarna", "izgara", "ana yemek", "et"];
 
-  if (breakfastMatch && !mainMealMatch && !saladMatch && !soupMatch) {
-    return "Kahvaltı";
-  }
-  if (soupMatch) {
-    return "Çorba";
-  }
-  if (saladMatch) {
-    return "Salata";
-  }
-  if (dessertMatch && !breakfastMatch) {
-    return "Tatlı";
-  }
-  if (snackMatch) {
-    return "Aperatif";
-  }
-  if (mainMealMatch || recipe.protein >= 18 || recipe.calories >= 340) {
-    return "Ana yemek";
-  }
-  if (recipe.calories <= 220) {
-    return "Aperatif";
-  }
-  return "Ana yemek";
+  const breakfastMatch = hasAny(breakfastWords);
+  const soupMatch = hasAny(soupWords);
+  const saladMatch = hasAny(saladWords);
+  const dessertMatch = hasAny(dessertWords);
+  const snackMatch = hasAny(snackWords);
+  const mainMealMatch = hasAny(mainMealWords);
+
+  if (soupMatch) return "Çorba";
+  if (saladMatch && !breakfastMatch) return "Salata";
+  if (dessertMatch && !breakfastMatch) return "Tatlı";
+  if (breakfastMatch && !mainMealMatch && !saladMatch && !soupMatch && !dessertMatch) return "Kahvaltı";
+  if (snackMatch || (recipe.calories <= 220 && recipe.protein <= 12 && !breakfastMatch && !saladMatch && !soupMatch && !dessertMatch)) return "Aperatif";
+  if (mainMealMatch) return "Ana yemek";
+  if (breakfastMatch) return "Kahvaltı";
+  if (recipe.protein >= 22 || recipe.calories >= 360) return "Ana yemek";
+  return "Aperatif";
 }
 
 recipes.forEach((recipe) => {
@@ -450,6 +444,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 renderApp();
+
 
 
 
