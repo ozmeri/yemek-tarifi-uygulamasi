@@ -3039,3 +3039,30 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.recipe-group-grid {
+  grid-template-columns: 1fr;
+}
+
+.recipe-card {
+  min-height: 142px;
+  padding: 16px 18px;
+}
+
+.recipe-card h3 {
+  max-width: 88%;
+}
+
+.recipe-card p {
+  max-width: 92%;
+}
+
+.recipe-meta {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+  .recipe-card {
+    min-height: 154px;
+  }
+}
