@@ -442,18 +442,56 @@ function uniqueRecipesByName(recipes = []) {
   });
 }
 
+function hasRecipeKeyword(text, words) {
+  return words.some((item) => text.includes(item));
+}
+
+function isSoupRecipe(food) {
+  const text = getRecipeSearchText(food);
+  return hasRecipeKeyword(text, ["corba", "çorba", "soup"]);
+}
+
+function isSaladRecipe(food) {
+  const text = getRecipeSearchText(food);
+  return hasRecipeKeyword(text, ["salata", "roka", "semizotu", "marul", "yesillik"]);
+}
+
+function isDessertRecipe(food) {
+  const text = getRecipeSearchText(food);
+  return hasRecipeKeyword(text, ["tatli", "tatlı", "muhallebi", "kup", "kek", "kurabiye", "puding", "brownie", "cheesecake"]);
+}
+
 function isBreakfastRecipe(food) {
   const text = getRecipeSearchText(food);
   const breakfastWords = ["yumurta", "omlet", "peynir", "lor", "yogurt", "yulaf", "kahvalti", "tost", "pankek", "labne", "avokado"];
-  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "pilav", "corba", "makarna"];
-  return breakfastWords.some((item) => text.includes(item))
-    && !mainMealWords.some((item) => text.includes(item));
+  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "pilav", "makarna", "et"];
+  return hasRecipeKeyword(text, breakfastWords)
+    && !hasRecipeKeyword(text, mainMealWords)
+    && !isSoupRecipe(food)
+    && !isSaladRecipe(food);
 }
 
 function isSnackRecipe(food) {
   const text = getRecipeSearchText(food);
-  return ["yogurt", "kase", "salata", "roka", "semizotu", "corba", "smoothie"].some((item) => text.includes(item))
-    || food.calories <= 320;
+  const snackWords = ["ara öğün", "ara ogun", "atistirmalik", "aperatif", "smoothie", "bar", "top", "kup"];
+  return hasRecipeKeyword(text, snackWords)
+    || (food.calories <= 220
+      && food.protein <= 12
+      && !isBreakfastRecipe(food)
+      && !isSoupRecipe(food)
+      && !isSaladRecipe(food)
+      && !isDessertRecipe(food));
+}
+
+function isMainMealRecipe(food) {
+  const text = getRecipeSearchText(food);
+  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "fırın", "pilav", "makarna", "izgara", "ana yemek", "et"];
+  return !isBreakfastRecipe(food)
+    && !isSnackRecipe(food)
+    && !isSaladRecipe(food)
+    && !isDessertRecipe(food)
+    && !isSoupRecipe(food)
+    && (hasRecipeKeyword(text, mainMealWords) || food.protein >= 18 || food.calories >= 340);
 }
 
 function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
@@ -743,7 +781,7 @@ function buildDailyMealPlan(recommendations = []) {
   const mealDefinitions = [
     { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: breakfastPool, offset: 0, kind: "meal" },
     { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah sonrası küçük ve hafif atıştırmalık", pool: snackPool, fallback: snackPool, offset: 2, kind: "snack" },
-    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: mainMealPool, fallback: safePool, offset: 4, kind: "meal" },
+    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: lunchPool, fallback: mainMealPool, offset: 4, kind: "meal" },
     { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını bastıran hafif seçenek", pool: snackPool, fallback: snackPool, offset: 6, kind: "snack" },
     { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 8, kind: "meal" },
     { key: "snack-3", label: "Ara öğün", time: "21:30", helper: "Geceyi ağırlaştırmayan küçük kapanış", pool: snackPool, fallback: snackPool, offset: 10, kind: "snack" }
@@ -957,6 +995,7 @@ if (!profile) {
     window.location.href = "index.html";
   });
 }
+
 
 
 
