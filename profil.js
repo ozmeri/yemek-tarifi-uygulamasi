@@ -194,53 +194,107 @@ function foodMetaTokens(food) {
   );
 }
 
+function expandRestrictionTokens(tokens, groups) {
+  const aliases = {
+    dairy: ['dairy', 'sut', 'laktoz', 'yogurt', 'ayran', 'kefir', 'peynir'],
+    laktoz: ['laktoz', 'dairy', 'sut', 'yogurt', 'ayran', 'kefir', 'peynir'],
+    egg: ['egg', 'yumurta'],
+    yumurta: ['yumurta', 'egg'],
+    fish: ['fish', 'balik', 'somon', 'ton'],
+    balik: ['balik', 'fish', 'somon', 'ton'],
+    nuts: ['nuts', 'kuruyemis', 'badem', 'ceviz', 'fistik'],
+    kuruyemis: ['kuruyemis', 'nuts', 'badem', 'ceviz', 'fistik'],
+    peanut: ['peanut', 'fistik'],
+    gluten: ['gluten', 'bugday', 'lavas', 'ekmek', 'makarna'],
+    soy: ['soy', 'soya'],
+    sesame: ['sesame', 'susam'],
+    tomato: ['tomato', 'domates'],
+    strawberry: ['strawberry', 'cilek'],
+    cocoa: ['cocoa', 'kakao'],
+    honey: ['honey', 'bal'],
+    corn: ['corn', 'misir'],
+    legume: ['legume', 'baklagil', 'nohut', 'mercimek', 'fasulye'],
+    hypertension: ['hypertension', 'hipertansiyon', 'tansiyon'],
+    reflux: ['reflux', 'reflu'],
+    gastritis: ['gastritis', 'gastrit'],
+    ulcer: ['ulcer', 'ulser'],
+    ibs: ['ibs', 'bagirsak'],
+    celiac: ['celiac', 'colyak', 'gluten'],
+    gout: ['gout', 'gut'],
+    cholesterol: ['cholesterol', 'kolesterol'],
+    vegetarian: ['vegetarian', 'vejetaryen'],
+    vejetaryen: ['vejetaryen', 'vegetarian'],
+    vegan: ['vegan'],
+    'no-red-meat': ['no-red-meat', 'kirmizi', 'et', 'dana'],
+    'no-chicken': ['no-chicken', 'tavuk', 'hindi'],
+    'no-fish': ['no-fish', 'fish', 'balik', 'somon', 'ton']
+  };
+
+  const expanded = new Set(tokens);
+  [...tokens].forEach((token) => {
+    (aliases[token] || []).forEach((item) => expanded.add(item));
+  });
+
+  groups.forEach((group) => group.forEach((item) => expanded.add(item)));
+  return expanded;
+}
+
 function hasProfileConflict(food) {
   if (!profile || !food) return false;
 
   const text = recipeSearchText(food);
   const metaTokens = foodMetaTokens(food);
-  const allergies = profileTokenSet(profile.allergies, profile.allergiesOther);
-  const conditions = profileTokenSet(profile.conditions, profile.conditionsOther);
-  const diet = profileTokenSet(profile.diet, profile.dietOther);
+  const allergyTokens = expandRestrictionTokens(profileTokenSet(profile.allergies, profile.allergiesOther), []);
+  const conditionTokens = expandRestrictionTokens(profileTokenSet(profile.conditions, profile.conditionsOther), []);
+  const dietTokens = expandRestrictionTokens(profileTokenSet(profile.diet, profile.dietOther), []);
 
   const matchesTokens = (tokens) => [...tokens].some((token) => text.includes(token) || metaTokens.has(token));
 
   if (hasUserBlockedFood(food, profile.dietOther)) return true;
-  if (matchesTokens(allergies)) return true;
+  if (matchesTokens(allergyTokens)) return true;
+  if (food.avoidFor && matchesTokens(conditionTokens)) return true;
 
-  if ((allergies.has('sut') || allergies.has('laktoz') || diet.has('laktoz')) && (food.hasDairy || matchesTokens(new Set(['sut', 'laktoz', 'yogurt', 'ayran', 'kefir', 'peynir'])))) {
+  if ((conditionTokens.has('reflux') || conditionTokens.has('reflu') || conditionTokens.has('gastritis') || conditionTokens.has('gastrit') || conditionTokens.has('ulcer') || conditionTokens.has('ulser')) && food.acidicOption) {
     return true;
   }
 
-  if ((allergies.has('kuruyemis') || allergies.has('badem') || allergies.has('ceviz') || allergies.has('fistik')) && (food.hasNuts || matchesTokens(new Set(['kuruyemis', 'badem', 'ceviz', 'fistik'])))) {
+  if ((conditionTokens.has('hypertension') || conditionTokens.has('hipertansiyon')) && food.highSodium) {
     return true;
   }
 
-  if ((allergies.has('yumurta') || allergies.has('egg')) && matchesTokens(new Set(['yumurta', 'egg']))) {
+  if ((allergyTokens.has('dairy') || allergyTokens.has('sut') || allergyTokens.has('laktoz') || dietTokens.has('laktoz')) && (food.hasDairy || matchesTokens(new Set(['dairy', 'sut', 'laktoz', 'yogurt', 'ayran', 'kefir', 'peynir'])))) {
     return true;
   }
 
-  if ((allergies.has('balik') || allergies.has('somon') || allergies.has('ton')) && matchesTokens(new Set(['balik', 'somon', 'ton']))) {
+  if ((allergyTokens.has('nuts') || allergyTokens.has('kuruyemis') || allergyTokens.has('badem') || allergyTokens.has('ceviz') || allergyTokens.has('fistik')) && (food.hasNuts || matchesTokens(new Set(['nuts', 'kuruyemis', 'badem', 'ceviz', 'fistik'])))) {
     return true;
   }
 
-  if (conditions.has('hipertansiyon') && food.highSodium) {
+  if ((allergyTokens.has('egg') || allergyTokens.has('yumurta')) && matchesTokens(new Set(['egg', 'yumurta']))) {
     return true;
   }
 
-  if ((conditions.has('reflu') || conditions.has('gastrit') || conditions.has('ulser')) && food.acidicOption) {
+  if ((allergyTokens.has('fish') || allergyTokens.has('balik') || allergyTokens.has('somon') || allergyTokens.has('ton')) && matchesTokens(new Set(['fish', 'balik', 'somon', 'ton']))) {
     return true;
   }
 
-  if (food.avoidFor && matchesTokens(conditions)) {
+  if (dietTokens.has('vegan') && !food.vegan && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton', 'yumurta', 'sut', 'yogurt', 'peynir', 'ayran', 'kefir']))) {
     return true;
   }
 
-  if (diet.has('vegan') && !food.vegan && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton', 'yumurta', 'sut', 'yogurt', 'peynir', 'ayran', 'kefir']))) {
+  if ((dietTokens.has('vegetarian') || dietTokens.has('vejetaryen')) && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton']))) {
     return true;
   }
 
-  if (diet.has('vejetaryen') && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton']))) {
+  if (dietTokens.has('no-chicken') && matchesTokens(new Set(['tavuk', 'hindi']))) {
+    return true;
+  }
+
+  if (dietTokens.has('no-fish') && matchesTokens(new Set(['balik', 'somon', 'ton']))) {
+    return true;
+  }
+
+  if (dietTokens.has('no-red-meat') && matchesTokens(new Set(['kirmizi', 'dana', 'et', 'kiyma']))) {
     return true;
   }
 
@@ -1063,6 +1117,7 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
 
 
 
