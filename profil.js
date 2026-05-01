@@ -614,7 +614,7 @@ function isMainMealRecipe(food) {
 
 function pickRotatingRecipe(pool, seed, usedNames, fallbackPool = []) {
   const uniquePool = uniqueRecipesByName([...pool, ...fallbackPool]);
-  const freshPool = uniquePool.filter((food) => !usedNames.has(food.name));
+  const freshPool = uniquePool.filter((food) => !usedNames.has(canonicalRecipeName(food.name)));
   const targetPool = freshPool.length ? freshPool : uniquePool;
   if (!targetPool.length) return null;
   const choice = targetPool[((seed % targetPool.length) + targetPool.length) % targetPool.length];
@@ -1117,6 +1117,8 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
+
 
 
 

@@ -164,7 +164,7 @@
     const proteinValue = category.baseProtein + (index % 13);
     const carbsValue = lowCarb ? 10 + (index % 18) : 18 + (index % 45);
     const fat = 7 + (index % 24);
-    const name = `${protein.label} ${cap(vegetableA)} ${method} ${index + 1}`;
+    const name = `${protein.label} ${cap(vegetableA)} ${cap(vegetableB)} ${method}`.replace(/\s+/g, " ").trim();
     const ingredients = unique([
       protein.name,
       vegetableA,
@@ -200,8 +200,24 @@
     };
   }
 
-  const catalog = Array.from({ length: 2000 }, (_, index) => makeRecipe(index));
+  function normalizeRecipeName(value) {
+  return String(value || "")
+    .toLocaleLowerCase("tr-TR")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const rawCatalog = Array.from({ length: 2000 }, (_, index) => makeRecipe(index));
+const seenNames = new Set();
+const catalog = rawCatalog.filter((recipe) => {
+  const key = normalizeRecipeName(recipe.name);
+  if (seenNames.has(key)) return false;
+  seenNames.add(key);
+  return true;
+});
 
   window.fitRecipeCatalog = catalog;
 })();
+
+
 
