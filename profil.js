@@ -985,7 +985,8 @@ if (!profile) {
     window.location.href = "uyelik.html";
   });
 
-  document.querySelector("#logout").addEventListener("click", async () => {
+  const handleSecureLogout = async (event) => {
+    event?.preventDefault();
     if (window.fitFirebase?.enabled) {
       await window.fitFirebase.signOut();
     }
@@ -993,8 +994,12 @@ if (!profile) {
     localStorage.removeItem("fitTariflerProfile");
     localStorage.removeItem("fitTariflerWeeklyChange");
     window.location.href = "index.html";
-  });
+  };
+
+  document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
+  document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
 
 
 
