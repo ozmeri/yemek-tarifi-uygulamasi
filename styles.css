@@ -3066,3 +3066,54 @@ body {
     min-height: 154px;
   }
 }
+
+.recipe-card {
+  min-height: 118px;
+  padding: 13px 15px;
+  border-radius: 18px;
+}
+
+.recipe-card h3 {
+  font-size: 0.96rem;
+  margin: 10px 0 5px;
+}
+
+.recipe-card p {
+  font-size: 0.74rem;
+  line-height: 1.38;
+}
+
+.recipe-tags .pill,
+.recipe-meta .pill,
+.recipe-meta span {
+  font-size: 0.72rem;
+}
+
+.recipe-card {
+  min-height: 98px;
+  padding: 11px 13px;
+  border-radius: 16px;
+}
+
+.recipe-card h3 {
+  font-size: 0.88rem;
+  margin: 8px 0 4px;
+  line-height: 1.08;
+}
+
+.recipe-card p {
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
+
+.recipe-tags,
+.recipe-meta {
+  gap: 5px;
+}
+
+.recipe-tags .pill,
+.recipe-meta .pill,
+.recipe-meta span {
+  font-size: 0.68rem;
+  padding: 4px 8px;
+}
