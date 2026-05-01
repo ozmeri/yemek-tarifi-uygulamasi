@@ -2848,3 +2848,45 @@ h2 {
   padding: 0 16px;
   font-size: 0.76rem;
 }
+
+.recipe-toolbar {
+  gap: 6px;
+  padding: 6px 8px;
+  margin: 6px 0 10px;
+  border-radius: 14px;
+}
+
+.recipe-search-panel,
+.recipe-filter-panel {
+  gap: 5px;
+}
+
+.toolbar-head h3 {
+  margin: 0;
+  font-size: 0.76rem;
+}
+
+.eyebrow.compact,
+.toolbar-help,
+.results-helper {
+  font-size: 0.56rem;
+  line-height: 1.08;
+}
+
+#search {
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 0.72rem;
+  border-radius: 12px;
+}
+
+#active-category-label {
+  padding: 4px 8px;
+  font-size: 0.6rem;
+}
+
+.filter-button {
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 0.68rem;
+}
