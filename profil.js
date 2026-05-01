@@ -151,7 +151,7 @@ function renderRecipeDetail(food) {
 
 function showRecipeDetail(foodName) {
   const food = [...generatedDailyMeals, ...generatedPantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
-  if (!food || hasUserBlockedFood(food, profile.dietOther)) return;
+  if (!food || hasProfileConflict(food)) return;
   document.querySelector("#recipe-detail-pane").innerHTML = renderRecipeDetail(food);
 }
 
@@ -181,6 +181,70 @@ function hasUserBlockedFood(food, dietOther) {
   if (!blockedFoods.length) return false;
   const text = recipeSearchText(food);
   return blockedFoods.some((word) => text.includes(word));
+}
+
+function foodMetaTokens(food) {
+  return profileTokenSet(
+    food?.allergens || [],
+    food?.avoidFor || [],
+    food?.tags || [],
+    food?.keywords || [],
+    food?.ingredients || [],
+    recipeDetails[food?.name]?.ingredients || []
+  );
+}
+
+function hasProfileConflict(food) {
+  if (!profile || !food) return false;
+
+  const text = recipeSearchText(food);
+  const metaTokens = foodMetaTokens(food);
+  const allergies = profileTokenSet(profile.allergies, profile.allergiesOther);
+  const conditions = profileTokenSet(profile.conditions, profile.conditionsOther);
+  const diet = profileTokenSet(profile.diet, profile.dietOther);
+
+  const matchesTokens = (tokens) => [...tokens].some((token) => text.includes(token) || metaTokens.has(token));
+
+  if (hasUserBlockedFood(food, profile.dietOther)) return true;
+  if (matchesTokens(allergies)) return true;
+
+  if ((allergies.has('sut') || allergies.has('laktoz') || diet.has('laktoz')) && (food.hasDairy || matchesTokens(new Set(['sut', 'laktoz', 'yogurt', 'ayran', 'kefir', 'peynir'])))) {
+    return true;
+  }
+
+  if ((allergies.has('kuruyemis') || allergies.has('badem') || allergies.has('ceviz') || allergies.has('fistik')) && (food.hasNuts || matchesTokens(new Set(['kuruyemis', 'badem', 'ceviz', 'fistik'])))) {
+    return true;
+  }
+
+  if ((allergies.has('yumurta') || allergies.has('egg')) && matchesTokens(new Set(['yumurta', 'egg']))) {
+    return true;
+  }
+
+  if ((allergies.has('balik') || allergies.has('somon') || allergies.has('ton')) && matchesTokens(new Set(['balik', 'somon', 'ton']))) {
+    return true;
+  }
+
+  if (conditions.has('hipertansiyon') && food.highSodium) {
+    return true;
+  }
+
+  if ((conditions.has('reflu') || conditions.has('gastrit') || conditions.has('ulser')) && food.acidicOption) {
+    return true;
+  }
+
+  if (food.avoidFor && matchesTokens(conditions)) {
+    return true;
+  }
+
+  if (diet.has('vegan') && !food.vegan && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton', 'yumurta', 'sut', 'yogurt', 'peynir', 'ayran', 'kefir']))) {
+    return true;
+  }
+
+  if (diet.has('vejetaryen') && matchesTokens(new Set(['tavuk', 'hindi', 'kiyma', 'et', 'balik', 'somon', 'ton']))) {
+    return true;
+  }
+
+  return false;
 }
 
 function parsePantryInput(input) {
@@ -325,7 +389,7 @@ function getRecipeCoreTerms(food) {
 
 function findPantryRecipe(available) {
   const normalizedAvailable = available.map(normalizeText);
-  const recipes = [...pantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...catalogRecipes];
+  const recipes = [...pantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...catalogRecipes].filter((food) => !hasProfileConflict(food));
   const scored = recipes
     .map((food) => {
       const coreTerms = getRecipeCoreTerms(food);
@@ -742,7 +806,7 @@ function buildSnackOptions() {
   ];
 
   return snacks
-    .filter((snack) => !hasUserBlockedFood(snack, profile.dietOther))
+    .filter((snack) => !hasProfileConflict(snack))
     .filter((snack) => {
       if ((preferences.allergies.has("sut") || preferences.allergies.has("laktoz") || preferences.diet.has("laktoz")) && snack.hasDairy) {
         return false;
@@ -764,7 +828,7 @@ function buildSnackOptions() {
 function buildDailyMealPlan(recommendations = []) {
   const safePool = uniqueRecipesByName([
     ...recommendations,
-    ...catalogRecipes.filter((food) => !hasUserBlockedFood(food, profile.dietOther))
+    ...catalogRecipes.filter((food) => !hasProfileConflict(food))
   ]);
 
   if (!safePool.length) return [];
@@ -827,7 +891,7 @@ if (!profile) {
   `;
 } else {
   const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
-  profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasUserBlockedFood(food, profile.dietOther));
+  profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasProfileConflict(food));
   const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
   generatedDailyMeals = dailyMealPlan.map((item) => item.recipe);
 
@@ -999,6 +1063,7 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
+
 
 
 
