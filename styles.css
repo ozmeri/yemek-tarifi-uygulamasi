@@ -2914,3 +2914,26 @@ body {
     width: calc(100% - 20px);
   }
 }
+
+body {
+  padding-top: 0 !important;
+}
+
+.app-shell {
+  padding-top: 18px !important;
+}
+
+.site-nav {
+  position: sticky !important;
+  top: 10px !important;
+  left: auto !important;
+  transform: none !important;
+  width: auto !important;
+  z-index: 120 !important;
+}
+
+@media (max-width: 680px) {
+  .site-nav {
+    top: 8px !important;
+  }
+}
