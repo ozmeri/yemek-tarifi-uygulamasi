@@ -2890,3 +2890,27 @@ h2 {
   padding: 0 12px;
   font-size: 0.68rem;
 }
+
+body {
+  padding-top: 86px;
+}
+
+.site-nav {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 32px, 1460px);
+  z-index: 100;
+}
+
+@media (max-width: 680px) {
+  body {
+    padding-top: 74px;
+  }
+
+  .site-nav {
+    top: 8px;
+    width: calc(100% - 20px);
+  }
+}
