@@ -2967,3 +2967,32 @@ body {
     width: calc(100% - 16px) !important;
   }
 }
+
+body {
+  padding-top: 0 !important;
+}
+
+.app-shell {
+  padding-top: 22px !important;
+}
+
+.site-nav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  width: auto !important;
+  margin-bottom: 18px !important;
+  z-index: auto !important;
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    padding-top: 12px !important;
+  }
+
+  .site-nav {
+    margin-bottom: 14px !important;
+  }
+}
