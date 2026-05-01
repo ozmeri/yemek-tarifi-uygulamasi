@@ -2996,3 +2996,46 @@ body {
     margin-bottom: 14px !important;
   }
 }
+
+.refined-content-grid {
+  grid-template-columns: minmax(0, 1.28fr) minmax(340px, 0.72fr);
+  gap: 18px;
+}
+
+.recipe-group-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.recipe-card {
+  min-height: 168px;
+  padding: 16px;
+}
+
+.recipe-card h3 {
+  font-size: 1.05rem;
+  line-height: 1.12;
+  margin: 12px 0 7px;
+}
+
+.recipe-card p {
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.recipe-meta {
+  gap: 6px;
+}
+
+@media (max-width: 1180px) {
+  .recipe-group-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .refined-content-grid,
+  .recipe-group-grid {
+    grid-template-columns: 1fr;
+  }
+}
