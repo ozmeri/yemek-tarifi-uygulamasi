@@ -203,7 +203,7 @@ async function finishWizard() {
   const allergies = normalizeArray(profileDraft.allergies);
   const conditions = normalizeArray(profileDraft.conditions);
   const diet = normalizeArray(profileDraft.diet);
-  const profile = { ...profileDraft, memberName: member.fullName, email: member.email, allergies, conditions, diet };
+  const profile = { ...profileDraft, memberName: member.fullName, email: member.email, allergies, conditions, diet, startingWeight: Number(profileDraft.weight) || null };
   profile.bmi = calculateBmi(profile.weight, profile.height);
   profile.calorieTarget = estimateCalories(profile.weight, profile.height, profile.age, profile.goal, profile.activity);
 
@@ -261,6 +261,7 @@ if (sessionStorage.getItem("startProfileWizard") === "1" && getMember()) {
   wizardForm.classList.remove("hidden");
   showWizard();
 }
+
 
 
 

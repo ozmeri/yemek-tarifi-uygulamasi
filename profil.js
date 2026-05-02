@@ -1,5 +1,9 @@
 ﻿const profilePage = document.querySelector("#profile-page");
 const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
+if (profile && (profile.startingWeight === undefined || profile.startingWeight === null || profile.startingWeight === "")) {
+  profile.startingWeight = Number(profile.weight) || null;
+  localStorage.setItem("fitTariflerProfile", JSON.stringify(profile));
+}
 let catalogRecipes = window.fitDefaultRecipes || window.fitRecipeCatalog || [];
 let generatedPantryRecipes = [];
 let generatedDailyMeals = [];
@@ -1061,7 +1065,9 @@ if (!profile) {
           <p>${profile.email}</p>
           <p>Yaş: ${profile.age || "-"}</p>
           <p>Boy: ${profile.height || "-"} cm</p>
-          <p>Kilo: ${profile.weight || "-"} kg</p>
+          <p>Başlangıç kilosu: ${profile.startingWeight || profile.weight || "-"} kg</p>
+          <p>Güncel kilo: ${profile.weight || "-"} kg</p>
+          <p>Kilo değişimi: ${profile.startingWeight && profile.weight ? `${(Number(profile.weight) - Number(profile.startingWeight)).toFixed(1)} kg` : "-"}</p>
         </section>
 
         <section class="profile-mini-card weekly-card">
@@ -1210,6 +1216,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 
