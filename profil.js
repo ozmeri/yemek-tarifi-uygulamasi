@@ -1040,6 +1040,11 @@ if (!profile) {
             <span>Aktivite: ${labelActivity(profile.activity)}</span>
             <span>Tarih: ${getTodayLabel()}</span>
           </div>
+          <div class="profile-actions hero-actions">
+            <a class="secondary-link full-width" href="tarifler.html">Tüm tarifler</a>
+            <button class="secondary-link full-width" id="new-analysis" type="button">Yeni analiz yap</button>
+            <button class="secondary-link full-width" id="pantry-button" type="button">Dolap Asistanı</button>
+          </div>
           <p class="warning-note">Kronik rahatsızlıklarınız veya alerjik reaksiyon riskleriniz olabileceği için, yemek tariflerini denemeden önce lütfen doktorunuzla ya da diyetisyeninizle görüşünüz. Bu öneriler tıbbi tavsiye yerine geçmez.</p>
         </div>
 
@@ -1095,19 +1100,13 @@ if (!profile) {
           </details>
         </section>
 
-        <section class="profile-actions">
-          <a class="secondary-link full-width" href="tarifler.html">Tüm tarifler</a>
-          <button class="secondary-link full-width" id="new-analysis" type="button">Yeni analiz yap</button>
-          <button class="secondary-link full-width" id="pantry-button" type="button">Dolap Asistanı</button>
-          <form class="pantry-form hidden" id="pantry-form">
-            <label>Dolabında neler var?
-              <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta"></textarea>
-            </label>
-            <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
-          </form>
-          <div class="pantry-result hidden" id="pantry-result"></div>
-          <button class="secondary-link full-width danger-action" id="logout" type="button">Çıkış yap</button>
-        </section>
+        <form class="pantry-form hidden profile-side-pantry" id="pantry-form">
+          <label>Dolabında neler var?
+            <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta"></textarea>
+          </label>
+          <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
+        </form>
+        <div class="pantry-result hidden profile-side-pantry-result" id="pantry-result"></div>
       </aside>
     </section>
   `;
@@ -1216,6 +1215,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 

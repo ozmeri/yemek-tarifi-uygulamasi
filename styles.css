@@ -3440,3 +3440,13 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.profile-side-pantry,
+.profile-side-pantry-result {
+  border: 1px solid rgba(231, 214, 189, 0.95);
+  border-radius: 24px;
+  background: rgba(255, 250, 240, 0.9);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
