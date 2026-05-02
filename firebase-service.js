@@ -1,6 +1,7 @@
-﻿(function () {
+(function () {
   const config = window.fitFirebaseConfig || {};
   const hasConfig = Boolean(config.apiKey && config.authDomain && config.projectId && config.appId);
+  const recipeCollectionName = "recipes";
   let auth = null;
   let db = null;
 
@@ -24,6 +25,86 @@
       firebase: true,
       createdAt: new Date().toISOString()
     };
+  }
+
+  function slugify(value = "") {
+    return value
+      .toString()
+      .trim()
+      .toLocaleLowerCase("tr-TR")
+      .replace(/ç/g, "c")
+      .replace(/ğ/g, "g")
+      .replace(/ı/g, "i")
+      .replace(/ö/g, "o")
+      .replace(/ş/g, "s")
+      .replace(/ü/g, "u")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "tarif";
+  }
+
+  function cleanList(value) {
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item || "").trim()).filter(Boolean);
+    }
+    if (typeof value === "string") {
+      return value.split(/[\n,]/).map((item) => item.trim()).filter(Boolean);
+    }
+    return [];
+  }
+
+  function asNumber(value, fallback = 0) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+  }
+
+  function normalizeRecipe(recipe = {}, providedId = "") {
+    const name = String(recipe.name || "").trim();
+    if (!name) return null;
+
+    const normalized = {
+      id: providedId || recipe.id || slugify(name),
+      name,
+      type: String(recipe.type || recipe.mealType || window.fitInferRecipeType?.(recipe) || "Ana yemek").trim(),
+      category: String(recipe.category || recipe.type || "Genel").trim(),
+      summary: String(recipe.summary || recipe.note || "").trim(),
+      calories: asNumber(recipe.calories),
+      protein: asNumber(recipe.protein),
+      carbs: asNumber(recipe.carbs),
+      fat: asNumber(recipe.fat),
+      time: asNumber(recipe.time),
+      color: String(recipe.color || "#dcebd5"),
+      ingredients: cleanList(recipe.ingredients),
+      steps: cleanList(recipe.steps),
+      tags: cleanList(recipe.tags)
+    };
+
+    normalized.searchText = [
+      normalized.name,
+      normalized.type,
+      normalized.category,
+      normalized.summary,
+      ...normalized.ingredients,
+      ...normalized.tags
+    ].join(" ").toLocaleLowerCase("tr-TR");
+
+    return normalized;
+  }
+
+  function recipePayload(recipe, includeCreatedAt = false) {
+    const payload = { ...recipe };
+    delete payload.id;
+    payload.updatedAt = window.firebase.firestore.FieldValue.serverTimestamp();
+    if (includeCreatedAt) {
+      payload.createdAt = window.firebase.firestore.FieldValue.serverTimestamp();
+    }
+    return payload;
+  }
+
+  function recipeSort(a, b) {
+    const order = window.fitOrderedRecipeTypes || [];
+    const typeDiff = order.indexOf(a.type) - order.indexOf(b.type);
+    if (typeDiff !== 0) return typeDiff;
+    return a.name.localeCompare(b.name, "tr");
   }
 
   async function createMember(email, password, fullName) {
@@ -64,6 +145,62 @@
     return data.profile || null;
   }
 
+  async function loadRecipes() {
+    if (!enabled || !db) return [];
+    const snapshot = await db.collection(recipeCollectionName).get();
+    return snapshot.docs
+      .map((doc) => normalizeRecipe(doc.data() || {}, doc.id))
+      .filter(Boolean)
+      .sort(recipeSort);
+  }
+
+  async function seedRecipes(recipesToSeed = [], options = {}) {
+    if (!enabled || !db) return [];
+    const normalizedRecipes = recipesToSeed.map((recipe) => normalizeRecipe(recipe)).filter(Boolean);
+    const uniqueById = [];
+    const seen = new Set();
+
+    normalizedRecipes.forEach((recipe) => {
+      if (!recipe.id || seen.has(recipe.id)) return;
+      seen.add(recipe.id);
+      uniqueById.push(recipe);
+    });
+
+    if (!options.force) {
+      const existing = await db.collection(recipeCollectionName).limit(1).get();
+      if (!existing.empty) return loadRecipes();
+    }
+
+    const chunkSize = 350;
+    for (let index = 0; index < uniqueById.length; index += chunkSize) {
+      const batch = db.batch();
+      uniqueById.slice(index, index + chunkSize).forEach((recipe) => {
+        const ref = db.collection(recipeCollectionName).doc(recipe.id);
+        batch.set(ref, recipePayload(recipe, true), { merge: true });
+      });
+      await batch.commit();
+    }
+
+    return loadRecipes();
+  }
+
+  async function saveRecipe(recipe) {
+    if (!enabled || !db) return null;
+    const normalized = normalizeRecipe(recipe);
+    if (!normalized) return null;
+    const ref = db.collection(recipeCollectionName).doc(normalized.id);
+    const snapshot = await ref.get();
+    await ref.set(recipePayload(normalized, !snapshot.exists), { merge: true });
+    const updated = await ref.get();
+    return normalizeRecipe(updated.data() || {}, updated.id);
+  }
+
+  async function deleteRecipe(recipeId) {
+    if (!enabled || !db || !recipeId) return false;
+    await db.collection(recipeCollectionName).doc(recipeId).delete();
+    return true;
+  }
+
   async function signOut() {
     if (!enabled || !auth.currentUser) return;
     await auth.signOut();
@@ -75,6 +212,10 @@
     signIn,
     saveProfile,
     loadProfile,
+    loadRecipes,
+    seedRecipes,
+    saveRecipe,
+    deleteRecipe,
     signOut
   };
 })();

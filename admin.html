@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Tarifler | Tarif Yönetimi</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell admin-shell">
+      <nav class="site-nav" aria-label="Site menüsü">
+        <a class="brand" href="index.html">Fit Tarifler</a>
+        <div class="nav-links">
+          <a href="tarifler.html">Tüm tarifler</a>
+          <a href="profil.html">Profil</a>
+        </div>
+      </nav>
+
+      <section class="member-results admin-hero-card">
+        <p class="eyebrow compact">Tarif yönetimi</p>
+        <h1>Firestore tarif paneli</h1>
+        <p>Buradan tarifleri veritabanına yükleyebilir, yeni tarif ekleyebilir ve mevcut kayıtları düzenleyebiliriz.</p>
+        <div class="admin-hero-actions">
+          <button class="primary-link" id="seed-recipes" type="button">Hazır tarifleri Firestore'a yükle</button>
+          <span class="soft-note" id="admin-status">Bağlantı hazırlanıyor...</span>
+        </div>
+      </section>
+
+      <section class="admin-layout">
+        <section class="member-form admin-form-card">
+          <div class="section-title admin-form-head">
+            <div>
+              <p class="eyebrow compact">Tarif formu</p>
+              <h2 id="admin-form-title">Yeni tarif ekle</h2>
+            </div>
+            <button class="secondary-link" id="reset-form" type="button">Formu temizle</button>
+          </div>
+
+          <form id="recipe-admin-form" class="admin-form-grid">
+            <input id="recipe-id" type="hidden" />
+
+            <label>Tarif adı
+              <input id="recipe-name" type="text" required />
+            </label>
+
+            <label>Yemek türü
+              <select id="recipe-type" required>
+                <option value="Ana yemek">Ana yemek</option>
+                <option value="Salata">Salata</option>
+                <option value="Çorba">Çorba</option>
+                <option value="Kahvaltı">Kahvaltı</option>
+                <option value="Aperatif">Aperatif</option>
+                <option value="Tatlı">Tatlı</option>
+              </select>
+            </label>
+
+            <label>Alt kategori
+              <input id="recipe-category" type="text" placeholder="Örnek: Yüksek Protein" />
+            </label>
+
+            <label>Hazırlama süresi (dk)
+              <input id="recipe-time" type="number" min="0" step="1" required />
+            </label>
+
+            <label>Kalori
+              <input id="recipe-calories" type="number" min="0" step="1" required />
+            </label>
+
+            <label>Protein (g)
+              <input id="recipe-protein" type="number" min="0" step="1" required />
+            </label>
+
+            <label>Karbonhidrat (g)
+              <input id="recipe-carbs" type="number" min="0" step="1" required />
+            </label>
+
+            <label>Yağ (g)
+              <input id="recipe-fat" type="number" min="0" step="1" required />
+            </label>
+
+            <label class="full-span">Özet
+              <textarea id="recipe-summary" rows="3" required></textarea>
+            </label>
+
+            <label class="full-span">Malzemeler
+              <textarea id="recipe-ingredients" rows="5" placeholder="Her satıra bir malzeme yaz"></textarea>
+            </label>
+
+            <label class="full-span">Hazırlanış
+              <textarea id="recipe-steps" rows="6" placeholder="Her satıra bir adım yaz"></textarea>
+            </label>
+
+            <label class="full-span">Etiketler
+              <input id="recipe-tags" type="text" placeholder="Virgülle ayır: kahvaltı, tok tutar, hızlı" />
+            </label>
+
+            <div class="admin-form-actions full-span">
+              <button class="primary-link" type="submit">Tarifi kaydet</button>
+              <button class="secondary-link" id="delete-recipe" type="button" disabled>Tarifi sil</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="member-results admin-list-card">
+          <div class="section-title admin-list-head">
+            <div>
+              <p class="eyebrow compact">Veritabanı listesi</p>
+              <h2>Kayıtlı tarifler</h2>
+            </div>
+            <span id="admin-count">0 tarif</span>
+          </div>
+
+          <label class="search-label" for="admin-search">Tarif ara</label>
+          <input id="admin-search" type="search" placeholder="Örnek: omlet, salata, tavuk" />
+          <div class="admin-recipe-list" id="admin-recipe-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="tarif-katalog.js"></script>
+    <script src="recipe-data.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="firebase-service.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

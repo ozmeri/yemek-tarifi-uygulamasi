@@ -1,6 +1,6 @@
-﻿const profilePage = document.querySelector("#profile-page");
+const profilePage = document.querySelector("#profile-page");
 const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
-const catalogRecipes = window.fitRecipeCatalog || [];
+let catalogRecipes = window.fitDefaultRecipes || window.fitRecipeCatalog || [];
 let generatedPantryRecipes = [];
 let generatedDailyMeals = [];
 const recipeDetails = {
@@ -943,6 +943,30 @@ function renderDailyMealCards(plan = []) {
   `).join("");
 }
 
+async function hydrateCatalogRecipes() {
+  const fallbackRecipes = window.fitDefaultRecipes || window.fitRecipeCatalog || [];
+
+  if (window.fitFirebase?.enabled && typeof window.fitFirebase.loadRecipes === "function") {
+    try {
+      let remoteRecipes = await window.fitFirebase.loadRecipes();
+      if (!remoteRecipes.length && fallbackRecipes.length && typeof window.fitFirebase.seedRecipes === "function") {
+        await window.fitFirebase.seedRecipes(fallbackRecipes);
+        remoteRecipes = await window.fitFirebase.loadRecipes();
+      }
+      if (remoteRecipes.length) {
+        catalogRecipes = remoteRecipes;
+        return;
+      }
+    } catch (error) {
+      console.error("Profil için tarifler Firestore'dan yüklenemedi, yerel katalog kullanılacak.", error);
+    }
+  }
+
+  catalogRecipes = fallbackRecipes;
+}
+
+(async function initProfilePage() {
+  await hydrateCatalogRecipes();
 if (!profile) {
   profilePage.innerHTML = `
     <div class="member-results profile-empty">
@@ -1126,40 +1150,4 @@ if (!profile) {
   document.querySelector("#logout")?.addEventListener("click", handleSecureLogout);
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})();
