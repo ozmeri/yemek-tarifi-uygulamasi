@@ -235,6 +235,7 @@
     enabled,
     createMember,
     signIn,
+    resetPassword,
     saveProfile,
     loadProfile,
     loadRecipes,
@@ -244,5 +245,6 @@
     signOut
   };
 })();
+
 
 
