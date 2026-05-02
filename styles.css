@@ -3450,3 +3450,21 @@ body {
   padding: 16px;
 }
 
+
+.nav-links button {
+  border: none;
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: transparent;
+  color: var(--muted);
+  font-family: Verdana, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.nav-links button:hover {
+  background: #203f33;
+  color: #fffdf7;
+}
+
