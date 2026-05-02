@@ -2,34 +2,34 @@
   const baseRecipes = [
     {
       name: "Protein Omlet Bowl",
-      category: "Yüksek Protein",
+      category: "YÃƒÆ’Ã‚Â¼ksek Protein",
       calories: 420,
       protein: 36,
       carbs: 18,
       fat: 22,
       time: 12,
       color: "#dcebd5",
-      summary: "Güne tok ve dengeli başlamak için pratik omlet kasesi.",
-      ingredients: ["3 yumurta", "60 g lor peyniri", "1 avuç ıspanak", "5 cherry domates", "1 tatlı kaşığı zeytinyağı"],
-      steps: ["Ispanağı tavada hafifçe sotele.", "Yumurtayı lor peyniriyle çırp.", "Karışımı tavaya al ve kısık ateşte pişir.", "Domatesle birlikte servis et."],
-      tags: ["kahvaltı", "tok tutar", "düşük karbonhidrat"]
+      summary: "GÃƒÆ’Ã‚Â¼ne tok ve dengeli baÃƒâ€¦Ã…Â¸lamak iÃƒÆ’Ã‚Â§in pratik omlet kasesi.",
+      ingredients: ["3 yumurta", "60 g lor peyniri", "1 avuÃƒÆ’Ã‚Â§ Ãƒâ€Ã‚Â±spanak", "5 cherry domates", "1 tatlÃƒâ€Ã‚Â± kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± zeytinyaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±"],
+      steps: ["IspanaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â± tavada hafifÃƒÆ’Ã‚Â§e sotele.", "YumurtayÃƒâ€Ã‚Â± lor peyniriyle ÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±rp.", "KarÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±mÃƒâ€Ã‚Â± tavaya al ve kÃƒâ€Ã‚Â±sÃƒâ€Ã‚Â±k ateÃƒâ€¦Ã…Â¸te piÃƒâ€¦Ã…Â¸ir.", "Domatesle birlikte servis et."],
+      tags: ["kahvaltÃƒâ€Ã‚Â±", "tok tutar", "dÃƒÆ’Ã‚Â¼Ãƒâ€¦Ã…Â¸ÃƒÆ’Ã‚Â¼k karbonhidrat"]
     },
     {
-      name: "Tavuklu Kinoa Salatası",
-      category: "Yağ Yakımı",
+      name: "Tavuklu Kinoa SalatasÃƒâ€Ã‚Â±",
+      category: "YaÃƒâ€Ã…Â¸ YakÃƒâ€Ã‚Â±mÃƒâ€Ã‚Â±",
       calories: 465,
       protein: 41,
       carbs: 32,
       fat: 14,
       time: 20,
       color: "#f3cf98",
-      summary: "Öğle için doyurucu, lifli ve protein ağırlıklı bir tabak.",
-      ingredients: ["120 g ızgara tavuk", "80 g haşlanmış kinoa", "marul", "salatalık", "limonlu sos"],
-      steps: ["Sebzeleri doğra.", "Kinoayı ve tavuğu ekle.", "Limonlu sosu gezdir.", "Karıştırıp soğuk servis et."],
-      tags: ["öğlen", "meal prep", "lifli"]
+      summary: "ÃƒÆ’Ã¢â‚¬â€œÃƒâ€Ã…Â¸le iÃƒÆ’Ã‚Â§in doyurucu, lifli ve protein aÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±rlÃƒâ€Ã‚Â±klÃƒâ€Ã‚Â± bir tabak.",
+      ingredients: ["120 g Ãƒâ€Ã‚Â±zgara tavuk", "80 g haÃƒâ€¦Ã…Â¸lanmÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸ kinoa", "marul", "salatalÃƒâ€Ã‚Â±k", "limonlu sos"],
+      steps: ["Sebzeleri doÃƒâ€Ã…Â¸ra.", "KinoayÃƒâ€Ã‚Â± ve tavuÃƒâ€Ã…Â¸u ekle.", "Limonlu sosu gezdir.", "KarÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±rÃƒâ€Ã‚Â±p soÃƒâ€Ã…Â¸uk servis et."],
+      tags: ["ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸len", "meal prep", "lifli"]
     },
     {
-      name: "Somon ve Fırın Sebze",
+      name: "Somon ve FÃƒâ€Ã‚Â±rÃƒâ€Ã‚Â±n Sebze",
       category: "Akdeniz",
       calories: 510,
       protein: 38,
@@ -37,27 +37,27 @@
       fat: 28,
       time: 28,
       color: "#f1b08a",
-      summary: "Sağlıklı yağ dengesi olan, akşam için güçlü bir tabak.",
-      ingredients: ["140 g somon", "brokoli", "kabak", "havuç", "limon", "dereotu"],
-      steps: ["Sebzeleri zeytinyağı ile harmanla.", "Somonu limon ve dereotu ile tatlandır.", "Hepsini fırında pişir.", "Sıcak servis et."],
-      tags: ["omega 3", "akşam", "doyurucu"]
+      summary: "SaÃƒâ€Ã…Â¸lÃƒâ€Ã‚Â±klÃƒâ€Ã‚Â± yaÃƒâ€Ã…Â¸ dengesi olan, akÃƒâ€¦Ã…Â¸am iÃƒÆ’Ã‚Â§in gÃƒÆ’Ã‚Â¼ÃƒÆ’Ã‚Â§lÃƒÆ’Ã‚Â¼ bir tabak.",
+      ingredients: ["140 g somon", "brokoli", "kabak", "havuÃƒÆ’Ã‚Â§", "limon", "dereotu"],
+      steps: ["Sebzeleri zeytinyaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â± ile harmanla.", "Somonu limon ve dereotu ile tatlandÃƒâ€Ã‚Â±r.", "Hepsini fÃƒâ€Ã‚Â±rÃƒâ€Ã‚Â±nda piÃƒâ€¦Ã…Â¸ir.", "SÃƒâ€Ã‚Â±cak servis et."],
+      tags: ["omega 3", "akÃƒâ€¦Ã…Â¸am", "doyurucu"]
     },
     {
-      name: "Yoğurtlu Chia Kup",
-      category: "Fit Tatlı",
+      name: "YoÃƒâ€Ã…Â¸urtlu Chia Kup",
+      category: "Fit TatlÃƒâ€Ã‚Â±",
       calories: 255,
       protein: 17,
       carbs: 19,
       fat: 11,
       time: 6,
       color: "#ead7f2",
-      summary: "Tatlı krizini daha kontrollü geçirmek için hafif ara öğün.",
-      ingredients: ["200 g süzme yoğurt", "1 yemek kaşığı chia", "yarım muz", "tarçın", "1 tatlı kaşığı fıstık ezmesi"],
-      steps: ["Yoğurt ve chiayı karıştır.", "10 dakika dinlendir.", "Muz ve tarçını ekle.", "Fıstık ezmesiyle tamamla."],
-      tags: ["ara öğün", "şekersiz", "hızlı"]
+      summary: "TatlÃƒâ€Ã‚Â± krizini daha kontrollÃƒÆ’Ã‚Â¼ geÃƒÆ’Ã‚Â§irmek iÃƒÆ’Ã‚Â§in hafif ara ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸ÃƒÆ’Ã‚Â¼n.",
+      ingredients: ["200 g sÃƒÆ’Ã‚Â¼zme yoÃƒâ€Ã…Â¸urt", "1 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± chia", "yarÃƒâ€Ã‚Â±m muz", "tarÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±n", "1 tatlÃƒâ€Ã‚Â± kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± fÃƒâ€Ã‚Â±stÃƒâ€Ã‚Â±k ezmesi"],
+      steps: ["YoÃƒâ€Ã…Â¸urt ve chiayÃƒâ€Ã‚Â± karÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±r.", "10 dakika dinlendir.", "Muz ve tarÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±nÃƒâ€Ã‚Â± ekle.", "FÃƒâ€Ã‚Â±stÃƒâ€Ã‚Â±k ezmesiyle tamamla."],
+      tags: ["ara ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸ÃƒÆ’Ã‚Â¼n", "Ãƒâ€¦Ã…Â¸ekersiz", "hÃƒâ€Ã‚Â±zlÃƒâ€Ã‚Â±"]
     },
     {
-      name: "Mercimekli Sebze Çorbası",
+      name: "Mercimekli Sebze ÃƒÆ’Ã¢â‚¬Â¡orbasÃƒâ€Ã‚Â±",
       category: "Vejetaryen",
       calories: 310,
       protein: 18,
@@ -65,13 +65,13 @@
       fat: 8,
       time: 25,
       color: "#f0c37d",
-      summary: "Akşam için sıcak, ekonomik ve doyurucu bir çorba.",
-      ingredients: ["kırmızı mercimek", "havuç", "kabak", "soğan", "kimyon", "zerdeçal"],
-      steps: ["Sebzeleri doğra ve tencerede çevir.", "Mercimek ve suyu ekle.", "Baharatlarla pişir.", "Blenderdan geçirip servis et."],
-      tags: ["çorba", "ekonomik", "lifli"]
+      summary: "AkÃƒâ€¦Ã…Â¸am iÃƒÆ’Ã‚Â§in sÃƒâ€Ã‚Â±cak, ekonomik ve doyurucu bir ÃƒÆ’Ã‚Â§orba.",
+      ingredients: ["kÃƒâ€Ã‚Â±rmÃƒâ€Ã‚Â±zÃƒâ€Ã‚Â± mercimek", "havuÃƒÆ’Ã‚Â§", "kabak", "soÃƒâ€Ã…Â¸an", "kimyon", "zerdeÃƒÆ’Ã‚Â§al"],
+      steps: ["Sebzeleri doÃƒâ€Ã…Â¸ra ve tencerede ÃƒÆ’Ã‚Â§evir.", "Mercimek ve suyu ekle.", "Baharatlarla piÃƒâ€¦Ã…Â¸ir.", "Blenderdan geÃƒÆ’Ã‚Â§irip servis et."],
+      tags: ["ÃƒÆ’Ã‚Â§orba", "ekonomik", "lifli"]
     },
     {
-      name: "Hindi Fümeli Tam Buğday Wrap",
+      name: "Hindi FÃƒÆ’Ã‚Â¼meli Tam BuÃƒâ€Ã…Â¸day Wrap",
       category: "Pratik",
       calories: 390,
       protein: 33,
@@ -79,55 +79,55 @@
       fat: 13,
       time: 10,
       color: "#cfe4ee",
-      summary: "Ofiste veya dışarıda kolay taşınabilen dengeli öğün.",
-      ingredients: ["1 tam buğday lavaş", "90 g hindi füme", "light labne", "roka", "salatalık", "hardal"],
-      steps: ["Lavaşın içine labne ve hardal sür.", "Hindi ve sebzeleri yerleştir.", "Sıkıca sar.", "İki parçaya bölerek servis et."],
-      tags: ["ofis", "taşıması kolay", "hızlı"]
+      summary: "Ofiste veya dÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸arÃƒâ€Ã‚Â±da kolay taÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±nabilen dengeli ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸ÃƒÆ’Ã‚Â¼n.",
+      ingredients: ["1 tam buÃƒâ€Ã…Â¸day lavaÃƒâ€¦Ã…Â¸", "90 g hindi fÃƒÆ’Ã‚Â¼me", "light labne", "roka", "salatalÃƒâ€Ã‚Â±k", "hardal"],
+      steps: ["LavaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±n iÃƒÆ’Ã‚Â§ine labne ve hardal sÃƒÆ’Ã‚Â¼r.", "Hindi ve sebzeleri yerleÃƒâ€¦Ã…Â¸tir.", "SÃƒâ€Ã‚Â±kÃƒâ€Ã‚Â±ca sar.", "Ãƒâ€Ã‚Â°ki parÃƒÆ’Ã‚Â§aya bÃƒÆ’Ã‚Â¶lerek servis et."],
+      tags: ["ofis", "taÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±masÃƒâ€Ã‚Â± kolay", "hÃƒâ€Ã‚Â±zlÃƒâ€Ã‚Â±"]
     },
     {
-      name: "Nohutlu Ton Balığı Kasesi",
-      category: "Yüksek Protein",
+      name: "Nohutlu Ton BalÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± Kasesi",
+      category: "YÃƒÆ’Ã‚Â¼ksek Protein",
       calories: 445,
       protein: 39,
       carbs: 34,
       fat: 15,
       time: 11,
       color: "#d8e8c2",
-      summary: "Ocak açmadan hazırlanan protein ve lif dengesi yüksek kase.",
-      ingredients: ["1 kutu ton balığı", "4 yemek kaşığı haşlanmış nohut", "marul", "mısır", "limon", "maydanoz"],
-      steps: ["Nohudu sudan geçir.", "Ton balığı ve sebzeleri kaseye al.", "Limon ve maydanoz ekle.", "Karıştırıp servis et."],
-      tags: ["ocaksız", "öğlen", "lifli"]
+      summary: "Ocak aÃƒÆ’Ã‚Â§madan hazÃƒâ€Ã‚Â±rlanan protein ve lif dengesi yÃƒÆ’Ã‚Â¼ksek kase.",
+      ingredients: ["1 kutu ton balÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â±", "4 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± haÃƒâ€¦Ã…Â¸lanmÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸ nohut", "marul", "mÃƒâ€Ã‚Â±sÃƒâ€Ã‚Â±r", "limon", "maydanoz"],
+      steps: ["Nohudu sudan geÃƒÆ’Ã‚Â§ir.", "Ton balÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± ve sebzeleri kaseye al.", "Limon ve maydanoz ekle.", "KarÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±rÃƒâ€Ã‚Â±p servis et."],
+      tags: ["ocaksÃƒâ€Ã‚Â±z", "ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸len", "lifli"]
     },
     {
       name: "Kabak Spagetti Tavuklu",
-      category: "Düşük Karbonhidrat",
+      category: "DÃƒÆ’Ã‚Â¼Ãƒâ€¦Ã…Â¸ÃƒÆ’Ã‚Â¼k Karbonhidrat",
       calories: 360,
       protein: 37,
       carbs: 15,
       fat: 17,
       time: 22,
       color: "#c8e1b4",
-      summary: "Makarna hissi veren ama daha hafif bir akşam alternatifi.",
-      ingredients: ["2 kabak", "120 g tavuk göğsü", "domates sosu", "sarımsak", "fesleğen"],
-      steps: ["Kabakları ince şeritler halinde kes.", "Tavuğu tavada pişir.", "Domates sosunu ekle.", "Kabakları son 3 dakika tavaya al."],
-      tags: ["akşam", "hafif", "düşük karbonhidrat"]
+      summary: "Makarna hissi veren ama daha hafif bir akÃƒâ€¦Ã…Â¸am alternatifi.",
+      ingredients: ["2 kabak", "120 g tavuk gÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸sÃƒÆ’Ã‚Â¼", "domates sosu", "sarÃƒâ€Ã‚Â±msak", "fesleÃƒâ€Ã…Â¸en"],
+      steps: ["KabaklarÃƒâ€Ã‚Â± ince Ãƒâ€¦Ã…Â¸eritler halinde kes.", "TavuÃƒâ€Ã…Â¸u tavada piÃƒâ€¦Ã…Â¸ir.", "Domates sosunu ekle.", "KabaklarÃƒâ€Ã‚Â± son 3 dakika tavaya al."],
+      tags: ["akÃƒâ€¦Ã…Â¸am", "hafif", "dÃƒÆ’Ã‚Â¼Ãƒâ€¦Ã…Â¸ÃƒÆ’Ã‚Â¼k karbonhidrat"]
     },
     {
-      name: "Yulaflı Elma Pankek",
-      category: "Fit Tatlı",
+      name: "YulaflÃƒâ€Ã‚Â± Elma Pankek",
+      category: "Fit TatlÃƒâ€Ã‚Â±",
       calories: 335,
       protein: 19,
       carbs: 42,
       fat: 10,
       time: 18,
       color: "#f2d5a8",
-      summary: "Tatlı kahvaltı isteyenler için daha kontrollü bir seçenek.",
-      ingredients: ["1 yumurta", "4 yemek kaşığı yulaf", "yarım elma", "tarçın", "2 yemek kaşığı yoğurt"],
-      steps: ["Yulafı rondodan geçir.", "Yumurta, elma ve tarçınla karıştır.", "Tavada iki tarafını pişir.", "Yoğurtla servis et."],
-      tags: ["kahvaltı", "tatlı", "yulaf"]
+      summary: "TatlÃƒâ€Ã‚Â± kahvaltÃƒâ€Ã‚Â± isteyenler iÃƒÆ’Ã‚Â§in daha kontrollÃƒÆ’Ã‚Â¼ bir seÃƒÆ’Ã‚Â§enek.",
+      ingredients: ["1 yumurta", "4 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± yulaf", "yarÃƒâ€Ã‚Â±m elma", "tarÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±n", "2 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± yoÃƒâ€Ã…Â¸urt"],
+      steps: ["YulafÃƒâ€Ã‚Â± rondodan geÃƒÆ’Ã‚Â§ir.", "Yumurta, elma ve tarÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±nla karÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±r.", "Tavada iki tarafÃƒâ€Ã‚Â±nÃƒâ€Ã‚Â± piÃƒâ€¦Ã…Â¸ir.", "YoÃƒâ€Ã…Â¸urtla servis et."],
+      tags: ["kahvaltÃƒâ€Ã‚Â±", "tatlÃƒâ€Ã‚Â±", "yulaf"]
     },
     {
-      name: "Bulgurlu Yoğurtlu Semizotu",
+      name: "Bulgurlu YoÃƒâ€Ã…Â¸urtlu Semizotu",
       category: "Vejetaryen",
       calories: 285,
       protein: 15,
@@ -135,24 +135,24 @@
       fat: 9,
       time: 14,
       color: "#d6edc9",
-      summary: "Serin, ferah ve hafif bir öğle tabağı.",
-      ingredients: ["semizotu", "3 yemek kaşığı haşlanmış bulgur", "süzme yoğurt", "nane", "salatalık"],
-      steps: ["Semizotunu yıka ve ayıkla.", "Yoğurt, nane ve salatalığı karıştır.", "Bulguru ekle.", "Semizotu ile birleştir."],
-      tags: ["ferah", "öğlen", "vejetaryen"]
+      summary: "Serin, ferah ve hafif bir ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸le tabaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±.",
+      ingredients: ["semizotu", "3 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± haÃƒâ€¦Ã…Â¸lanmÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸ bulgur", "sÃƒÆ’Ã‚Â¼zme yoÃƒâ€Ã…Â¸urt", "nane", "salatalÃƒâ€Ã‚Â±k"],
+      steps: ["Semizotunu yÃƒâ€Ã‚Â±ka ve ayÃƒâ€Ã‚Â±kla.", "YoÃƒâ€Ã…Â¸urt, nane ve salatalÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± karÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±r.", "Bulguru ekle.", "Semizotu ile birleÃƒâ€¦Ã…Â¸tir."],
+      tags: ["ferah", "ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸len", "vejetaryen"]
     },
     {
       name: "Etli Mantar Sote",
-      category: "Yüksek Protein",
+      category: "YÃƒÆ’Ã‚Â¼ksek Protein",
       calories: 470,
       protein: 44,
       carbs: 16,
       fat: 24,
       time: 26,
       color: "#d8c6ad",
-      summary: "Protein odaklı, yanına salata ile tamamlanan doyurucu tabak.",
-      ingredients: ["130 g yağsız dana eti", "mantar", "biber", "soğan", "karabiber", "kekik"],
-      steps: ["Eti yüksek ateşte mühürle.", "Soğan ve biberi ekle.", "Mantarı ekleyip suyunu çektir.", "Baharatlarla servis et."],
-      tags: ["akşam", "kas koruma", "doyurucu"]
+      summary: "Protein odaklÃƒâ€Ã‚Â±, yanÃƒâ€Ã‚Â±na salata ile tamamlanan doyurucu tabak.",
+      ingredients: ["130 g yaÃƒâ€Ã…Â¸sÃƒâ€Ã‚Â±z dana eti", "mantar", "biber", "soÃƒâ€Ã…Â¸an", "karabiber", "kekik"],
+      steps: ["Eti yÃƒÆ’Ã‚Â¼ksek ateÃƒâ€¦Ã…Â¸te mÃƒÆ’Ã‚Â¼hÃƒÆ’Ã‚Â¼rle.", "SoÃƒâ€Ã…Â¸an ve biberi ekle.", "MantarÃƒâ€Ã‚Â± ekleyip suyunu ÃƒÆ’Ã‚Â§ektir.", "Baharatlarla servis et."],
+      tags: ["akÃƒâ€¦Ã…Â¸am", "kas koruma", "doyurucu"]
     },
     {
       name: "Avokadolu Yumurta Tostu",
@@ -163,13 +163,13 @@
       fat: 22,
       time: 13,
       color: "#cfe6bf",
-      summary: "Dengeli yağ ve protein içeren modern kahvaltı seçeneği.",
-      ingredients: ["1 dilim tam buğday ekmeği", "yarım avokado", "1 yumurta", "limon", "pul biber"],
-      steps: ["Ekmeği kızart.", "Avokadoyu limonla ez.", "Yumurtayı pişir.", "Hepsini üst üste koyup servis et."],
-      tags: ["kahvaltı", "akdeniz", "tok tutar"]
+      summary: "Dengeli yaÃƒâ€Ã…Â¸ ve protein iÃƒÆ’Ã‚Â§eren modern kahvaltÃƒâ€Ã‚Â± seÃƒÆ’Ã‚Â§eneÃƒâ€Ã…Â¸i.",
+      ingredients: ["1 dilim tam buÃƒâ€Ã…Â¸day ekmeÃƒâ€Ã…Â¸i", "yarÃƒâ€Ã‚Â±m avokado", "1 yumurta", "limon", "pul biber"],
+      steps: ["EkmeÃƒâ€Ã…Â¸i kÃƒâ€Ã‚Â±zart.", "Avokadoyu limonla ez.", "YumurtayÃƒâ€Ã‚Â± piÃƒâ€¦Ã…Â¸ir.", "Hepsini ÃƒÆ’Ã‚Â¼st ÃƒÆ’Ã‚Â¼ste koyup servis et."],
+      tags: ["kahvaltÃƒâ€Ã‚Â±", "akdeniz", "tok tutar"]
     },
     {
-      name: "Peynirli Roka Salatası",
+      name: "Peynirli Roka SalatasÃƒâ€Ã‚Â±",
       category: "Pratik",
       calories: 275,
       protein: 20,
@@ -177,68 +177,72 @@
       fat: 16,
       time: 8,
       color: "#dbe7b8",
-      summary: "Çok kısa sürede hazırlanan hafif ve keskin aromalı salata.",
-      ingredients: ["roka", "60 g beyaz peynir", "domates", "ceviz", "limon", "1 tatlı kaşığı zeytinyağı"],
-      steps: ["Rokayı yıka.", "Peynir ve domatesi ekle.", "Cevizi serp.", "Limonlu sosla karıştır."],
+      summary: "ÃƒÆ’Ã¢â‚¬Â¡ok kÃƒâ€Ã‚Â±sa sÃƒÆ’Ã‚Â¼rede hazÃƒâ€Ã‚Â±rlanan hafif ve keskin aromalÃƒâ€Ã‚Â± salata.",
+      ingredients: ["roka", "60 g beyaz peynir", "domates", "ceviz", "limon", "1 tatlÃƒâ€Ã‚Â± kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± zeytinyaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±"],
+      steps: ["RokayÃƒâ€Ã‚Â± yÃƒâ€Ã‚Â±ka.", "Peynir ve domatesi ekle.", "Cevizi serp.", "Limonlu sosla karÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±r."],
       tags: ["8 dakika", "salata", "hafif"]
     },
     {
-      name: "Karnabahar Pilavı Tavuklu",
-      category: "Düşük Karbonhidrat",
+      name: "Karnabahar PilavÃƒâ€Ã‚Â± Tavuklu",
+      category: "DÃƒÆ’Ã‚Â¼Ãƒâ€¦Ã…Â¸ÃƒÆ’Ã‚Â¼k Karbonhidrat",
       calories: 385,
       protein: 40,
       carbs: 18,
       fat: 16,
       time: 24,
       color: "#efe6c8",
-      summary: "Pilav hissini koruyup karbonhidratı azaltmak isteyenlere.",
-      ingredients: ["karnabahar", "120 g tavuk", "bezelye", "havuç", "soya sosu", "taze soğan"],
-      steps: ["Karnabaharı rondodan geçir.", "Tavuğu pişir.", "Sebzeleri ekle.", "Karnabaharı son 5 dakika tavada çevir."],
-      tags: ["düşük karbonhidrat", "akşam", "doyurucu"]
+      summary: "Pilav hissini koruyup karbonhidratÃƒâ€Ã‚Â± azaltmak isteyenlere.",
+      ingredients: ["karnabahar", "120 g tavuk", "bezelye", "havuÃƒÆ’Ã‚Â§", "soya sosu", "taze soÃƒâ€Ã…Â¸an"],
+      steps: ["KarnabaharÃƒâ€Ã‚Â± rondodan geÃƒÆ’Ã‚Â§ir.", "TavuÃƒâ€Ã…Â¸u piÃƒâ€¦Ã…Â¸ir.", "Sebzeleri ekle.", "KarnabaharÃƒâ€Ã‚Â± son 5 dakika tavada ÃƒÆ’Ã‚Â§evir."],
+      tags: ["dÃƒÆ’Ã‚Â¼Ãƒâ€¦Ã…Â¸ÃƒÆ’Ã‚Â¼k karbonhidrat", "akÃƒâ€¦Ã…Â¸am", "doyurucu"]
     },
     {
-      name: "Kakaolu Protein Topları",
-      category: "Fit Tatlı",
+      name: "Kakaolu Protein ToplarÃƒâ€Ã‚Â±",
+      category: "Fit TatlÃƒâ€Ã‚Â±",
       calories: 220,
       protein: 14,
       carbs: 21,
       fat: 9,
       time: 9,
       color: "#d6b6a8",
-      summary: "Kahve yanına kontrollü, porsiyonluk tatlı alternatifi.",
-      ingredients: ["3 yemek kaşığı yulaf", "1 yemek kaşığı kakao", "1 yemek kaşığı fıstık ezmesi", "2 yemek kaşığı yoğurt", "tarçın"],
-      steps: ["Tüm malzemeleri karıştır.", "Kıvam alana kadar yoğur.", "Küçük toplar yap.", "10 dakika buzdolabında beklet."],
-      tags: ["tatlı", "ara öğün", "porsiyon"]
+      summary: "Kahve yanÃƒâ€Ã‚Â±na kontrollÃƒÆ’Ã‚Â¼, porsiyonluk tatlÃƒâ€Ã‚Â± alternatifi.",
+      ingredients: ["3 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± yulaf", "1 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± kakao", "1 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± fÃƒâ€Ã‚Â±stÃƒâ€Ã‚Â±k ezmesi", "2 yemek kaÃƒâ€¦Ã…Â¸Ãƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± yoÃƒâ€Ã…Â¸urt", "tarÃƒÆ’Ã‚Â§Ãƒâ€Ã‚Â±n"],
+      steps: ["TÃƒÆ’Ã‚Â¼m malzemeleri karÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±r.", "KÃƒâ€Ã‚Â±vam alana kadar yoÃƒâ€Ã…Â¸ur.", "KÃƒÆ’Ã‚Â¼ÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â¼k toplar yap.", "10 dakika buzdolabÃƒâ€Ã‚Â±nda beklet."],
+      tags: ["tatlÃƒâ€Ã‚Â±", "ara ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸ÃƒÆ’Ã‚Â¼n", "porsiyon"]
     },
     {
-      name: "Hindi Köfteli Salata Tabağı",
-      category: "Yağ Yakımı",
+      name: "Hindi KÃƒÆ’Ã‚Â¶fteli Salata TabaÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±",
+      category: "YaÃƒâ€Ã…Â¸ YakÃƒâ€Ã‚Â±mÃƒâ€Ã‚Â±",
       calories: 430,
       protein: 43,
       carbs: 22,
       fat: 18,
       time: 30,
       color: "#efc0a6",
-      summary: "Antrenman sonrası için protein ağırlıklı temiz tabak.",
-      ingredients: ["140 g hindi kıyma", "marul", "kırmızı lahana", "salatalık", "yoğurtlu sos", "kimyon"],
-      steps: ["Hindi kıymayı baharatla yoğur.", "Küçük köfteler yap ve pişir.", "Sebzeleri tabağa al.", "Köfteleri ve yoğurtlu sosu ekle."],
+      summary: "Antrenman sonrasÃƒâ€Ã‚Â± iÃƒÆ’Ã‚Â§in protein aÃƒâ€Ã…Â¸Ãƒâ€Ã‚Â±rlÃƒâ€Ã‚Â±klÃƒâ€Ã‚Â± temiz tabak.",
+      ingredients: ["140 g hindi kÃƒâ€Ã‚Â±yma", "marul", "kÃƒâ€Ã‚Â±rmÃƒâ€Ã‚Â±zÃƒâ€Ã‚Â± lahana", "salatalÃƒâ€Ã‚Â±k", "yoÃƒâ€Ã…Â¸urtlu sos", "kimyon"],
+      steps: ["Hindi kÃƒâ€Ã‚Â±ymayÃƒâ€Ã‚Â± baharatla yoÃƒâ€Ã…Â¸ur.", "KÃƒÆ’Ã‚Â¼ÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â¼k kÃƒÆ’Ã‚Â¶fteler yap ve piÃƒâ€¦Ã…Â¸ir.", "Sebzeleri tabaÃƒâ€Ã…Â¸a al.", "KÃƒÆ’Ã‚Â¶fteleri ve yoÃƒâ€Ã…Â¸urtlu sosu ekle."],
       tags: ["antrenman", "protein", "salata"]
     }
   ];
 
-  const orderedRecipeTypes = ["Ana yemek", "Salata", "Çorba", "Kahvaltı", "Aperatif", "Tatlı"];
+  const orderedRecipeTypes = ["Ana yemek", "Salata", "Ã‡orba", "KahvaltÄ±", "Aperatif", "TatlÄ±"];
+
+  const recipeOverrides = {
+    "Protein Omlet Bowl": { type: "KahvaltÄ±", category: "KahvaltÄ±" }
+  };
 
   function slugify(value = "") {
     return value
       .toString()
       .trim()
       .toLocaleLowerCase("tr-TR")
-      .replace(/ç/g, "c")
-      .replace(/ğ/g, "g")
-      .replace(/ı/g, "i")
-      .replace(/ö/g, "o")
-      .replace(/ş/g, "s")
-      .replace(/ü/g, "u")
+      .replace(/ÃƒÆ’Ã‚Â§/g, "c")
+      .replace(/Ãƒâ€Ã…Â¸/g, "g")
+      .replace(/Ãƒâ€Ã‚Â±/g, "i")
+      .replace(/ÃƒÆ’Ã‚Â¶/g, "o")
+      .replace(/Ãƒâ€¦Ã…Â¸/g, "s")
+      .replace(/ÃƒÆ’Ã‚Â¼/g, "u")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "") || "tarif";
   }
@@ -246,12 +250,12 @@
   function inferRecipeType(recipe) {
     const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.ingredients || []), ...(recipe.tags || [])].join(" ").toLocaleLowerCase("tr-TR");
     const hasAny = (words) => words.some((item) => text.includes(item));
-    const breakfastWords = ["kahvaltı", "kahvalti", "omlet", "tost", "yumurta", "menemen", "yulaf", "labne", "peynir", "lor", "avokado", "pankek"];
-    const soupWords = ["çorba", "corba", "soup"];
-    const saladWords = ["salata", "roka", "semizotu", "marul", "yeşillik", "yesillik"];
-    const dessertWords = ["tatlı", "tatli", "muhallebi", "kup", "kurabiye", "kek", "puding", "brownie", "cheesecake"];
-    const snackWords = ["ara öğün", "ara ogun", "atıştırmalık", "atistirmalik", "aperatif", "smoothie", "bar", "topları", "toplari"];
-    const mainMealWords = ["tavuk", "hindi", "somon", "balık", "balik", "kıyma", "kiyma", "köfte", "kofte", "sote", "fırın", "firin", "pilav", "makarna", "ızgara", "izgara", "ana yemek", "et"];
+    const breakfastWords = ["kahvaltÃƒâ€Ã‚Â±", "kahvalti", "omlet", "tost", "yumurta", "menemen", "yulaf", "labne", "peynir", "lor", "avokado", "pankek"];
+    const soupWords = ["ÃƒÆ’Ã‚Â§orba", "corba", "soup"];
+    const saladWords = ["salata", "roka", "semizotu", "marul", "yeÃƒâ€¦Ã…Â¸illik", "yesillik"];
+    const dessertWords = ["tatlÃƒâ€Ã‚Â±", "tatli", "muhallebi", "kup", "kurabiye", "kek", "puding", "brownie", "cheesecake"];
+    const snackWords = ["ara ÃƒÆ’Ã‚Â¶Ãƒâ€Ã…Â¸ÃƒÆ’Ã‚Â¼n", "ara ogun", "atÃƒâ€Ã‚Â±Ãƒâ€¦Ã…Â¸tÃƒâ€Ã‚Â±rmalÃƒâ€Ã‚Â±k", "atistirmalik", "aperatif", "smoothie", "bar", "toplarÃƒâ€Ã‚Â±", "toplari"];
+    const mainMealWords = ["tavuk", "hindi", "somon", "balÃƒâ€Ã‚Â±k", "balik", "kÃƒâ€Ã‚Â±yma", "kiyma", "kÃƒÆ’Ã‚Â¶fte", "kofte", "sote", "fÃƒâ€Ã‚Â±rÃƒâ€Ã‚Â±n", "firin", "pilav", "makarna", "Ãƒâ€Ã‚Â±zgara", "izgara", "ana yemek", "et"];
 
     const breakfastMatch = hasAny(breakfastWords);
     const soupMatch = hasAny(soupWords);
@@ -260,13 +264,13 @@
     const snackMatch = hasAny(snackWords);
     const mainMealMatch = hasAny(mainMealWords);
 
-    if (soupMatch) return "Çorba";
+    if (soupMatch) return "ÃƒÆ’Ã¢â‚¬Â¡orba";
     if (saladMatch && !breakfastMatch) return "Salata";
-    if (dessertMatch && !breakfastMatch) return "Tatlı";
-    if (breakfastMatch && !mainMealMatch && !saladMatch && !soupMatch && !dessertMatch) return "Kahvaltı";
+    if (dessertMatch && !breakfastMatch) return "TatlÃƒâ€Ã‚Â±";
+    if (breakfastMatch && !mainMealMatch && !saladMatch && !soupMatch && !dessertMatch) return "KahvaltÃƒâ€Ã‚Â±";
     if (snackMatch || (recipe.calories <= 220 && recipe.protein <= 12 && !breakfastMatch && !saladMatch && !soupMatch && !dessertMatch)) return "Aperatif";
     if (mainMealMatch) return "Ana yemek";
-    if (breakfastMatch) return "Kahvaltı";
+    if (breakfastMatch) return "KahvaltÃƒâ€Ã‚Â±";
     if (recipe.protein >= 22 || recipe.calories >= 360) return "Ana yemek";
     return "Aperatif";
   }
@@ -300,6 +304,7 @@
     return uniqueRecipes;
   }
 
+  window.fitRecipeOverrides = recipeOverrides;
   window.fitBaseRecipes = baseRecipes;
   window.fitInferRecipeType = inferRecipeType;
   window.fitPrepareRecipeCollection = prepareRecipeCollection;
