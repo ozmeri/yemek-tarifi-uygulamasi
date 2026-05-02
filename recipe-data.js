@@ -248,7 +248,7 @@
   }
 
   function inferRecipeType(recipe) {
-    const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.ingredients || []), ...(recipe.tags || [])].join(" ").toLocaleLowerCase("tr-TR");
+    const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.tags || [])].join(" ").toLocaleLowerCase("tr-TR");
     const tags = (recipe.tags || []).map((item) => String(item).toLocaleLowerCase("tr-TR"));
     const hasAny = (words) => words.some((item) => text.includes(item));
     const hasTag = (words) => words.some((item) => tags.some((tag) => tag.includes(item)));

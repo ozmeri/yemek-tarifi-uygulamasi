@@ -32,12 +32,12 @@
       .toString()
       .trim()
       .toLocaleLowerCase("tr-TR")
-      .replace(/Ã§/g, "c")
-      .replace(/ÄŸ/g, "g")
-      .replace(/Ä±/g, "i")
-      .replace(/Ã¶/g, "o")
-      .replace(/ÅŸ/g, "s")
-      .replace(/Ã¼/g, "u")
+      .replace(/ÃƒÆ’Ã‚Â§/g, "c")
+      .replace(/Ãƒâ€Ã…Â¸/g, "g")
+      .replace(/Ãƒâ€Ã‚Â±/g, "i")
+      .replace(/ÃƒÆ’Ã‚Â¶/g, "o")
+      .replace(/Ãƒâ€¦Ã…Â¸/g, "s")
+      .replace(/ÃƒÆ’Ã‚Â¼/g, "u")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "") || "tarif";
   }
@@ -61,11 +61,13 @@
     const name = String(recipe.name || "").trim();
     if (!name) return null;
 
+    const override = window.fitRecipeOverrides?.[name] || {};
+
     const normalized = {
       id: providedId || recipe.id || slugify(name),
       name,
-      type: String(recipe.type || recipe.mealType || window.fitInferRecipeType?.(recipe) || "Ana yemek").trim(),
-      category: String(recipe.category || recipe.type || "Genel").trim(),
+      type: String(override.type || recipe.type || recipe.mealType || window.fitInferRecipeType?.({ ...recipe, ...override }) || "Ana yemek").trim(),
+      category: String(override.category || recipe.category || recipe.type || "Genel").trim(),
       summary: String(recipe.summary || recipe.note || "").trim(),
       calories: asNumber(recipe.calories),
       protein: asNumber(recipe.protein),
