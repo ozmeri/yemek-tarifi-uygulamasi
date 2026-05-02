@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const baseRecipes = [
     {
       name: "Protein Omlet Bowl",
@@ -248,6 +248,7 @@
   }
 
   function inferRecipeType(recipe) {
+    const nameText = String(recipe.name || "").toLocaleLowerCase("tr-TR");
     const text = [recipe.name, recipe.category, recipe.summary, ...(recipe.tags || [])].join(" ").toLocaleLowerCase("tr-TR");
     const tags = (recipe.tags || []).map((item) => String(item).toLocaleLowerCase("tr-TR"));
     const hasAny = (words) => words.some((item) => text.includes(item));
@@ -265,6 +266,8 @@
     if (hasTag(["\u00e7orba", "corba"])) return "\u00c7orba";
     if (hasTag(["tatl\u0131", "tatli"])) return "Tatl\u0131";
     if (hasTag(["ara \u00f6\u011f\u00fcn", "ara ogun", "aperatif", "at\u0131\u015ft\u0131rmal\u0131k", "atistirmalik"])) return "Aperatif";
+    if (nameText.includes("\u00e7orba") || nameText.includes("corba") || nameText.includes("soup")) return "\u00c7orba";
+    if (nameText.includes("kahvalt\u0131") || nameText.includes("kahvalti") || nameText.includes("omlet")) return "Kahvalt\u0131";
 
     const breakfastMatch = hasAny(breakfastWords);
     const soupMatch = hasAny(soupWords);

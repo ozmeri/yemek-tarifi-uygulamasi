@@ -1,7 +1,7 @@
-const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Aperatif", "Tatl\u0131"];
+﻿const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Aperatif", "Tatl\u0131"];
 const defaultRecipes = (window.fitDefaultRecipes || []).map((recipe) => ({ ...recipe }));
 const fallbackColors = ["#dcebd5", "#f3cf98", "#f1b08a", "#ead7f2", "#cfe4ee", "#d8e8c2"];
-const brokenTextPattern = /Ã|Å|Ä|�/;
+const brokenTextPattern = /Ãƒ|Ã…|Ã„|ï¿½/;
 
 let recipes = [];
 let categories = ["T\u00fcm Tarifler"];
@@ -54,6 +54,16 @@ function hasBrokenRecipeData(recipeList = []) {
 function isCategoryCoverageWeak(recipeList = []) {
   const normalized = recipeList.map((recipe, index) => ensureRecipeShape(recipe, index));
   return orderedRecipeTypes.some((type) => !normalized.some((recipe) => recipe.type === type));
+}
+
+function hasMisplacedCoreRecipes(recipeList = []) {
+  const normalized = recipeList.map((recipe, index) => ensureRecipeShape(recipe, index));
+  return normalized.some((recipe) => {
+    const name = String(recipe.name || "").toLocaleLowerCase("tr-TR");
+    if ((name.includes("çorba") || name.includes("corba") || name.includes("soup")) && recipe.type !== "Çorba") return true;
+    if (name.includes("protein omlet bowl") && recipe.type !== "Kahvaltı") return true;
+    return false;
+  });
 }
 
 function renderFilters() {
@@ -213,7 +223,7 @@ async function loadRecipeSource() {
   if (firebaseApi?.enabled && typeof firebaseApi.loadRecipes === "function") {
     try {
       let remoteRecipes = await firebaseApi.loadRecipes();
-      const shouldRepair = !remoteRecipes.length || hasBrokenRecipeData(remoteRecipes) || isCategoryCoverageWeak(remoteRecipes);
+      const shouldRepair = !remoteRecipes.length || hasBrokenRecipeData(remoteRecipes) || isCategoryCoverageWeak(remoteRecipes) || hasMisplacedCoreRecipes(remoteRecipes);
 
       if (shouldRepair && defaultRecipes.length && typeof firebaseApi.seedRecipes === "function") {
         showLoadingState("Tarif katalo\u011fu onar\u0131l\u0131yor. Bu i\u015flem birka\u00e7 saniye s\u00fcrebilir.");

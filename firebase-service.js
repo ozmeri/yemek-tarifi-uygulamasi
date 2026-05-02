@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const config = window.fitFirebaseConfig || {};
   const hasConfig = Boolean(config.apiKey && config.authDomain && config.projectId && config.appId);
   const recipeCollectionName = "recipes";
@@ -32,12 +32,12 @@
       .toString()
       .trim()
       .toLocaleLowerCase("tr-TR")
-      .replace(/ÃƒÆ’Ã‚Â§/g, "c")
-      .replace(/Ãƒâ€Ã…Â¸/g, "g")
-      .replace(/Ãƒâ€Ã‚Â±/g, "i")
-      .replace(/ÃƒÆ’Ã‚Â¶/g, "o")
-      .replace(/Ãƒâ€¦Ã…Â¸/g, "s")
-      .replace(/ÃƒÆ’Ã‚Â¼/g, "u")
+      .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§/g, "c")
+      .replace(/ÃƒÆ’Ã¢â‚¬ÂÃƒâ€¦Ã‚Â¸/g, "g")
+      .replace(/ÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â±/g, "i")
+      .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶/g, "o")
+      .replace(/ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€¦Ã‚Â¸/g, "s")
+      .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼/g, "u")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "") || "tarif";
   }
@@ -55,6 +55,23 @@
   function asNumber(value, fallback = 0) {
     const number = Number(value);
     return Number.isFinite(number) ? number : fallback;
+  }
+  function repairText(value = "") {
+    let text = String(value || "").trim();
+    if (!text) return "";
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      if (!/[ÃÅÄ]|â€™|â€œ|â€/.test(text)) break;
+      try {
+        text = decodeURIComponent(escape(text));
+      } catch (error) {
+        break;
+      }
+    }
+    return text.trim();
+  }
+
+  function cleanCategoryValue(value = "") {
+    return repairText(value);
   }
 
   function normalizeRecipe(recipe = {}, providedId = "") {
@@ -221,3 +238,4 @@
     signOut
   };
 })();
+
