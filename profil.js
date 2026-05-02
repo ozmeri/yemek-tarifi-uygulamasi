@@ -546,9 +546,45 @@ function getTodayLabel() {
   return new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric" }).format(new Date());
 }
 
+function calculateProfileBmi(weight, height) {
+  const safeHeight = Number(height) || 0;
+  const safeWeight = Number(weight) || 0;
+  if (!safeHeight || !safeWeight) return 0;
+  const meters = safeHeight / 100;
+  return safeWeight / (meters * meters);
+}
+
+function estimateProfileCalories(weight, height, age, goals, activity) {
+  const goalList = Array.isArray(goals) ? goals : [goals].filter(Boolean);
+  const base = 10 * (Number(weight) || 0) + 6.25 * (Number(height) || 0) - 5 * (Number(age) || 0);
+  const activityBonus = activity === "high" ? 520 : activity === "medium" ? 320 : 160;
+  let goalAdjust = 0;
+  if (goalList.includes("weight-loss")) goalAdjust -= 300;
+  if (goalList.includes("muscle")) goalAdjust += 220;
+  if (goalList.includes("low-carb")) goalAdjust -= 150;
+  return Math.round(base + activityBonus + goalAdjust);
+}
+
+function parseWeeklyWeightEntry(value, currentWeight) {
+  const text = String(value || "").trim().replace(",", ".");
+  const numeric = Number(text.replace(/[^0-9+\-.]/g, ""));
+  if (!Number.isFinite(numeric)) return null;
+  if (/^[+-]/.test(text)) {
+    const nextWeight = Number(currentWeight) + numeric;
+    return nextWeight > 0 ? Number(nextWeight.toFixed(1)) : null;
+  }
+  return numeric > 0 ? Number(numeric.toFixed(1)) : null;
+}
+
+function getWeeklySeedOffset() {
+  const weeklyValue = localStorage.getItem("fitTariflerWeeklyChange") || "";
+  return Array.from(weeklyValue).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+}
+
 function getDaySeed() {
   const now = new Date();
-  return Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+  const baseSeed = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+  return baseSeed + getWeeklySeedOffset();
 }
 
 function canonicalRecipeName(value) {
@@ -1088,13 +1124,32 @@ if (!profile) {
     document.querySelector("#weekly-form").classList.toggle("hidden");
   });
 
-  document.querySelector("#weekly-form").addEventListener("submit", (event) => {
+  document.querySelector("#weekly-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     const value = document.querySelector("#weekly-change-input").value.trim();
     if (!value) return;
+
+    const nextWeight = parseWeeklyWeightEntry(value, profile.weight);
+    if (!nextWeight) return;
+
+    profile.weight = nextWeight;
+    profile.bmi = calculateProfileBmi(profile.weight, profile.height);
+    profile.calorieTarget = estimateProfileCalories(profile.weight, profile.height, profile.age, profile.goal, profile.activity);
+
     localStorage.setItem("fitTariflerWeeklyChange", value);
+    localStorage.setItem("fitTariflerProfile", JSON.stringify(profile));
+
+    if (window.fitFirebase?.enabled && typeof window.fitFirebase.saveProfile === "function") {
+      try {
+        await window.fitFirebase.saveProfile(profile);
+      } catch (error) {
+        console.error("Haftalık takip profili kaydedilemedi.", error);
+      }
+    }
+
     document.querySelector("#weekly-change-value").textContent = value;
     document.querySelector("#weekly-form").classList.add("hidden");
+    window.location.reload();
   });
 
 
@@ -1155,4 +1210,5 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
 
