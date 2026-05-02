@@ -4,65 +4,65 @@ let catalogRecipes = window.fitDefaultRecipes || window.fitRecipeCatalog || [];
 let generatedPantryRecipes = [];
 let generatedDailyMeals = [];
 const recipeDetails = {
-  "Tavuklu Kinoa Salatası": {
-    ingredients: ["120 g izgara tavuk", "80 g haşlanmış kinoa", "Marul", "Salatalık", "Limonlu sos"],
-    steps: ["Sebzeleri doğra.", "Kinoa ve tavuğu ekle.", "Limonlu sosu gezdir.", "Karıştırıp soğuk servis et."]
+  "Tavuklu Kinoa SalatasÄ±": {
+    ingredients: ["120 g izgara tavuk", "80 g haÅŸlanmÄ±ÅŸ kinoa", "Marul", "SalatalÄ±k", "Limonlu sos"],
+    steps: ["Sebzeleri doÄŸra.", "Kinoa ve tavuÄŸu ekle.", "Limonlu sosu gezdir.", "KarÄ±ÅŸtÄ±rÄ±p soÄŸuk servis et."]
   },
   "Kabak Spagetti Tavuklu": {
-    ingredients: ["2 kabak", "120 g tavuk göğsü", "Domates sosu", "Sarımsak", "Fesleğen"],
-    steps: ["Kabaklari ince şeritler halinde kes.", "Tavuğu tavada pişir.", "Domates sosunu ekle.", "Kabaklari son 3 dakika tavaya al."]
+    ingredients: ["2 kabak", "120 g tavuk gÃ¶ÄŸsÃ¼", "Domates sosu", "SarÄ±msak", "FesleÄŸen"],
+    steps: ["Kabaklari ince ÅŸeritler halinde kes.", "TavuÄŸu tavada piÅŸir.", "Domates sosunu ekle.", "Kabaklari son 3 dakika tavaya al."]
   },
-  "Somon ve Fırın Sebze": {
-    ingredients: ["140 g somon", "Brokoli", "Kabak", "Havuç", "Limon", "Dereotu"],
-    steps: ["Sebzeleri zeytinyağı ile harmanla.", "Somonu limon ve dereotu ile tatlandır.", "Hepsini fırında pişir.", "Sıcak servis et."]
+  "Somon ve FÄ±rÄ±n Sebze": {
+    ingredients: ["140 g somon", "Brokoli", "Kabak", "HavuÃ§", "Limon", "Dereotu"],
+    steps: ["Sebzeleri zeytinyaÄŸÄ± ile harmanla.", "Somonu limon ve dereotu ile tatlandÄ±r.", "Hepsini fÄ±rÄ±nda piÅŸir.", "SÄ±cak servis et."]
   },
-  "Mercimekli Sebze Çorbasi": {
-    ingredients: ["Kırmızı mercimek", "Havuç", "Kabak", "Soğan", "Kimyon", "Zerdecal"],
-    steps: ["Sebzeleri doğra ve tencerede çevir.", "Mercimek ve su ekle.", "Baharatlarla pişir.", "Blenderdan geçir."]
+  "Mercimekli Sebze Ã‡orbasi": {
+    ingredients: ["KÄ±rmÄ±zÄ± mercimek", "HavuÃ§", "Kabak", "SoÄŸan", "Kimyon", "Zerdecal"],
+    steps: ["Sebzeleri doÄŸra ve tencerede Ã§evir.", "Mercimek ve su ekle.", "Baharatlarla piÅŸir.", "Blenderdan geÃ§ir."]
   },
-  "Nohutlu Ton Balığı Kasesi": {
-    ingredients: ["1 kutu ton balığı", "Haşlanmış nohut", "Marul", "Mısır", "Limon", "Maydanoz"],
-    steps: ["Nohudu sudan geçir.", "Ton balığı ve sebzeleri kaseye al.", "Limon ve maydanoz ekle.", "Karıştırıp servis et."]
+  "Nohutlu Ton BalÄ±ÄŸÄ± Kasesi": {
+    ingredients: ["1 kutu ton balÄ±ÄŸÄ±", "HaÅŸlanmÄ±ÅŸ nohut", "Marul", "MÄ±sÄ±r", "Limon", "Maydanoz"],
+    steps: ["Nohudu sudan geÃ§ir.", "Ton balÄ±ÄŸÄ± ve sebzeleri kaseye al.", "Limon ve maydanoz ekle.", "KarÄ±ÅŸtÄ±rÄ±p servis et."]
   },
-  "Karnabahar Pilavı Tavuklu": {
-    ingredients: ["Karnabahar", "120 g tavuk", "Bezelye", "Havuç", "Soya sosu", "Taze soğan"],
-    steps: ["Karnabaharı rondodan geçir.", "Tavuğu pişir.", "Sebzeleri ekle.", "Karnabaharı son 5 dakika tavada çevir."]
+  "Karnabahar PilavÄ± Tavuklu": {
+    ingredients: ["Karnabahar", "120 g tavuk", "Bezelye", "HavuÃ§", "Soya sosu", "Taze soÄŸan"],
+    steps: ["KarnabaharÄ± rondodan geÃ§ir.", "TavuÄŸu piÅŸir.", "Sebzeleri ekle.", "KarnabaharÄ± son 5 dakika tavada Ã§evir."]
   },
-  "Bulgurlu Yoğurtlu Semizotu": {
-    ingredients: ["Semizotu", "Haşlanmış bulgur", "Süzme yoğurt", "Nane", "Salatalık"],
-    steps: ["Semizotunu yıka ve ayıkla.", "Yoğurt, nane ve salataligi karıştır.", "Bulguru ekle.", "Semizotu ile birleştir."]
+  "Bulgurlu YoÄŸurtlu Semizotu": {
+    ingredients: ["Semizotu", "HaÅŸlanmÄ±ÅŸ bulgur", "SÃ¼zme yoÄŸurt", "Nane", "SalatalÄ±k"],
+    steps: ["Semizotunu yÄ±ka ve ayÄ±kla.", "YoÄŸurt, nane ve salataligi karÄ±ÅŸtÄ±r.", "Bulguru ekle.", "Semizotu ile birleÅŸtir."]
   },
   "Protein Omlet Bowl": {
-    ingredients: ["3 yumurta", "60 g lor peyniri", "Ispanak", "Cherry domates", "Zeytinyağı"],
-    steps: ["Ispanağı tavada hafif sotele.", "Yumurtayı lor peyniriyle çırp.", "Karışımı tavaya al ve kısık ateşte pişir.", "Domatesle servis et."]
+    ingredients: ["3 yumurta", "60 g lor peyniri", "Ispanak", "Cherry domates", "ZeytinyaÄŸÄ±"],
+    steps: ["IspanaÄŸÄ± tavada hafif sotele.", "YumurtayÄ± lor peyniriyle Ã§Ä±rp.", "KarÄ±ÅŸÄ±mÄ± tavaya al ve kÄ±sÄ±k ateÅŸte piÅŸir.", "Domatesle servis et."]
   },
-  "Peynirli Roka Salatası": {
-    ingredients: ["Roka", "60 g beyaz peynir", "Domates", "Ceviz", "Limon", "Zeytinyağı"],
-    steps: ["Rokayı yıka.", "Peynir ve domatesi ekle.", "Cevizi serp.", "Limonlu sosla karıştır."]
+  "Peynirli Roka SalatasÄ±": {
+    ingredients: ["Roka", "60 g beyaz peynir", "Domates", "Ceviz", "Limon", "ZeytinyaÄŸÄ±"],
+    steps: ["RokayÄ± yÄ±ka.", "Peynir ve domatesi ekle.", "Cevizi serp.", "Limonlu sosla karÄ±ÅŸtÄ±r."]
   },
-  "Hindi Köfteli Salata Tabağı": {
-    ingredients: ["140 g hindi kıyma", "Marul", "Kırmızı lahana", "Salatalık", "Yoğurtlu sos", "Kimyon"],
-    steps: ["Hindi kıymayı baharatla yoğur.", "Küçük köfteler yap ve pişir.", "Sebzeleri tabağa al.", "Köfteleri ve yoğurtlu sosu ekle."]
+  "Hindi KÃ¶fteli Salata TabaÄŸÄ±": {
+    ingredients: ["140 g hindi kÄ±yma", "Marul", "KÄ±rmÄ±zÄ± lahana", "SalatalÄ±k", "YoÄŸurtlu sos", "Kimyon"],
+    steps: ["Hindi kÄ±ymayÄ± baharatla yoÄŸur.", "KÃ¼Ã§Ã¼k kÃ¶fteler yap ve piÅŸir.", "Sebzeleri tabaÄŸa al.", "KÃ¶fteleri ve yoÄŸurtlu sosu ekle."]
   }
 };
 
 const pantryRecipes = [
   {
-    name: "Tavuklu Kapya Biber Havuçlu Sote",
-    note: "Dolabında tavuk, biber ve havuç varsa pratik, proteinli bir günlük tabak.",
+    name: "Tavuklu Kapya Biber HavuÃ§lu Sote",
+    note: "DolabÄ±nda tavuk, biber ve havuÃ§ varsa pratik, proteinli bir gÃ¼nlÃ¼k tabak.",
     calories: 390,
     protein: 39,
     carbs: 24,
     fat: 15,
     time: 25,
-    keywords: ["tavuk", "kapya", "biber", "havuç", "havuç", "sote"],
-    pantryCore: ["tavuk", "biber", "havuç"],
-    ingredients: ["120 g tavuk", "1 kapya biber", "1 havuç", "1 tatlı kaşığı zeytinyağı", "Karabiber", "Kekik"],
-    steps: ["Tavuğu kuşbaşı doğra ve tavada zeytinyağı ile pişir.", "Kapya biberi ve havuçu ince doğra.", "Sebzeleri tavuğa ekleyip 8-10 dakika sotele.", "Baharat ekleyip sıcak servis et."]
+    keywords: ["tavuk", "kapya", "biber", "havuÃ§", "havuÃ§", "sote"],
+    pantryCore: ["tavuk", "biber", "havuÃ§"],
+    ingredients: ["120 g tavuk", "1 kapya biber", "1 havuÃ§", "1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±", "Karabiber", "Kekik"],
+    steps: ["TavuÄŸu kuÅŸbaÅŸÄ± doÄŸra ve tavada zeytinyaÄŸÄ± ile piÅŸir.", "Kapya biberi ve havuÃ§u ince doÄŸra.", "Sebzeleri tavuÄŸa ekleyip 8-10 dakika sotele.", "Baharat ekleyip sÄ±cak servis et."]
   },
   {
-    name: "Patates Bezelye Yemeği",
-    note: "Dolabında patates ve bezelye varsa etsiz, sade ve hafif bir sebze yemeği.",
+    name: "Patates Bezelye YemeÄŸi",
+    note: "DolabÄ±nda patates ve bezelye varsa etsiz, sade ve hafif bir sebze yemeÄŸi.",
     calories: 315,
     protein: 10,
     carbs: 48,
@@ -70,67 +70,67 @@ const pantryRecipes = [
     time: 28,
     keywords: ["patates", "bezelye", "sebze", "etsiz"],
     pantryCore: ["patates", "bezelye"],
-    ingredients: ["2 küçük patates", "1 su bardagi bezelye", "1 küçük soğan", "1 tatlı kaşığı zeytinyağı", "Domates sosu", "Karabiber"],
-    steps: ["Patatesleri küp küp doğra.", "Soğanı zeytinyağında hafifçe çevir.", "Patates ve bezelyeyi ekleyip uzerini gececek kadar su koy.", "Domates sosu ve baharat ekleyip patates yumuşayana kadar pişir."]
+    ingredients: ["2 kÃ¼Ã§Ã¼k patates", "1 su bardagi bezelye", "1 kÃ¼Ã§Ã¼k soÄŸan", "1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±", "Domates sosu", "Karabiber"],
+    steps: ["Patatesleri kÃ¼p kÃ¼p doÄŸra.", "SoÄŸanÄ± zeytinyaÄŸÄ±nda hafifÃ§e Ã§evir.", "Patates ve bezelyeyi ekleyip uzerini gececek kadar su koy.", "Domates sosu ve baharat ekleyip patates yumuÅŸayana kadar piÅŸir."]
   },
   {
-    name: "Kıymalı Patlıcan Kabak Sote",
-    note: "Kıyma, patlıcan, kabak ve kapya biberle hazırlanan doyurucu bir tava yemeği.",
+    name: "KÄ±ymalÄ± PatlÄ±can Kabak Sote",
+    note: "KÄ±yma, patlÄ±can, kabak ve kapya biberle hazÄ±rlanan doyurucu bir tava yemeÄŸi.",
     calories: 455,
     protein: 34,
     carbs: 28,
     fat: 23,
     time: 32,
-    keywords: ["kıyma", "kıyma", "patlıcan", "patlıcan", "kabak", "kapya", "biber", "sote"],
-    pantryCore: ["kıyma", "patlıcan", "kabak", "biber"],
-    ingredients: ["120 g kıyma", "1 patlıcan", "1 kabak", "1 kapya biber", "1 tatlı kaşığı zeytinyağı", "Karabiber", "Kekik"],
-    steps: ["Patlıcanı, kabağı ve kapya biberi doğra.", "Kıymayı tavada suyunu çekene kadar pişir.", "Sebzeleri ekleyip kısık ateşte yumuşayana kadar sotele.", "Baharat ekleyip sıcak servis et."]
+    keywords: ["kÄ±yma", "kÄ±yma", "patlÄ±can", "patlÄ±can", "kabak", "kapya", "biber", "sote"],
+    pantryCore: ["kÄ±yma", "patlÄ±can", "kabak", "biber"],
+    ingredients: ["120 g kÄ±yma", "1 patlÄ±can", "1 kabak", "1 kapya biber", "1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±", "Karabiber", "Kekik"],
+    steps: ["PatlÄ±canÄ±, kabaÄŸÄ± ve kapya biberi doÄŸra.", "KÄ±ymayÄ± tavada suyunu Ã§ekene kadar piÅŸir.", "Sebzeleri ekleyip kÄ±sÄ±k ateÅŸte yumuÅŸayana kadar sotele.", "Baharat ekleyip sÄ±cak servis et."]
   },
   {
-    name: "Kıymalı Patlıcan Patates Yemeği",
-    note: "Dolabında kıyma, patlıcan ve patates varsa tencerede yapabileceğin doyurucu bir ana yemek.",
+    name: "KÄ±ymalÄ± PatlÄ±can Patates YemeÄŸi",
+    note: "DolabÄ±nda kÄ±yma, patlÄ±can ve patates varsa tencerede yapabileceÄŸin doyurucu bir ana yemek.",
     calories: 480,
     protein: 32,
     carbs: 42,
     fat: 22,
     time: 35,
-    keywords: ["kıyma", "kıyma", "patlıcan", "patlıcan", "patates", "tencere", "yemek"],
-    pantryCore: ["kıyma", "patlıcan", "patates"],
-    ingredients: ["120 g kıyma", "1 patlıcan", "1 küçük patates", "1 küçük soğan", "Domates sosu", "1 tatlı kaşığı zeytinyağı", "Karabiber"],
-    steps: ["Patlıcanı ve patatesi küp küp doğra.", "Soğanı zeytinyağında çevirip kıymayı ekle ve suyunu cekene kadar pişir.", "Patates ve patlıcani tencereye al, domates sosu ve az su ekle.", "Sebzeler yumuşayana kadar kısık ateşte pişirip sıcak servis et."]
+    keywords: ["kÄ±yma", "kÄ±yma", "patlÄ±can", "patlÄ±can", "patates", "tencere", "yemek"],
+    pantryCore: ["kÄ±yma", "patlÄ±can", "patates"],
+    ingredients: ["120 g kÄ±yma", "1 patlÄ±can", "1 kÃ¼Ã§Ã¼k patates", "1 kÃ¼Ã§Ã¼k soÄŸan", "Domates sosu", "1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±", "Karabiber"],
+    steps: ["PatlÄ±canÄ± ve patatesi kÃ¼p kÃ¼p doÄŸra.", "SoÄŸanÄ± zeytinyaÄŸÄ±nda Ã§evirip kÄ±ymayÄ± ekle ve suyunu cekene kadar piÅŸir.", "Patates ve patlÄ±cani tencereye al, domates sosu ve az su ekle.", "Sebzeler yumuÅŸayana kadar kÄ±sÄ±k ateÅŸte piÅŸirip sÄ±cak servis et."]
   },
   {
-    name: "Karnabahar Brokoli Fırın",
-    note: "Dolabında karnabahar ve brokoli varsa hafif, doyurucu bir fırın tabağı.",
+    name: "Karnabahar Brokoli FÄ±rÄ±n",
+    note: "DolabÄ±nda karnabahar ve brokoli varsa hafif, doyurucu bir fÄ±rÄ±n tabaÄŸÄ±.",
     calories: 320,
     protein: 18,
     carbs: 26,
     fat: 14,
     time: 30,
-    keywords: ["karnabahar", "karnibahar", "brokoli", "yoğurt", "yumurta", "lor", "peynir"],
+    keywords: ["karnabahar", "karnibahar", "brokoli", "yoÄŸurt", "yumurta", "lor", "peynir"],
     pantryCore: ["karnabahar", "brokoli"],
-    ingredients: ["Karnabahar", "Brokoli", "3 yemek kaşığı süzme yoğurt", "1 yumurta", "40 g lor peyniri", "1 tatlı kaşığı zeytinyağı"],
-    steps: ["Karnabahar ve brokoliyi hafif haşla.", "Yoğurt, yumurta, lor ve zeytinyağını karıştır.", "Sebzeleri fırın kabına al ve sosu üzerine gezdir.", "180 derecede 20 dakika pişir."]
+    ingredients: ["Karnabahar", "Brokoli", "3 yemek kaÅŸÄ±ÄŸÄ± sÃ¼zme yoÄŸurt", "1 yumurta", "40 g lor peyniri", "1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±"],
+    steps: ["Karnabahar ve brokoliyi hafif haÅŸla.", "YoÄŸurt, yumurta, lor ve zeytinyaÄŸÄ±nÄ± karÄ±ÅŸtÄ±r.", "Sebzeleri fÄ±rÄ±n kabÄ±na al ve sosu Ã¼zerine gezdir.", "180 derecede 20 dakika piÅŸir."]
   },
   {
-    name: "Brokolili Yoğurtlu Kase",
-    note: "Brokoli, yoğurt ve yumurta ile hızlı bir günlük tabak.",
+    name: "Brokolili YoÄŸurtlu Kase",
+    note: "Brokoli, yoÄŸurt ve yumurta ile hÄ±zlÄ± bir gÃ¼nlÃ¼k tabak.",
     calories: 280,
     protein: 21,
     carbs: 18,
     fat: 12,
     time: 18,
-    keywords: ["brokoli", "yoğurt", "yumurta", "lor", "peynir"],
-    pantryCore: ["brokoli", "yoğurt"],
-    ingredients: ["Brokoli", "Süzme yoğurt", "1 haşlanmış yumurta", "Nane", "Limon", "Az zeytinyağı"],
-    steps: ["Brokoliyi buharda pişir.", "Yoğurdu nane ve limonla karıştır.", "Yumurtayı dilimle.", "Hepsini kaseye al ve az zeytinyağı ekle."]
+    keywords: ["brokoli", "yoÄŸurt", "yumurta", "lor", "peynir"],
+    pantryCore: ["brokoli", "yoÄŸurt"],
+    ingredients: ["Brokoli", "SÃ¼zme yoÄŸurt", "1 haÅŸlanmÄ±ÅŸ yumurta", "Nane", "Limon", "Az zeytinyaÄŸÄ±"],
+    steps: ["Brokoliyi buharda piÅŸir.", "YoÄŸurdu nane ve limonla karÄ±ÅŸtÄ±r.", "YumurtayÄ± dilimle.", "Hepsini kaseye al ve az zeytinyaÄŸÄ± ekle."]
   }
 ];
 
 function renderRecipeDetail(food) {
-  const details = recipeDetails[food.name] || food || { ingredients: ["Malzeme bilgisi yakinda eklenecek."], steps: ["Hazırlanış bilgisi yakinda eklenecek."] };
+  const details = recipeDetails[food.name] || food || { ingredients: ["Malzeme bilgisi yakinda eklenecek."], steps: ["HazÄ±rlanÄ±ÅŸ bilgisi yakinda eklenecek."] };
   return `
-    <p class="eyebrow compact">${food.mealType === "Ara öğün" ? "Öğün detayı" : "Tarif detayı"}</p>
+    <p class="eyebrow compact">${food.mealType === "Ara Ã¶ÄŸÃ¼n" ? "Ã–ÄŸÃ¼n detayÄ±" : "Tarif detayÄ±"}</p>
     <h2>${food.name}</h2>
     <p>${food.note}</p>
     <div class="recipe-meta detail-meta-row">
@@ -139,11 +139,11 @@ function renderRecipeDetail(food) {
       <span>${food.time} dk</span>
     </div>
     <div class="detail-section compact-detail-section">
-      <h3>${food.mealType === "Ara öğün" ? "Tüketilecekler" : "Malzemeler"}</h3>
+      <h3>${food.mealType === "Ara Ã¶ÄŸÃ¼n" ? "TÃ¼ketilecekler" : "Malzemeler"}</h3>
       <ul>${details.ingredients.map((item) => `<li>${item}</li>`).join("")}</ul>
     </div>
     <div class="detail-section compact-detail-section">
-      <h3>${food.mealType === "Ara öğün" ? "Nasıl tüketilir" : "Hazırlanış"}</h3>
+      <h3>${food.mealType === "Ara Ã¶ÄŸÃ¼n" ? "NasÄ±l tÃ¼ketilir" : "HazÄ±rlanÄ±ÅŸ"}</h3>
       <ol>${details.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
     </div>
   `;
@@ -158,7 +158,7 @@ function showRecipeDetail(foodName) {
 function normalizeText(value) {
   return String(value || "")
     .toLocaleLowerCase("tr-TR")
-    .replaceAll("ı", "i")
+    .replaceAll("Ä±", "i")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
@@ -362,34 +362,34 @@ function normalizePantryTerm(term) {
 
 function displayIngredient(term) {
   const labels = {
-    kiyma: "kıyma",
+    kiyma: "kÄ±yma",
     tavuk: "tavuk",
     hindi: "hindi",
     yumurta: "yumurta",
-    balik: "balık",
-    ton: "ton balığı",
+    balik: "balÄ±k",
+    ton: "ton balÄ±ÄŸÄ±",
     somon: "somon",
-    yogurt: "yoğurt",
+    yogurt: "yoÄŸurt",
     peynir: "peynir",
     karnabahar: "karnabahar",
     brokoli: "brokoli",
     kabak: "kabak",
-    patlican: "patlıcan",
+    patlican: "patlÄ±can",
     patates: "patates",
-    "tatli patates": "tatlı patates",
-    havuc: "havuç",
+    "tatli patates": "tatlÄ± patates",
+    havuc: "havuÃ§",
     biber: "biber",
     bezelye: "bezelye",
     mantar: "mantar",
-    ispanak: "ıspanak",
+    ispanak: "Ä±spanak",
     domates: "domates",
-    sogan: "soğan",
+    sogan: "soÄŸan",
     nohut: "nohut",
     mercimek: "mercimek",
     fasulye: "fasulye",
-    "yesil fasulye": "yeşil fasulye",
-    "tam bugday lavas": "tam buğday lavaş",
-    "tam bugday ekmegi": "tam buğday ekmeği"
+    "yesil fasulye": "yeÅŸil fasulye",
+    "tam bugday lavas": "tam buÄŸday lavaÅŸ",
+    "tam bugday ekmegi": "tam buÄŸday ekmeÄŸi"
   };
   return labels[term] || term;
 }
@@ -406,14 +406,14 @@ function titleIngredient(term) {
 function proteinStyleTitle(term) {
   const labels = {
     sebze: "Sebzeli",
-    kiyma: "Kıymalı",
+    kiyma: "KÄ±ymalÄ±",
     tavuk: "Tavuklu",
     hindi: "Hindili",
-    yumurta: "Yumurtalı",
-    balik: "Balıklı",
-    ton: "Ton balıklı",
+    yumurta: "YumurtalÄ±",
+    balik: "BalÄ±klÄ±",
+    ton: "Ton balÄ±klÄ±",
     somon: "Somonlu",
-    yogurt: "Yoğurtlu",
+    yogurt: "YoÄŸurtlu",
     peynir: "Peynirli",
     nohut: "Nohutlu",
     mercimek: "Mercimekli",
@@ -435,7 +435,7 @@ function getRecipeSearchText(food) {
 function getRecipeCoreTerms(food) {
   if (food.pantryCore) return food.pantryCore.map(normalizeText);
   const details = recipeDetails[food.name] || food;
-  const pantryStaples = new Set(["g", "kg", "ml", "su", "bardagi", "yemek", "tatlı", "kaşığı", "küçük", "buyuk", "az", "baharat", "karabiber", "kekik", "limon", "sos", "sosu", "zeytinyağı", "yesillik"]);
+  const pantryStaples = new Set(["g", "kg", "ml", "su", "bardagi", "yemek", "tatlÄ±", "kaÅŸÄ±ÄŸÄ±", "kÃ¼Ã§Ã¼k", "buyuk", "az", "baharat", "karabiber", "kekik", "limon", "sos", "sosu", "zeytinyaÄŸÄ±", "yesillik"]);
   return [...new Set((details.ingredients || [])
     .flatMap((item) => normalizeText(item).split(/[^a-z0-9]+/))
     .filter((item) => item.length > 2 && !pantryStaples.has(item)))];
@@ -479,66 +479,66 @@ function buildPantryRecipe(available) {
   const method = wrapBase
     ? "Wrap"
     : proteins.length
-      ? (carbsPantry.includes("patates") || carbsPantry.includes("tatli patates") || vegetables.includes("karnabahar") ? "Tencere Yemeği" : "Sote")
-      : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "Fırın" : "Sebze Sote");
+      ? (carbsPantry.includes("patates") || carbsPantry.includes("tatli patates") || vegetables.includes("karnabahar") ? "Tencere YemeÄŸi" : "Sote")
+      : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "FÄ±rÄ±n" : "Sebze Sote");
   const name = `${proteinTitle} ${detailTitle || "Dolap"} ${method}`.replace(/\s+/g, " ").trim();
   const calories = Math.min(680, 220 + proteins.length * 120 + vegetables.length * 40 + carbsPantry.length * 70);
   const protein = proteins.includes("kiyma") ? 30 : proteins.includes("tavuk") || proteins.includes("hindi") ? 36 : proteins.length ? 18 + proteins.length * 5 : 8;
   const carbs = carbsPantry.length * 18 + vegetables.length * 5 + (wrapBase ? 12 : 0);
   const fat = proteins.includes("kiyma") ? 22 : proteins.length ? 14 : 9;
-  const ingredients = [...displayItems, "baharat", wrapBase ? "varsa yoğurtlu sos" : "varsa 1 tatlı kaşığı zeytinyağı"];
-  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini doğra.` : "Sebzeleri hazırlayıp küçük parçalara ayır.";
+  const ingredients = [...displayItems, "baharat", wrapBase ? "varsa yoÄŸurtlu sos" : "varsa 1 tatlÄ± kaÅŸÄ±ÄŸÄ± zeytinyaÄŸÄ±"];
+  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini doÄŸra.` : "Sebzeleri hazÄ±rlayÄ±p kÃ¼Ã§Ã¼k parÃ§alara ayÄ±r.";
   const cookProtein = mainProtein === "kiyma"
-    ? "Kıymayı tavada suyunu çekene kadar pişir."
+    ? "KÄ±ymayÄ± tavada suyunu Ã§ekene kadar piÅŸir."
     : mainProtein === "tavuk" || mainProtein === "hindi"
-      ? `${displayIngredient(mainProtein)} etini küçük parçalara ayırıp tavada pişir.`
+      ? `${displayIngredient(mainProtein)} etini kÃ¼Ã§Ã¼k parÃ§alara ayÄ±rÄ±p tavada piÅŸir.`
       : proteins.length
         ? `${proteins.map(displayIngredient).join(", ")} malzemesini tavaya veya tencereye al.`
-        : method.includes("Fırın")
-          ? "Sebzeleri fırın kabına al."
+        : method.includes("FÄ±rÄ±n")
+          ? "Sebzeleri fÄ±rÄ±n kabÄ±na al."
           : "Sebzeleri tavaya al.";
 
-  let combineStep = "Sebzeleri ekle, baharatla birlikte orta ateşte yumuşayana kadar sotele.";
-  if (method.includes("Fırın")) {
-    combineStep = "Tüm malzemeleri fırın kabına al, az zeytinyağı ve baharatla 180 derecede yumuşayana kadar pişir.";
+  let combineStep = "Sebzeleri ekle, baharatla birlikte orta ateÅŸte yumuÅŸayana kadar sotele.";
+  if (method.includes("FÄ±rÄ±n")) {
+    combineStep = "TÃ¼m malzemeleri fÄ±rÄ±n kabÄ±na al, az zeytinyaÄŸÄ± ve baharatla 180 derecede yumuÅŸayana kadar piÅŸir.";
   } else if (method.includes("Tencere")) {
-    combineStep = "Sebzeleri ve karbonhidrat grubunu ekle, az su ilave et ve kısık ateşte yumuşayana kadar pişir.";
+    combineStep = "Sebzeleri ve karbonhidrat grubunu ekle, az su ilave et ve kÄ±sÄ±k ateÅŸte yumuÅŸayana kadar piÅŸir.";
   } else if (method === "Wrap") {
     const wrapLabel = displayIngredient(wrapBase);
-    combineStep = `${wrapLabel} içine pişen malzemeleri yerleştir, istersen yoğurtlu sos ekleyip sar.`;
+    combineStep = `${wrapLabel} iÃ§ine piÅŸen malzemeleri yerleÅŸtir, istersen yoÄŸurtlu sos ekleyip sar.`;
   }
 
   return {
     name,
-    note: `Dolabında yazdığın ${displayItems.join(", ")} ile ekstra ana malzeme gerektirmeden oluşturulan tarif.`,
+    note: `DolabÄ±nda yazdÄ±ÄŸÄ±n ${displayItems.join(", ")} ile ekstra ana malzeme gerektirmeden oluÅŸturulan tarif.`,
     calories,
     protein,
     carbs,
     fat,
-    time: method.includes("Fırın") ? 30 : method === "Wrap" ? 18 : 22,
+    time: method.includes("FÄ±rÄ±n") ? 30 : method === "Wrap" ? 18 : 22,
     pantryCore: uniqueItems,
     ingredients,
-    steps: [prepVegetables, cookProtein, combineStep, "Tadım yapıp sıcak servis et."]
+    steps: [prepVegetables, cookProtein, combineStep, "TadÄ±m yapÄ±p sÄ±cak servis et."]
   };
 }
 function labelGoal(goal) {
   const labels = {
     "weight-loss": "Kilo vermek",
-    muscle: "Protein ağırlıklı beslenmek",
+    muscle: "Protein aÄŸÄ±rlÄ±klÄ± beslenmek",
     balanced: "Dengeli beslenmek",
-    "low-carb": "Karbonhidratı azaltmak"
+    "low-carb": "KarbonhidratÄ± azaltmak"
   };
   const goals = Array.isArray(goal) ? goal : [goal].filter(Boolean);
   return goals.length ? goals.map((item) => labels[item] || item).join(", ") : "Belirtilmedi";
 }
 
 function labelActivity(activity) {
-  return { low: "Az hareketli", medium: "Orta hareketli", high: "Çok hareketli" }[activity] || "Belirtilmedi";
+  return { low: "Az hareketli", medium: "Orta hareketli", high: "Ã‡ok hareketli" }[activity] || "Belirtilmedi";
 }
 
 function listOrEmpty(items, other) {
   const list = [...(items || [])];
-  if (other) list.push(`Diğer: ${other}`);
+  if (other) list.push(`DiÄŸer: ${other}`);
   return list.length ? list.join(", ") : "Belirtilmedi";
 }
 
@@ -575,7 +575,7 @@ function hasRecipeKeyword(text, words) {
 
 function isSoupRecipe(food) {
   const text = getRecipeSearchText(food);
-  return hasRecipeKeyword(text, ["corba", "çorba", "soup"]);
+  return hasRecipeKeyword(text, ["corba", "Ã§orba", "soup"]);
 }
 
 function isSaladRecipe(food) {
@@ -585,7 +585,7 @@ function isSaladRecipe(food) {
 
 function isDessertRecipe(food) {
   const text = getRecipeSearchText(food);
-  return hasRecipeKeyword(text, ["tatli", "tatlı", "muhallebi", "kup", "kek", "kurabiye", "puding", "brownie", "cheesecake"]);
+  return hasRecipeKeyword(text, ["tatli", "tatlÄ±", "muhallebi", "kup", "kek", "kurabiye", "puding", "brownie", "cheesecake"]);
 }
 
 function isBreakfastRecipe(food) {
@@ -600,7 +600,7 @@ function isBreakfastRecipe(food) {
 
 function isSnackRecipe(food) {
   const text = getRecipeSearchText(food);
-  const snackWords = ["ara öğün", "ara ogun", "atistirmalik", "aperatif", "smoothie", "bar", "top", "kup"];
+  const snackWords = ["ara Ã¶ÄŸÃ¼n", "ara ogun", "atistirmalik", "aperatif", "smoothie", "bar", "top", "kup"];
   return hasRecipeKeyword(text, snackWords)
     || (food.calories <= 220
       && food.protein <= 12
@@ -612,7 +612,7 @@ function isSnackRecipe(food) {
 
 function isMainMealRecipe(food) {
   const text = getRecipeSearchText(food);
-  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "fırın", "pilav", "makarna", "izgara", "ana yemek", "et"];
+  const mainMealWords = ["tavuk", "hindi", "somon", "balik", "kiyma", "kofte", "sote", "firin", "fÄ±rÄ±n", "pilav", "makarna", "izgara", "ana yemek", "et"];
   return !isBreakfastRecipe(food)
     && !isSnackRecipe(food)
     && !isSaladRecipe(food)
@@ -686,83 +686,83 @@ function buildSnackOptions() {
   const snacks = [
     {
       name: "Kefir ve Badem",
-      note: "Düşük kalorili, tok tutan pratik ara öğün.",
+      note: "DÃ¼ÅŸÃ¼k kalorili, tok tutan pratik ara Ã¶ÄŸÃ¼n.",
       calories: 165,
       protein: 9,
       carbs: 8,
       fat: 10,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["1 su bardağı kefir", "5 adet çiğ badem"],
-      steps: ["Kefiri soğuk şekilde bardağa koy.", "Yanına 5 adet çiğ badem ekleyip ara öğün olarak tüket."],
-      tags: ["ara öğün", "kefir", "badem"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 su bardaÄŸÄ± kefir", "5 adet Ã§iÄŸ badem"],
+      steps: ["Kefiri soÄŸuk ÅŸekilde bardaÄŸa koy.", "YanÄ±na 5 adet Ã§iÄŸ badem ekleyip ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "kefir", "badem"],
       vegetarian: true,
       lowSodium: true,
       hasDairy: true,
       hasNuts: true
     },
     {
-      name: "Yeşil Elma",
-      note: "Tek malzemeli, hafif ve hızlı ara öğün seçeneği.",
+      name: "YeÅŸil Elma",
+      note: "Tek malzemeli, hafif ve hÄ±zlÄ± ara Ã¶ÄŸÃ¼n seÃ§eneÄŸi.",
       calories: 72,
       protein: 0,
       carbs: 19,
       fat: 0,
       time: 1,
-      mealType: "Ara öğün",
-      ingredients: ["1 adet yeşil elma"],
-      steps: ["Elmayı yıka.", "Tek başına ara öğün olarak tüket."],
-      tags: ["ara öğün", "meyve", "hafif"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 adet yeÅŸil elma"],
+      steps: ["ElmayÄ± yÄ±ka.", "Tek baÅŸÄ±na ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "meyve", "hafif"],
       vegetarian: true,
       vegan: true,
       lowSodium: true,
       acidicOption: true
     },
     {
-      name: "Yoğurt ve Tarçın",
-      note: "Tatlı isteğini daha kontrollü karşılayan hafif ara öğün.",
+      name: "YoÄŸurt ve TarÃ§Ä±n",
+      note: "TatlÄ± isteÄŸini daha kontrollÃ¼ karÅŸÄ±layan hafif ara Ã¶ÄŸÃ¼n.",
       calories: 118,
       protein: 8,
       carbs: 9,
       fat: 5,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["3 yemek kaşığı yoğurt", "1 çay kaşığı tarçın"],
-      steps: ["Yoğurdu kaseye al.", "Üzerine tarçın ekleyip karıştırmadan veya karıştırarak tüket."],
-      tags: ["ara öğün", "yoğurt", "hafif"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["3 yemek kaÅŸÄ±ÄŸÄ± yoÄŸurt", "1 Ã§ay kaÅŸÄ±ÄŸÄ± tarÃ§Ä±n"],
+      steps: ["YoÄŸurdu kaseye al.", "Ãœzerine tarÃ§Ä±n ekleyip karÄ±ÅŸtÄ±rmadan veya karÄ±ÅŸtÄ±rarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "yoÄŸurt", "hafif"],
       vegetarian: true,
       softOption: true,
       lowSodium: true,
       hasDairy: true
     },
     {
-      name: "Salatalık ve Ayran",
-      note: "Tuzlu hafiflik isteyenler için serin ara öğün.",
+      name: "SalatalÄ±k ve Ayran",
+      note: "Tuzlu hafiflik isteyenler iÃ§in serin ara Ã¶ÄŸÃ¼n.",
       calories: 95,
       protein: 5,
       carbs: 8,
       fat: 4,
       time: 3,
-      mealType: "Ara öğün",
-      ingredients: ["1 küçük salatalık", "1 bardak ayran"],
-      steps: ["Salatalığı yıka ve dilimle.", "Ayranla birlikte ara öğün olarak tüket."],
-      tags: ["ara öğün", "ayran", "salatalık"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 kÃ¼Ã§Ã¼k salatalÄ±k", "1 bardak ayran"],
+      steps: ["SalatalÄ±ÄŸÄ± yÄ±ka ve dilimle.", "Ayranla birlikte ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "ayran", "salatalÄ±k"],
       vegetarian: true,
       softOption: true,
       hasDairy: true
     },
     {
-      name: "Muzun Yarısı ve Ceviz",
-      note: "Enerji düşüşü için küçük porsiyon dengeli ara öğün.",
+      name: "Muzun YarÄ±sÄ± ve Ceviz",
+      note: "Enerji dÃ¼ÅŸÃ¼ÅŸÃ¼ iÃ§in kÃ¼Ã§Ã¼k porsiyon dengeli ara Ã¶ÄŸÃ¼n.",
       calories: 132,
       protein: 2,
       carbs: 15,
       fat: 7,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["Yarım muz", "2 tam ceviz"],
-      steps: ["Muzu dilimle.", "Yanına 2 tam ceviz ekleyip küçük porsiyon ara öğün olarak tüket."],
-      tags: ["ara öğün", "muz", "ceviz"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["YarÄ±m muz", "2 tam ceviz"],
+      steps: ["Muzu dilimle.", "YanÄ±na 2 tam ceviz ekleyip kÃ¼Ã§Ã¼k porsiyon ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "muz", "ceviz"],
       vegetarian: true,
       vegan: true,
       softOption: true,
@@ -770,80 +770,80 @@ function buildSnackOptions() {
       hasNuts: true
     },
     {
-      name: "Havuç Çubukları ve Yoğurt",
-      note: "Çıtır ve hafif bir ara öğün alternatifi.",
+      name: "HavuÃ§ Ã‡ubuklarÄ± ve YoÄŸurt",
+      note: "Ã‡Ä±tÄ±r ve hafif bir ara Ã¶ÄŸÃ¼n alternatifi.",
       calories: 104,
       protein: 5,
       carbs: 12,
       fat: 3,
       time: 4,
-      mealType: "Ara öğün",
-      ingredients: ["1 küçük havuç", "2 yemek kaşığı yoğurt"],
-      steps: ["Havucu soyup çubuk şeklinde kes.", "Yoğurdu yanında dip sos gibi kullanarak tüket."],
-      tags: ["ara öğün", "havuç", "yoğurt"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 kÃ¼Ã§Ã¼k havuÃ§", "2 yemek kaÅŸÄ±ÄŸÄ± yoÄŸurt"],
+      steps: ["Havucu soyup Ã§ubuk ÅŸeklinde kes.", "YoÄŸurdu yanÄ±nda dip sos gibi kullanarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "havuÃ§", "yoÄŸurt"],
       vegetarian: true,
       lowSodium: true,
       hasDairy: true
     },
     {
-      name: "Çilek ve Sade Yoğurt",
-      note: "Protein ve meyveyi hafif şekilde birleştiren ara öğün.",
+      name: "Ã‡ilek ve Sade YoÄŸurt",
+      note: "Protein ve meyveyi hafif ÅŸekilde birleÅŸtiren ara Ã¶ÄŸÃ¼n.",
       calories: 126,
       protein: 7,
       carbs: 12,
       fat: 4,
       time: 3,
-      mealType: "Ara öğün",
-      ingredients: ["3 yemek kaşığı sade yoğurt", "4-5 adet çilek"],
-      steps: ["Yoğurdu küçük kaseye al.", "Üzerine doğranmış çilek ekleyip tüket."],
-      tags: ["ara öğün", "çilek", "yoğurt"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["3 yemek kaÅŸÄ±ÄŸÄ± sade yoÄŸurt", "4-5 adet Ã§ilek"],
+      steps: ["YoÄŸurdu kÃ¼Ã§Ã¼k kaseye al.", "Ãœzerine doÄŸranmÄ±ÅŸ Ã§ilek ekleyip tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "Ã§ilek", "yoÄŸurt"],
       vegetarian: true,
       lowSodium: true,
       hasDairy: true
     },
     {
-      name: "Haşlanmış Yumurta ve Salatalık",
-      note: "Protein ağırlıklı, tok tutan ara öğün seçeneği.",
+      name: "HaÅŸlanmÄ±ÅŸ Yumurta ve SalatalÄ±k",
+      note: "Protein aÄŸÄ±rlÄ±klÄ±, tok tutan ara Ã¶ÄŸÃ¼n seÃ§eneÄŸi.",
       calories: 142,
       protein: 9,
       carbs: 4,
       fat: 9,
       time: 4,
-      mealType: "Ara öğün",
-      ingredients: ["1 haşlanmış yumurta", "1 küçük salatalık"],
-      steps: ["Yumurtayı haşlayıp soy.", "Salatalıkla birlikte ara öğün olarak tüket."],
-      tags: ["ara öğün", "yumurta", "protein"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 haÅŸlanmÄ±ÅŸ yumurta", "1 kÃ¼Ã§Ã¼k salatalÄ±k"],
+      steps: ["YumurtayÄ± haÅŸlayÄ±p soy.", "SalatalÄ±kla birlikte ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "yumurta", "protein"],
       vegetarian: true,
       lowSodium: true
     },
     {
-      name: "Leblebi ve Bitki Çayı",
-      note: "Sade, ekonomik ve kontrollü porsiyon ara öğün.",
+      name: "Leblebi ve Bitki Ã‡ayÄ±",
+      note: "Sade, ekonomik ve kontrollÃ¼ porsiyon ara Ã¶ÄŸÃ¼n.",
       calories: 109,
       protein: 5,
       carbs: 17,
       fat: 2,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["2 yemek kaşığı leblebi", "1 kupa şekersiz bitki çayı"],
-      steps: ["Leblebiyi küçük porsiyon halinde hazırla.", "Yanında şekersiz bitki çayı ile tüket."],
-      tags: ["ara öğün", "leblebi", "hafif"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["2 yemek kaÅŸÄ±ÄŸÄ± leblebi", "1 kupa ÅŸekersiz bitki Ã§ayÄ±"],
+      steps: ["Leblebiyi kÃ¼Ã§Ã¼k porsiyon halinde hazÄ±rla.", "YanÄ±nda ÅŸekersiz bitki Ã§ayÄ± ile tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "leblebi", "hafif"],
       vegetarian: true,
       vegan: true,
       lowSodium: true
     },
     {
       name: "Avokado Dilimleri",
-      note: "Düşük karbonhidrat odaklı hafif ara öğün.",
+      note: "DÃ¼ÅŸÃ¼k karbonhidrat odaklÄ± hafif ara Ã¶ÄŸÃ¼n.",
       calories: 128,
       protein: 2,
       carbs: 6,
       fat: 11,
       time: 3,
-      mealType: "Ara öğün",
-      ingredients: ["Yarım küçük avokado", "Bir tutam limonsuz baharat"],
-      steps: ["Avokadoyu dilimle.", "İstersen çok az baharat ekleyip küçük porsiyon halinde tüket."],
-      tags: ["ara öğün", "avokado", "düşük karbonhidrat"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["YarÄ±m kÃ¼Ã§Ã¼k avokado", "Bir tutam limonsuz baharat"],
+      steps: ["Avokadoyu dilimle.", "Ä°stersen Ã§ok az baharat ekleyip kÃ¼Ã§Ã¼k porsiyon halinde tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "avokado", "dÃ¼ÅŸÃ¼k karbonhidrat"],
       vegetarian: true,
       vegan: true,
       lowSodium: true,
@@ -851,16 +851,16 @@ function buildSnackOptions() {
     },
     {
       name: "Armut Dilimleri",
-      note: "Mideyi yormayan meyve bazlı hafif ara öğün.",
+      note: "Mideyi yormayan meyve bazlÄ± hafif ara Ã¶ÄŸÃ¼n.",
       calories: 86,
       protein: 1,
       carbs: 22,
       fat: 0,
       time: 2,
-      mealType: "Ara öğün",
-      ingredients: ["1 küçük armut"],
-      steps: ["Armutu yıka ve dilimle.", "Tek başına hafif ara öğün olarak tüket."],
-      tags: ["ara öğün", "meyve", "armut"],
+      mealType: "Ara Ã¶ÄŸÃ¼n",
+      ingredients: ["1 kÃ¼Ã§Ã¼k armut"],
+      steps: ["Armutu yÄ±ka ve dilimle.", "Tek baÅŸÄ±na hafif ara Ã¶ÄŸÃ¼n olarak tÃ¼ket."],
+      tags: ["ara Ã¶ÄŸÃ¼n", "meyve", "armut"],
       vegetarian: true,
       vegan: true,
       softOption: true,
@@ -906,12 +906,12 @@ function buildDailyMealPlan(recommendations = []) {
   const seed = getDaySeed();
 
   const mealDefinitions = [
-    { key: "breakfast", label: "Sabah", time: "08:00", helper: "Güne dengeli bir başlangıç", pool: breakfastPool, fallback: breakfastPool, offset: 0, kind: "meal" },
-    { key: "snack-1", label: "Ara öğün", time: "10:30", helper: "Sabah sonrası küçük ve hafif atıştırmalık", pool: snackPool, fallback: snackPool, offset: 2, kind: "snack" },
-    { key: "lunch", label: "Öğle", time: "13:00", helper: "Günün ana enerjisi", pool: lunchPool, fallback: mainMealPool, offset: 4, kind: "meal" },
-    { key: "snack-2", label: "Ara öğün", time: "16:00", helper: "Öğleden sonra açlığını bastıran hafif seçenek", pool: snackPool, fallback: snackPool, offset: 6, kind: "snack" },
-    { key: "dinner", label: "Akşam", time: "19:00", helper: "Günü tamamlayan ana öğün", pool: dinnerPool, fallback: mainMealPool, offset: 8, kind: "meal" },
-    { key: "snack-3", label: "Ara öğün", time: "21:30", helper: "Geceyi ağırlaştırmayan küçük kapanış", pool: snackPool, fallback: snackPool, offset: 10, kind: "snack" }
+    { key: "breakfast", label: "Sabah", time: "08:00", helper: "GÃ¼ne dengeli bir baÅŸlangÄ±Ã§", pool: breakfastPool, fallback: breakfastPool, offset: 0, kind: "meal" },
+    { key: "snack-1", label: "Ara Ã¶ÄŸÃ¼n", time: "10:30", helper: "Sabah sonrasÄ± kÃ¼Ã§Ã¼k ve hafif atÄ±ÅŸtÄ±rmalÄ±k", pool: snackPool, fallback: snackPool, offset: 2, kind: "snack" },
+    { key: "lunch", label: "Ã–ÄŸle", time: "13:00", helper: "GÃ¼nÃ¼n ana enerjisi", pool: lunchPool, fallback: mainMealPool, offset: 4, kind: "meal" },
+    { key: "snack-2", label: "Ara Ã¶ÄŸÃ¼n", time: "16:00", helper: "Ã–ÄŸleden sonra aÃ§lÄ±ÄŸÄ±nÄ± bastÄ±ran hafif seÃ§enek", pool: snackPool, fallback: snackPool, offset: 6, kind: "snack" },
+    { key: "dinner", label: "AkÅŸam", time: "19:00", helper: "GÃ¼nÃ¼ tamamlayan ana Ã¶ÄŸÃ¼n", pool: dinnerPool, fallback: mainMealPool, offset: 8, kind: "meal" },
+    { key: "snack-3", label: "Ara Ã¶ÄŸÃ¼n", time: "21:30", helper: "Geceyi aÄŸÄ±rlaÅŸtÄ±rmayan kÃ¼Ã§Ã¼k kapanÄ±ÅŸ", pool: snackPool, fallback: snackPool, offset: 10, kind: "snack" }
   ];
 
   return mealDefinitions.map((meal) => ({
@@ -924,33 +924,37 @@ function buildDailyMealPlan(recommendations = []) {
 
 function renderDailyMealCards(plan = []) {
   if (!plan.length) {
-    return `<div class="empty">Bu profile uygun günlük menü bulamadık. Bilgileri güncelleyip tekrar analiz yapalim.</div>`;
+    return `<div class="empty">Bu profile uygun gÃ¼nlÃ¼k menÃ¼ bulamadÄ±k. Bilgileri gÃ¼ncelleyip tekrar analiz yapalim.</div>`;
   }
 
   return plan.map((item) => `
     <article class="suggestion-card profile-meal-card" data-recipe-name="${item.recipe.name}">
-      <p class="eyebrow compact">${item.label} · ${item.time}</p>
+      <p class="eyebrow compact">${item.label} Â· ${item.time}</p>
       <h3>${item.recipe.name}</h3>
       <p>${item.helper}</p>
       <div class="recipe-meta">
         <span>${item.recipe.calories} kcal</span>
         <span>${item.recipe.protein} g protein</span>
         <span>${item.recipe.carbs} g karbonhidrat</span>
-        <span>${item.recipe.fat} g yağ</span>
+        <span>${item.recipe.fat} g yaÄŸ</span>
         <span>${item.recipe.time} dk</span>
       </div>
     </article>
   `).join("");
 }
 
+function hasBrokenProfileRecipeData(recipeList = []) {
+  return recipeList.some((recipe) => /Ã|Å|Ä|�/.test(JSON.stringify(recipe)));
+}
 async function hydrateCatalogRecipes() {
   const fallbackRecipes = window.fitDefaultRecipes || window.fitRecipeCatalog || [];
 
   if (window.fitFirebase?.enabled && typeof window.fitFirebase.loadRecipes === "function") {
     try {
       let remoteRecipes = await window.fitFirebase.loadRecipes();
-      if (!remoteRecipes.length && fallbackRecipes.length && typeof window.fitFirebase.seedRecipes === "function") {
-        await window.fitFirebase.seedRecipes(fallbackRecipes);
+      const shouldRepair = !remoteRecipes.length || hasBrokenProfileRecipeData(remoteRecipes);
+      if (shouldRepair && fallbackRecipes.length && typeof window.fitFirebase.seedRecipes === "function") {
+        await window.fitFirebase.seedRecipes(fallbackRecipes, { force: true });
         remoteRecipes = await window.fitFirebase.loadRecipes();
       }
       if (remoteRecipes.length) {
@@ -958,7 +962,7 @@ async function hydrateCatalogRecipes() {
         return;
       }
     } catch (error) {
-      console.error("Profil için tarifler Firestore'dan yüklenemedi, yerel katalog kullanılacak.", error);
+      console.error("Profil iÃ§in tarifler Firestore'dan yÃ¼klenemedi, yerel katalog kullanÄ±lacak.", error);
     }
   }
 
@@ -970,14 +974,14 @@ async function hydrateCatalogRecipes() {
 if (!profile) {
   profilePage.innerHTML = `
     <div class="member-results profile-empty">
-      <p class="eyebrow compact">Profil bulunamadı</p>
-      <h1>Önce üyelik ve profil botunu tamamlayalım.</h1>
-      <p>Profil sayfası, üyelikten sonra doldurduğun bilgilere göre hazırlanır.</p>
-      <a class="primary-link" href="uyelik.html">Üyelik sayfasına git</a>
+      <p class="eyebrow compact">Profil bulunamadÄ±</p>
+      <h1>Ã–nce Ã¼yelik ve profil botunu tamamlayalÄ±m.</h1>
+      <p>Profil sayfasÄ±, Ã¼yelikten sonra doldurduÄŸun bilgilere gÃ¶re hazÄ±rlanÄ±r.</p>
+      <a class="primary-link" href="uyelik.html">Ãœyelik sayfasÄ±na git</a>
     </div>
   `;
 } else {
-  const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
+  const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "HenÃ¼z girilmedi";
   profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasProfileConflict(food));
   const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
   generatedDailyMeals = dailyMealPlan.map((item) => item.recipe);
@@ -986,29 +990,29 @@ if (!profile) {
     <section class="profile-dashboard">
       <div class="profile-main-panel">
         <div class="profile-hero-card compact-profile-hero">
-          <p class="eyebrow compact">Kişisel yemek listesi</p>
-          <h1>Bugünün sana uygun öğün planı</h1>
-          <p>Hedeflerine, hassasiyetlerine ve yemeyi tercih etmediğin yiyeceklere göre hazırlanan günlük menü.</p>
+          <p class="eyebrow compact">KiÅŸisel yemek listesi</p>
+          <h1>BugÃ¼nÃ¼n sana uygun Ã¶ÄŸÃ¼n planÄ±</h1>
+          <p>Hedeflerine, hassasiyetlerine ve yemeyi tercih etmediÄŸin yiyeceklere gÃ¶re hazÄ±rlanan gÃ¼nlÃ¼k menÃ¼.</p>
           <div class="profile-summary">
             <span>Hedef: ${labelGoal(profile.goal)}</span>
-            <span>Günlük hedef: ${profile.calorieTarget} kcal</span>
+            <span>GÃ¼nlÃ¼k hedef: ${profile.calorieTarget} kcal</span>
             <span>BKI: ${profile.bmi.toFixed(1)}</span>
             <span>Aktivite: ${labelActivity(profile.activity)}</span>
             <span>Tarih: ${getTodayLabel()}</span>
           </div>
-          <p class="warning-note">Kronik rahatsızlıklariniz veya alerjik reaksiyon riskleriniz olabileceği için, yemek tariflerini denemeden önce lütfen doktorunuzla ya da diyetisyeninizle görüşünüz. Bu öneriler tibbi tavsiye yerine geçmez.</p>
+          <p class="warning-note">Kronik rahatsÄ±zlÄ±klariniz veya alerjik reaksiyon riskleriniz olabileceÄŸi iÃ§in, yemek tariflerini denemeden Ã¶nce lÃ¼tfen doktorunuzla ya da diyetisyeninizle gÃ¶rÃ¼ÅŸÃ¼nÃ¼z. Bu Ã¶neriler tibbi tavsiye yerine geÃ§mez.</p>
         </div>
 
         <div class="profile-recommendations panel-block">
-          <div class="section-title"><h2>Günlük öğün planı</h2></div>
+          <div class="section-title"><h2>GÃ¼nlÃ¼k Ã¶ÄŸÃ¼n planÄ±</h2></div>
           <div class="weekly-recipe-layout">
             <div class="suggestion-list weekly-recipe-list">
               ${renderDailyMealCards(dailyMealPlan)}
             </div>
             <aside class="recipe-detail-pane" id="recipe-detail-pane">
-              <p class="eyebrow compact">Tarif detayı</p>
-              <h2>Bir öğün seç</h2>
-              <p>Soldaki günlük öğünlerden birine tıklayınca malzemeler ve hazırlanış burada görünecek.</p>
+              <p class="eyebrow compact">Tarif detayÄ±</p>
+              <h2>Bir Ã¶ÄŸÃ¼n seÃ§</h2>
+              <p>Soldaki gÃ¼nlÃ¼k Ã¶ÄŸÃ¼nlerden birine tÄ±klayÄ±nca malzemeler ve hazÄ±rlanÄ±ÅŸ burada gÃ¶rÃ¼necek.</p>
             </aside>
           </div>
         </div>
@@ -1019,24 +1023,24 @@ if (!profile) {
           <p class="eyebrow compact">Profil</p>
           <h2>${profile.memberName}</h2>
           <p>${profile.email}</p>
-          <p>Yaş: ${profile.age || "-"}</p>
+          <p>YaÅŸ: ${profile.age || "-"}</p>
           <p>Boy: ${profile.height || "-"} cm</p>
           <p>Kilo: ${profile.weight || "-"} kg</p>
         </section>
 
         <section class="profile-mini-card weekly-card">
-          <p class="eyebrow compact">Haftalık takip</p>
-          <p class="weekly-value">Son giriş: <strong id="weekly-change-value">${weeklyChange}</strong></p>
-          <button class="secondary-link full-width" id="weekly-change-button" type="button">Haftalık kilo değişimini yaz</button>
+          <p class="eyebrow compact">HaftalÄ±k takip</p>
+          <p class="weekly-value">Son giriÅŸ: <strong id="weekly-change-value">${weeklyChange}</strong></p>
+          <button class="secondary-link full-width" id="weekly-change-button" type="button">HaftalÄ±k kilo deÄŸiÅŸimini yaz</button>
           <form class="weekly-form hidden" id="weekly-form">
-            <input id="weekly-change-input" type="text" placeholder="Örnek: -0.7 kg veya +0.3 kg" />
+            <input id="weekly-change-input" type="text" placeholder="Ã–rnek: -0.7 kg veya +0.3 kg" />
             <button class="primary-link full-width" type="submit">Kaydet ve listeyi yenile</button>
           </form>
         </section>
 
         <section class="profile-mini-card profile-accordions">
           <details>
-            <summary>Kronik rahatsızlıklar</summary>
+            <summary>Kronik rahatsÄ±zlÄ±klar</summary>
             <p>${listOrEmpty(profile.conditions, profile.conditionsOther)}</p>
           </details>
           <details>
@@ -1050,17 +1054,17 @@ if (!profile) {
         </section>
 
         <section class="profile-actions">
-          <a class="secondary-link full-width" href="tarifler.html">Tüm tarifler</a>
+          <a class="secondary-link full-width" href="tarifler.html">TÃ¼m tarifler</a>
           <button class="secondary-link full-width" id="new-analysis" type="button">Yeni analiz yap</button>
-          <button class="secondary-link full-width" id="pantry-button" type="button">Dolap Asistanı</button>
+          <button class="secondary-link full-width" id="pantry-button" type="button">Dolap AsistanÄ±</button>
           <form class="pantry-form hidden" id="pantry-form">
-            <label>Dolabında neler var?
-              <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta"></textarea>
+            <label>DolabÄ±nda neler var?
+              <textarea id="pantry-input" placeholder="Ã–rnek: tavuk, yoÄŸurt, kabak, yumurta"></textarea>
             </label>
-            <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
+            <button class="primary-link full-width" id="pantry-submit" type="submit">GÃ¼nlÃ¼k tarif Ã§Ä±kar</button>
           </form>
           <div class="pantry-result hidden" id="pantry-result"></div>
-          <button class="secondary-link full-width danger-action" id="logout" type="button">Çıkış yap</button>
+          <button class="secondary-link full-width danger-action" id="logout" type="button">Ã‡Ä±kÄ±ÅŸ yap</button>
         </section>
       </aside>
     </section>
@@ -1102,7 +1106,7 @@ if (!profile) {
     const result = document.querySelector("#pantry-result");
     result.classList.add("hidden");
     result.innerHTML = "";
-    document.querySelector("#pantry-submit").textContent = "Günlük tarifi tekrar çıkar";
+    document.querySelector("#pantry-submit").textContent = "GÃ¼nlÃ¼k tarifi tekrar Ã§Ä±kar";
   });
 
   document.querySelector("#pantry-form").addEventListener("submit", (event) => {
@@ -1113,7 +1117,7 @@ if (!profile) {
 
     if (!available.length) {
       result.classList.remove("hidden");
-      result.textContent = "Önce dolabındaki malzemeleri yaz, sonra günlük tarifi çıkaralım.";
+      result.textContent = "Ã–nce dolabÄ±ndaki malzemeleri yaz, sonra gÃ¼nlÃ¼k tarifi Ã§Ä±karalÄ±m.";
       return;
     }
 
@@ -1122,10 +1126,10 @@ if (!profile) {
 
     result.classList.remove("hidden");
     result.innerHTML = matched
-      ? `<button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}"><strong>Bugün için önerim:</strong><br>${matched.name}<br><span>${matched.calories} kcal - ${matched.protein} g protein</span></button>`
-      : "Elindeki malzemelere göre net bir eşleşme bulamadım. Biraz daha malzeme yazmayı dene.";
+      ? `<button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}"><strong>BugÃ¼n iÃ§in Ã¶nerim:</strong><br>${matched.name}<br><span>${matched.calories} kcal - ${matched.protein} g protein</span></button>`
+      : "Elindeki malzemelere gÃ¶re net bir eÅŸleÅŸme bulamadÄ±m. Biraz daha malzeme yazmayÄ± dene.";
 
-    document.querySelector("#pantry-submit").textContent = "Günlük tarifi tekrar çıkar";
+    document.querySelector("#pantry-submit").textContent = "GÃ¼nlÃ¼k tarifi tekrar Ã§Ä±kar";
 
     if (matched) {
       showRecipeDetail(matched.name);

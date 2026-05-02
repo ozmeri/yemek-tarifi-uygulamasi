@@ -1,10 +1,11 @@
-const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "Çorba", "Kahvaltı", "Aperatif", "Tatlı"];
+const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Aperatif", "Tatl\u0131"];
 const defaultRecipes = (window.fitDefaultRecipes || []).map((recipe) => ({ ...recipe }));
 const fallbackColors = ["#dcebd5", "#f3cf98", "#f1b08a", "#ead7f2", "#cfe4ee", "#d8e8c2"];
+const brokenTextPattern = /Ã|Å|Ä|�/;
 
 let recipes = [];
-let categories = ["Tüm Tarifler"];
-let selectedCategory = "Tüm Tarifler";
+let categories = ["T\u00fcm Tarifler"];
+let selectedCategory = "T\u00fcm Tarifler";
 let selectedRecipe = null;
 
 const searchInput = document.querySelector("#search");
@@ -16,13 +17,17 @@ const activeCategoryLabel = document.querySelector("#active-category-label");
 const searchSummary = document.querySelector("#search-summary");
 
 function ensureRecipeShape(recipe, index = 0) {
-  const type = recipe.type || window.fitInferRecipeType?.(recipe) || "Ana yemek";
+  const override = window.fitRecipeOverrides?.[recipe.name] || {};
+  const inferredType = window.fitInferRecipeType?.({ ...recipe, ...override }) || recipe.type || "Ana yemek";
+  const type = override.type || inferredType;
+
   return {
     ...recipe,
+    ...override,
     id: recipe.id || `tarif-${index + 1}`,
     type,
-    category: recipe.category || type,
-    summary: recipe.summary || "Tarif özeti yakında eklenecek.",
+    category: override.category || recipe.category || type,
+    summary: recipe.summary || "Tarif \u00f6zeti yak\u0131nda eklenecek.",
     calories: Number(recipe.calories) || 0,
     protein: Number(recipe.protein) || 0,
     carbs: Number(recipe.carbs) || 0,
@@ -37,9 +42,18 @@ function ensureRecipeShape(recipe, index = 0) {
 
 function buildRecipeState(sourceRecipes = []) {
   recipes = sourceRecipes.map((recipe, index) => ensureRecipeShape(recipe, index));
-  categories = ["Tüm Tarifler", ...orderedRecipeTypes.filter((type) => recipes.some((recipe) => recipe.type === type))];
-  selectedCategory = "Tüm Tarifler";
+  categories = ["T\u00fcm Tarifler", ...orderedRecipeTypes.filter((type) => recipes.some((recipe) => recipe.type === type))];
+  selectedCategory = "T\u00fcm Tarifler";
   selectedRecipe = recipes[0] || null;
+}
+
+function hasBrokenRecipeData(recipeList = []) {
+  return recipeList.some((recipe) => brokenTextPattern.test(JSON.stringify(recipe)));
+}
+
+function isCategoryCoverageWeak(recipeList = []) {
+  const normalized = recipeList.map((recipe, index) => ensureRecipeShape(recipe, index));
+  return orderedRecipeTypes.some((type) => !normalized.some((recipe) => recipe.type === type));
 }
 
 function renderFilters() {
@@ -56,7 +70,7 @@ function getFilteredRecipes() {
   const search = searchInput.value.trim().toLocaleLowerCase("tr-TR");
 
   return recipes.filter((recipe) => {
-    const matchesCategory = selectedCategory === "Tüm Tarifler" || recipe.type === selectedCategory;
+    const matchesCategory = selectedCategory === "T\u00fcm Tarifler" || recipe.type === selectedCategory;
     const searchableText = [recipe.name, recipe.type, recipe.category, recipe.summary, ...recipe.ingredients, ...recipe.tags].join(" ").toLocaleLowerCase("tr-TR");
     const matchesSearch = !search || searchableText.includes(search);
     return matchesCategory && matchesSearch;
@@ -85,17 +99,17 @@ function renderRecipeCard(recipe) {
 
 function renderRecipes() {
   const filteredRecipes = getFilteredRecipes();
-  recipeList.classList.toggle("single-category-grid", selectedCategory !== "Tüm Tarifler");
+  recipeList.classList.toggle("single-category-grid", selectedCategory !== "T\u00fcm Tarifler");
   const searchValue = searchInput.value.trim();
   recipeCount.textContent = `${filteredRecipes.length} tarif bulundu`;
   searchSummary.textContent = searchValue
-    ? `"${searchValue}" aramasına göre sonuçları görüyorsun.`
-    : selectedCategory === "Tüm Tarifler"
-      ? "Şu anda tüm tarifler listeleniyor."
-      : `Şu anda ${selectedCategory.toLocaleLowerCase("tr-TR")} kategorisini görüyorsun.`;
+    ? `"${searchValue}" aramas\u0131na g\u00f6re sonu\u00e7lar\u0131 g\u00f6r\u00fcyorsun.`
+    : selectedCategory === "T\u00fcm Tarifler"
+      ? "\u015eu anda t\u00fcm tarifler listeleniyor."
+      : `\u015eu anda ${selectedCategory.toLocaleLowerCase("tr-TR")} kategorisini g\u00f6r\u00fcyorsun.`;
 
   if (!filteredRecipes.length) {
-    recipeList.innerHTML = `<div class="empty">Bu filtreyle tarif bulamadık. Aramayı kısaltmayı veya farklı kategori seçmeyi deneyelim.</div>`;
+    recipeList.innerHTML = `<div class="empty">Bu filtreyle tarif bulamad\u0131k. Aramay\u0131 k\u0131saltmay\u0131 veya farkl\u0131 kategori se\u00e7meyi deneyelim.</div>`;
     return;
   }
 
@@ -103,7 +117,7 @@ function renderRecipes() {
     selectedRecipe = filteredRecipes[0];
   }
 
-  if (selectedCategory !== "Tüm Tarifler") {
+  if (selectedCategory !== "T\u00fcm Tarifler") {
     recipeList.innerHTML = filteredRecipes.map(renderRecipeCard).join("");
     return;
   }
@@ -134,10 +148,10 @@ function renderDetail() {
   if (!selectedRecipe) {
     recipeDetail.innerHTML = `
       <div class="detail-hero">
-        <div class="detail-meta"><span class="pill">Tarif detayı</span></div>
-        <h2>Bir tarif seç</h2>
+        <div class="detail-meta"><span class="pill">Tarif detay\u0131</span></div>
+        <h2>Bir tarif se\u00e7</h2>
       </div>
-      <p>Soldaki tariflerden birine tıklayınca malzemeler ve hazırlanış burada açılacak.</p>
+      <p>Soldaki tariflerden birine t\u0131klay\u0131nca malzemeler ve haz\u0131rlan\u0131\u015f burada a\u00e7\u0131lacak.</p>
     `;
     return;
   }
@@ -160,7 +174,7 @@ function renderDetail() {
       <ul>
         <li>Protein: ${selectedRecipe.protein} g</li>
         <li>Karbonhidrat: ${selectedRecipe.carbs} g</li>
-        <li>Yağ: ${selectedRecipe.fat} g</li>
+        <li>Ya\u011f: ${selectedRecipe.fat} g</li>
       </ul>
     </div>
 
@@ -170,7 +184,7 @@ function renderDetail() {
     </div>
 
     <div class="detail-section">
-      <h3>Hazırlama</h3>
+      <h3>Haz\u0131rlama</h3>
       <ol>${selectedRecipe.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
     </div>
 
@@ -189,7 +203,7 @@ function renderApp() {
 
 function showLoadingState(message) {
   recipeList.innerHTML = `<div class="empty">${message}</div>`;
-  recipeDetail.innerHTML = `<div class="detail-hero"><h2>Tarifler hazırlanıyor</h2></div><p>${message}</p>`;
+  recipeDetail.innerHTML = `<div class="detail-hero"><h2>Tarifler haz\u0131rlan\u0131yor</h2></div><p>${message}</p>`;
   recipeCount.textContent = "";
   searchSummary.textContent = message;
 }
@@ -199,23 +213,26 @@ async function loadRecipeSource() {
   if (firebaseApi?.enabled && typeof firebaseApi.loadRecipes === "function") {
     try {
       let remoteRecipes = await firebaseApi.loadRecipes();
-      if (!remoteRecipes.length && defaultRecipes.length && typeof firebaseApi.seedRecipes === "function") {
-        showLoadingState("Tarif kataloğu ilk kez hazırlanıyor. Bu işlem birkaç saniye sürebilir.");
-        await firebaseApi.seedRecipes(defaultRecipes);
+      const shouldRepair = !remoteRecipes.length || hasBrokenRecipeData(remoteRecipes) || isCategoryCoverageWeak(remoteRecipes);
+
+      if (shouldRepair && defaultRecipes.length && typeof firebaseApi.seedRecipes === "function") {
+        showLoadingState("Tarif katalo\u011fu onar\u0131l\u0131yor. Bu i\u015flem birka\u00e7 saniye s\u00fcrebilir.");
+        await firebaseApi.seedRecipes(defaultRecipes, { force: true });
         remoteRecipes = await firebaseApi.loadRecipes();
       }
+
       if (remoteRecipes.length) {
         return remoteRecipes;
       }
     } catch (error) {
-      console.error("Firestore tarifleri yüklenemedi, yerel katalog kullanılacak.", error);
+      console.error("Firestore tarifleri y\u00fcklenemedi, yerel katalog kullan\u0131lacak.", error);
     }
   }
   return defaultRecipes;
 }
 
 async function bootRecipes() {
-  showLoadingState("Tarifler yükleniyor...");
+  showLoadingState("Tarifler y\u00fckleniyor...");
   const loadedRecipes = await loadRecipeSource();
   buildRecipeState(loadedRecipes);
   renderApp();
