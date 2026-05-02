@@ -143,6 +143,12 @@
     return publicMemberFromUser(credential.user);
   }
 
+  async function resetPassword(email) {
+    if (!enabled) return false;
+    await auth.sendPasswordResetEmail(email);
+    return true;
+  }
+
   async function saveProfile(profile) {
     if (!enabled || !auth.currentUser) return false;
     const member = publicMemberFromUser(auth.currentUser, profile.memberName);
@@ -238,4 +244,5 @@
     signOut
   };
 })();
+
 
