@@ -1146,19 +1146,25 @@ if (!profile) {
   const topPantryPanel = document.querySelector("#top-pantry-panel");
   let pantryDraftValue = "";
 
+  const closePantryPanel = () => {
+    topPantryPanel.classList.add("hidden");
+    topPantryPanel.innerHTML = "";
+  };
+
   const renderPantryComposer = () => {
     topPantryPanel.innerHTML = `
-      <div class="top-pantry-box">
+      <div class="top-pantry-box pantry-modal-box">
+        <button class="pantry-close-button" id="pantry-close-button" type="button" aria-label="Kapat">×</button>
         <p class="eyebrow compact">Dolap Asistanı</p>
+        <h3 class="pantry-modal-title">Dolabında neler var?</h3>
         <form class="pantry-form top-pantry-form" id="pantry-form">
-          <label>Dolabında neler var?
-            <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta">${pantryDraftValue}</textarea>
-          </label>
-          <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
+          <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta">${pantryDraftValue}</textarea>
+          <button class="primary-link full-width" id="pantry-submit" type="submit">Tarif hazırla</button>
         </form>
       </div>
     `;
 
+    document.querySelector("#pantry-close-button")?.addEventListener("click", closePantryPanel);
     document.querySelector("#pantry-input")?.addEventListener("input", (event) => {
       pantryDraftValue = event.target.value;
     });
@@ -1169,22 +1175,27 @@ if (!profile) {
   const renderPantryResult = (matched, message) => {
     topPantryPanel.innerHTML = matched
       ? `
-        <div class="top-pantry-box pantry-result-panel">
+        <div class="top-pantry-box pantry-result-panel pantry-modal-box">
+          <button class="pantry-close-button" id="pantry-close-button" type="button" aria-label="Kapat">×</button>
           <p class="eyebrow compact">Dolap Asistanı</p>
+          <h3 class="pantry-modal-title">Bugün için önerim</h3>
           <button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}">
-            <strong>Bugün için önerim:</strong><br>${matched.name}<br><span>${matched.calories} kcal - ${matched.protein} g protein</span>
+            <strong>${matched.name}</strong><br><span>${matched.calories} kcal - ${matched.protein} g protein</span>
           </button>
           <button class="secondary-link full-width pantry-back-button" id="pantry-back-button" type="button">Malzemeleri düzenle</button>
         </div>
       `
       : `
-        <div class="top-pantry-box pantry-result-panel">
+        <div class="top-pantry-box pantry-result-panel pantry-modal-box">
+          <button class="pantry-close-button" id="pantry-close-button" type="button" aria-label="Kapat">×</button>
           <p class="eyebrow compact">Dolap Asistanı</p>
+          <h3 class="pantry-modal-title">Tarif bulunamadı</h3>
           <div class="pantry-result">${message}</div>
           <button class="secondary-link full-width pantry-back-button" id="pantry-back-button" type="button">Tekrar dene</button>
         </div>
       `;
 
+    document.querySelector("#pantry-close-button")?.addEventListener("click", closePantryPanel);
     document.querySelector("#pantry-back-button")?.addEventListener("click", renderPantryComposer);
     document.querySelector(".pantry-recipe-link")?.addEventListener("click", (event) => {
       showRecipeDetail(event.currentTarget.dataset.recipeName);
@@ -1213,9 +1224,13 @@ if (!profile) {
   };
 
   document.querySelector("#pantry-button").addEventListener("click", () => {
-    topPantryPanel.classList.toggle("hidden");
-    if (!topPantryPanel.classList.contains("hidden")) {
-      renderPantryComposer();
+    topPantryPanel.classList.remove("hidden");
+    renderPantryComposer();
+  });
+
+  topPantryPanel.addEventListener("click", (event) => {
+    if (event.target === topPantryPanel) {
+      closePantryPanel();
     }
   });
   document.querySelector("#new-analysis").addEventListener("click", () => {
@@ -1238,6 +1253,7 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
 
 
 
