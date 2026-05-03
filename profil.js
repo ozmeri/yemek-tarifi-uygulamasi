@@ -10,7 +10,7 @@ let generatedDailyMeals = [];
 const recipeDetails = {
   "Tavuklu Kinoa Salatası": {
     ingredients: ["120 g izgara tavuk", "80 g haşlanmış kinoa", "Marul", "Salatalık", "Limonlu sos"],
-    steps: ["Sebzeleri doğra.", "Kinoa ve tavu�Yu ekle.", "Limonlu sosu gezdir.", "Karıştırıp soğuk servis et."]
+    steps: ["Sebzeleri doğra.", "Kinoa ve tavuğu ekle.", "Limonlu sosu gezdir.", "Karıştırıp soğuk servis et."]
   },
   "Kabak Spagetti Tavuklu": {
     ingredients: ["2 kabak", "120 g tavuk göğsü", "Domates sosu", "Sarımsak", "Fesleğen"],
@@ -22,18 +22,18 @@ const recipeDetails = {
   },
   "Mercimekli Sebze Çorbası": {
     ingredients: ["Kırmızı mercimek", "Havuç", "Kabak", "Soğan", "Kimyon", "Zerdecal"],
-    steps: ["Sebzeleri do�Yra ve tencerede çevir.", "Mercimek ve su ekle.", "Baharatlarla pişir.", "Blenderdan geçir."]
+    steps: ["Sebzeleri doğra ve tencerede çevir.", "Mercimek ve su ekle.", "Baharatlarla pişir.", "Blenderdan geçir."]
   },
-  "Nohutlu Ton Balı�Yı Kasesi": {
-    ingredients: ["1 kutu ton balığı", "Ha�Ylanmı�Y nohut", "Marul", "Mısır", "Limon", "Maydanoz"],
+  "Nohutlu Ton Balığı Kasesi": {
+    ingredients: ["1 kutu ton balığı", "Haşlanmış nohut", "Marul", "Mısır", "Limon", "Maydanoz"],
     steps: ["Nohudu sudan geçir.", "Ton balığı ve sebzeleri kaseye al.", "Limon ve maydanoz ekle.", "Karıştırıp servis et."]
   },
   "Karnabahar Pilavı Tavuklu": {
     ingredients: ["Karnabahar", "120 g tavuk", "Bezelye", "Havuç", "Soya sosu", "Taze soğan"],
-    steps: ["Karnabaharı rondodan geçir.", "Tavu�Yu pişir.", "Sebzeleri ekle.", "Karnabaharı son 5 dakika tavada çevir."]
+    steps: ["Karnabaharı rondodan geçir.", "Tavuğu pişir.", "Sebzeleri ekle.", "Karnabaharı son 5 dakika tavada çevir."]
   },
   "Bulgurlu Yoğurtlu Semizotu": {
-    ingredients: ["Semizotu", "Ha�Ylanmı�Y bulgur", "Süzme yoğurt", "Nane", "Salatalık"],
+    ingredients: ["Semizotu", "Haşlanmış bulgur", "Süzme yoğurt", "Nane", "Salatalık"],
     steps: ["Semizotunu yıka ve ayıkla.", "Yoğurt, nane ve salatalığı karıştır.", "Bulguru ekle.", "Semizotu ile birleştir."]
   },
   "Protein Omlet Bowl": {
@@ -62,7 +62,7 @@ const pantryRecipes = [
     keywords: ["tavuk", "kapya", "biber", "havuç", "havuç", "sote"],
     pantryCore: ["tavuk", "biber", "havuç"],
     ingredients: ["120 g tavuk", "1 kapya biber", "1 havuç", "1 tatlı kaşığı zeytinyağı", "Karabiber", "Kekik"],
-    steps: ["Tavu�Yu kuşbaşı doğra ve tavada zeytinyağı ile pişir.", "Kapya biberi ve havuçu ince do�Yra.", "Sebzeleri tavu�Ya ekleyip 8-10 dakika sotele.", "Baharat ekleyip sıcak servis et."]
+    steps: ["Tavuğu kuşbaşı doğra ve tavada zeytinyağı ile pişir.", "Kapya biberi ve havucu ince doğra.", "Sebzeleri tavuğa ekleyip 8-10 dakika sotele.", "Baharat ekleyip sıcak servis et."]
   },
   {
     name: "Patates Bezelye Yemeği",
@@ -75,11 +75,11 @@ const pantryRecipes = [
     keywords: ["patates", "bezelye", "sebze", "etsiz"],
     pantryCore: ["patates", "bezelye"],
     ingredients: ["2 küçük patates", "1 su bardagi bezelye", "1 küçük soğan", "1 tatlı kaşığı zeytinyağı", "Domates sosu", "Karabiber"],
-    steps: ["Patatesleri küp küp do�Yra.", "Soğanı zeytinyağında hafifçe çevir.", "Patates ve bezelyeyi ekleyip üzerini geçecek kadar su koy.", "Domates sosu ve baharat ekleyip patates yumuşayana kadar pişir."]
+    steps: ["Patatesleri küp küp doğra.", "Soğanı zeytinyağında hafifçe çevir.", "Patates ve bezelyeyi ekleyip üzerini geçecek kadar su koy.", "Domates sosu ve baharat ekleyip patates yumuşayana kadar pişir."]
   },
   {
     name: "Kıymalı Patlıcan Kabak Sote",
-    note: "Kıyma, patlıcan, kabak ve kapya biberle hazırlanan doyurucu bir tava yeme�Yi.",
+    note: "Kıyma, patlıcan, kabak ve kapya biberle hazırlanan doyurucu bir tava yemeği.",
     calories: 455,
     protein: 34,
     carbs: 28,
@@ -88,7 +88,7 @@ const pantryRecipes = [
     keywords: ["kıyma", "kıyma", "patlıcan", "patlıcan", "kabak", "kapya", "biber", "sote"],
     pantryCore: ["kıyma", "patlıcan", "kabak", "biber"],
     ingredients: ["120 g kıyma", "1 patlıcan", "1 kabak", "1 kapya biber", "1 tatlı kaşığı zeytinyağı", "Karabiber", "Kekik"],
-    steps: ["Patlıcanı, kaba�Yı ve kapya biberi do�Yra.", "Kıymayı tavada suyunu çekene kadar pişir.", "Sebzeleri ekleyip kısık ateşte yumuşayana kadar sotele.", "Baharat ekleyip sıcak servis et."]
+    steps: ["Patlıcanı, kabağı ve kapya biberi doğra.", "Kıymayı tavada suyunu çekene kadar pişir.", "Sebzeleri ekleyip kısık ateşte yumuşayana kadar sotele.", "Baharat ekleyip sıcak servis et."]
   },
   {
     name: "Kıymalı Patlıcan Patates Yemeği",
@@ -101,11 +101,11 @@ const pantryRecipes = [
     keywords: ["kıyma", "kıyma", "patlıcan", "patlıcan", "patates", "tencere", "yemek"],
     pantryCore: ["kıyma", "patlıcan", "patates"],
     ingredients: ["120 g kıyma", "1 patlıcan", "1 küçük patates", "1 küçük soğan", "Domates sosu", "1 tatlı kaşığı zeytinyağı", "Karabiber"],
-    steps: ["Patlıcanı ve patatesi küp küp do�Yra.", "Soğanı zeytinyağında çevirip kıymayı ekle ve suyunu cekene kadar pişir.", "Patates ve patlıcani tencereye al, domates sosu ve az su ekle.", "Sebzeler yumuşayana kadar kısık ateşte pi�Yirip sıcak servis et."]
+    steps: ["Patlıcanı ve patatesi küp küp doğra.", "Soğanı zeytinyağında çevirip kıymayı ekle ve suyunu cekene kadar pişir.", "Patates ve patlıcani tencereye al, domates sosu ve az su ekle.", "Sebzeler yumuşayana kadar kısık ateşte pişirip sıcak servis et."]
   },
   {
     name: "Karnabahar Brokoli Fırın",
-    note: "Dolabında karnabahar ve brokoli varsa hafif, doyurucu bir fırın taba�Yı.",
+    note: "Dolabında karnabahar ve brokoli varsa hafif, doyurucu bir fırın tabağı.",
     calories: 320,
     protein: 18,
     carbs: 26,
@@ -114,7 +114,7 @@ const pantryRecipes = [
     keywords: ["karnabahar", "karnibahar", "brokoli", "yoğurt", "yumurta", "lor", "peynir"],
     pantryCore: ["karnabahar", "brokoli"],
     ingredients: ["Karnabahar", "Brokoli", "3 yemek kaşığı süzme yoğurt", "1 yumurta", "40 g lor peyniri", "1 tatlı kaşığı zeytinyağı"],
-    steps: ["Karnabahar ve brokoliyi hafif ha�Yla.", "Yo�Yurt, yumurta, lor ve zeytinyağını karıştır.", "Sebzeleri fırın kabına al ve sosu üzerine gezdir.", "180 derecede 20 dakika pişir."]
+    steps: ["Karnabahar ve brokoliyi hafif haşla.", "Yoğurt, yumurta, lor ve zeytinyağını karıştır.", "Sebzeleri fırın kabına al ve sosu üzerine gezdir.", "180 derecede 20 dakika pişir."]
   },
   {
     name: "Brokolili Yoğurtlu Kase",
@@ -127,7 +127,7 @@ const pantryRecipes = [
     keywords: ["brokoli", "yoğurt", "yumurta", "lor", "peynir"],
     pantryCore: ["brokoli", "yoğurt"],
     ingredients: ["Brokoli", "Süzme yoğurt", "1 haşlanmış yumurta", "Nane", "Limon", "Az zeytinyağı"],
-    steps: ["Brokoliyi buharda pişir.", "Yo�Yurdu nane ve limonla karıştır.", "Yumurtayı dilimle.", "Hepsini kaseye al ve az zeytinyağı ekle."]
+    steps: ["Brokoliyi buharda pişir.", "Yoğurdu nane ve limonla karıştır.", "Yumurtayı dilimle.", "Hepsini kaseye al ve az zeytinyağı ekle."]
   }
 ];
 
@@ -387,11 +387,11 @@ function displayIngredient(term) {
     mantar: "mantar",
     ispanak: "ıspanak",
     domates: "domates",
-    sogan: "so�Yan",
+    sogan: "soğan",
     nohut: "nohut",
     mercimek: "mercimek",
     fasulye: "fasulye",
-    "yeşil fasulye": "ye�Yil fasulye",
+    "yeşil fasulye": "yeşil fasulye",
     "tam bugday lavas": "tam buğday lavaş",
     "tam bugday ekmegi": "tam buğday ekmeği"
   };
@@ -483,7 +483,7 @@ function buildPantryRecipe(available) {
   const method = wrapBase
     ? "Wrap"
     : proteins.length
-      ? (carbsPantry.includes("patates") || carbsPantry.includes("tatli patates") || vegetables.includes("karnabahar") ? "Tencere Yeme�Yi" : "Sote")
+      ? (carbsPantry.includes("patates") || carbsPantry.includes("tatli patates") || vegetables.includes("karnabahar") ? "Tencere Yemeği" : "Sote")
       : (vegetables.includes("karnabahar") || vegetables.includes("brokoli") ? "Fırın" : "Sebze Sote");
   const name = `${proteinTitle} ${detailTitle || "Dolap"} ${method}`.replace(/\s+/g, " ").trim();
   const calories = Math.min(680, 220 + proteins.length * 120 + vegetables.length * 40 + carbsPantry.length * 70);
@@ -491,7 +491,7 @@ function buildPantryRecipe(available) {
   const carbs = carbsPantry.length * 18 + vegetables.length * 5 + (wrapBase ? 12 : 0);
   const fat = proteins.includes("kiyma") ? 22 : proteins.length ? 14 : 9;
   const ingredients = [...displayItems, "baharat", wrapBase ? "varsa yoğurtlu sos" : "varsa 1 tatlı kaşığı zeytinyağı"];
-  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini do�Yra.` : "Sebzeleri hazırlayıp küçük parçalara ayır.";
+  const prepVegetables = vegetables.length ? `${vegetables.map(displayIngredient).join(", ")} malzemelerini doğra.` : "Sebzeleri hazırlayıp küçük parçalara ayır.";
   const cookProtein = mainProtein === "kiyma"
     ? "Kıymayı tavada suyunu çekene kadar pişir."
     : mainProtein === "tavuk" || mainProtein === "hindi"
@@ -514,7 +514,7 @@ function buildPantryRecipe(available) {
 
   return {
     name,
-    note: `Dolabında yazdı�Yın ${displayItems.join(", ")} ile ekstra ana malzeme gerektirmeden oluşturulan tarif.`,
+    note: `Dolabında yazdığın ${displayItems.join(", ")} ile ekstra ana malzeme gerektirmeden oluşturulan tarif.`,
     calories,
     protein,
     carbs,
@@ -733,7 +733,7 @@ function buildSnackOptions() {
       fat: 10,
       time: 2,
       mealType: "Ara öğün",
-      ingredients: ["1 su bardağı kefir", "5 adet çi�Y badem"],
+      ingredients: ["1 su bardağı kefir", "5 adet çiğ badem"],
       steps: ["Kefiri soğuk şekilde bardağa koy.", "Yanına 5 adet çiğ badem ekleyip ara öğün olarak tüket."],
       tags: ["ara öğün", "kefir", "badem"],
       vegetarian: true,
@@ -835,7 +835,7 @@ function buildSnackOptions() {
       time: 3,
       mealType: "Ara öğün",
       ingredients: ["3 yemek kaşığı sade yoğurt", "4-5 adet çilek"],
-      steps: ["Yo�Yurdu küçük kaseye al.", "Üzerine doğranmış çilek ekleyip tüket."],
+      steps: ["Yoğurdu küçük kaseye al.", "Üzerine doğranmış çilek ekleyip tüket."],
       tags: ["ara öğün", "çilek", "yoğurt"],
       vegetarian: true,
       lowSodium: true,
@@ -1304,6 +1304,7 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
 
 
 
