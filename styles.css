@@ -3468,3 +3468,36 @@ body {
   color: #fffdf7;
 }
 
+
+.top-pantry-panel {
+  display: flex;
+  justify-content: flex-end;
+  margin: -8px 0 18px;
+}
+
+.top-pantry-box {
+  width: min(420px, 100%);
+  border: 1px solid rgba(231, 214, 189, 0.95);
+  border-radius: 24px;
+  background: rgba(255, 250, 240, 0.96);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.top-pantry-form textarea {
+  min-height: 110px;
+}
+
+.pantry-result-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.pantry-recipe-link {
+  width: 100%;
+}
+
+.pantry-back-button {
+  justify-self: stretch;
+}
+

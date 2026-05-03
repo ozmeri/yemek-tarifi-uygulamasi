@@ -1096,13 +1096,7 @@ if (!profile) {
           </details>
         </section>
 
-        <form class="pantry-form hidden profile-side-pantry" id="pantry-form">
-          <label>Dolabında neler var?
-            <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta"></textarea>
-          </label>
-          <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
-        </form>
-        <div class="pantry-result hidden profile-side-pantry-result" id="pantry-result"></div>
+
       </aside>
     </section>
   `;
@@ -1115,11 +1109,6 @@ if (!profile) {
     showRecipeDetail(dailyMealPlan[0].recipe.name);
   }
 
-  document.querySelector("#pantry-result").addEventListener("click", (event) => {
-    const button = event.target.closest(".pantry-recipe-link");
-    if (!button) return;
-    showRecipeDetail(button.dataset.recipeName);
-  });
 
   document.querySelector("#weekly-change-button").addEventListener("click", () => {
     document.querySelector("#weekly-form").classList.toggle("hidden");
@@ -1154,41 +1143,79 @@ if (!profile) {
   });
 
 
-  document.querySelector("#pantry-button").addEventListener("click", () => {
-    document.querySelector("#pantry-form").classList.toggle("hidden");
-  });
+  const topPantryPanel = document.querySelector("#top-pantry-panel");
+  let pantryDraftValue = "";
 
-  document.querySelector("#pantry-input").addEventListener("input", () => {
-    const result = document.querySelector("#pantry-result");
-    result.classList.add("hidden");
-    result.innerHTML = "";
-    document.querySelector("#pantry-submit").textContent = "Günlük tarifi tekrar çıkar";
-  });
+  const renderPantryComposer = () => {
+    topPantryPanel.innerHTML = `
+      <div class="top-pantry-box">
+        <p class="eyebrow compact">Dolap Asistanı</p>
+        <form class="pantry-form top-pantry-form" id="pantry-form">
+          <label>Dolabında neler var?
+            <textarea id="pantry-input" placeholder="Örnek: tavuk, yoğurt, kabak, yumurta">${pantryDraftValue}</textarea>
+          </label>
+          <button class="primary-link full-width" id="pantry-submit" type="submit">Günlük tarif çıkar</button>
+        </form>
+      </div>
+    `;
 
-  document.querySelector("#pantry-form").addEventListener("submit", (event) => {
+    document.querySelector("#pantry-input")?.addEventListener("input", (event) => {
+      pantryDraftValue = event.target.value;
+    });
+
+    document.querySelector("#pantry-form")?.addEventListener("submit", handlePantrySubmit);
+  };
+
+  const renderPantryResult = (matched, message) => {
+    topPantryPanel.innerHTML = matched
+      ? `
+        <div class="top-pantry-box pantry-result-panel">
+          <p class="eyebrow compact">Dolap Asistanı</p>
+          <button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}">
+            <strong>Bugün için önerim:</strong><br>${matched.name}<br><span>${matched.calories} kcal - ${matched.protein} g protein</span>
+          </button>
+          <button class="secondary-link full-width pantry-back-button" id="pantry-back-button" type="button">Malzemeleri düzenle</button>
+        </div>
+      `
+      : `
+        <div class="top-pantry-box pantry-result-panel">
+          <p class="eyebrow compact">Dolap Asistanı</p>
+          <div class="pantry-result">${message}</div>
+          <button class="secondary-link full-width pantry-back-button" id="pantry-back-button" type="button">Tekrar dene</button>
+        </div>
+      `;
+
+    document.querySelector("#pantry-back-button")?.addEventListener("click", renderPantryComposer);
+    document.querySelector(".pantry-recipe-link")?.addEventListener("click", (event) => {
+      showRecipeDetail(event.currentTarget.dataset.recipeName);
+    });
+  };
+
+  const handlePantrySubmit = (event) => {
     event.preventDefault();
-    const input = document.querySelector("#pantry-input").value;
-    const result = document.querySelector("#pantry-result");
+    const input = document.querySelector("#pantry-input")?.value || pantryDraftValue;
+    pantryDraftValue = input;
     const available = parsePantryInput(input);
 
     if (!available.length) {
-      result.classList.remove("hidden");
-      result.textContent = "Önce dolabındaki malzemeleri yaz, sonra günlük tarifi çıkaralım.";
+      renderPantryResult(null, "Önce dolabındaki malzemeleri yaz, sonra günlük tarifi çıkaralım.");
       return;
     }
 
     const matched = findPantryRecipe(available) || buildPantryRecipe(available);
     generatedPantryRecipes = matched ? [matched] : [];
 
-    result.classList.remove("hidden");
-    result.innerHTML = matched
-      ? `<button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}"><strong>Bugün için önerim:</strong><br>${matched.name}<br><span>${matched.calories} kcal - ${matched.protein} g protein</span></button>`
-      : "Elindeki malzemelere göre net bir eşleşme bulamadım. Biraz daha malzeme yazmayı dene.";
-
-    document.querySelector("#pantry-submit").textContent = "Günlük tarifi tekrar çıkar";
+    renderPantryResult(matched, "Elindeki malzemelere göre net bir eşleşme bulamadım. Biraz daha malzeme yazmayı dene.");
 
     if (matched) {
       showRecipeDetail(matched.name);
+    }
+  };
+
+  document.querySelector("#pantry-button").addEventListener("click", () => {
+    topPantryPanel.classList.toggle("hidden");
+    if (!topPantryPanel.classList.contains("hidden")) {
+      renderPantryComposer();
     }
   });
   document.querySelector("#new-analysis").addEventListener("click", () => {
@@ -1211,6 +1238,9 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
+
 
 
 
