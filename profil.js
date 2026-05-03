@@ -962,6 +962,25 @@ function buildDailyMealPlan(recommendations = []) {
   })).filter((meal) => meal.recipe);
 }
 
+
+function renderSavedMenuCards(savedMenu = []) {
+  if (!savedMenu.length) {
+    return `<div class="empty">Henüz dolap asistanından kaydettiğin bir tarif yok.</div>`;
+  }
+
+  return savedMenu.map((item) => `
+    <article class="suggestion-card profile-meal-card saved-menu-card" data-recipe-name="${item.name}">
+      <p class="eyebrow compact">Benim menüm</p>
+      <h3>${item.name}</h3>
+      <p>${item.note || "Dolabındaki malzemelerle oluşturduğun kayıtlı tarif."}</p>
+      <div class="recipe-meta">
+        <span>${item.calories} kcal</span>
+        <span>${item.protein} g protein</span>
+        <span>${item.time} dk</span>
+      </div>
+    </article>
+  `).join("");
+}
 function renderDailyMealCards(plan = []) {
   if (!plan.length) {
     return `<div class="empty">Bu profile uygun günlük menü bulamadık. Bilgileri güncelleyip tekrar analiz yapalim.</div>`;
@@ -1023,6 +1042,7 @@ if (!profile) {
 } else {
   const weeklyChange = localStorage.getItem("fitTariflerWeeklyChange") || "Henüz girilmedi";
   profile.filteredRecommendations = (profile.recommendations || []).filter((food) => !hasProfileConflict(food));
+  profile.savedMenu = Array.isArray(profile.savedMenu) ? profile.savedMenu : [];
   const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
   generatedDailyMeals = dailyMealPlan.map((item) => item.recipe);
 
@@ -1055,6 +1075,13 @@ if (!profile) {
               <h2>Bir öğün seç</h2>
               <p>Soldaki günlük öğünlerden birine tıklayınca malzemeler ve hazırlanış burada görünecek.</p>
             </aside>
+          </div>
+        </div>
+
+        <div class="profile-recommendations panel-block" id="saved-menu-section">
+          <div class="section-title"><h2>Benim menüm</h2></div>
+          <div class="saved-menu-grid">
+            ${renderSavedMenuCards(profile.savedMenu)}
           </div>
         </div>
       </div>
@@ -1172,6 +1199,22 @@ if (!profile) {
     document.querySelector("#pantry-form")?.addEventListener("submit", handlePantrySubmit);
   };
 
+  const savePantryRecipeToMenu = async (recipe) => {
+    const exists = profile.savedMenu.some((item) => item.name === recipe.name);
+    if (!exists) {
+      profile.savedMenu.unshift(recipe);
+      localStorage.setItem("fitTariflerProfile", JSON.stringify(profile));
+      if (window.fitFirebase?.enabled && typeof window.fitFirebase.saveProfile === "function") {
+        try {
+          await window.fitFirebase.saveProfile(profile);
+        } catch (error) {
+          console.error("Kaydedilen menü Firestore'a yazılamadı.", error);
+        }
+      }
+    }
+    window.location.reload();
+  };
+
   const renderPantryResult = (matched, message) => {
     topPantryPanel.innerHTML = matched
       ? `
@@ -1182,7 +1225,8 @@ if (!profile) {
           <button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}">
             <strong>${matched.name}</strong><br><span>${matched.calories} kcal - ${matched.protein} g protein</span>
           </button>
-          <button class="secondary-link full-width pantry-back-button" id="pantry-back-button" type="button">Malzemeleri düzenle</button>
+          <button class="secondary-link full-width pantry-open-button" id="pantry-open-button" type="button">Tarifi aç</button>
+          <button class="primary-link full-width pantry-save-button" id="pantry-save-button" type="button">Menüye kaydet</button>
         </div>
       `
       : `
@@ -1197,8 +1241,15 @@ if (!profile) {
 
     document.querySelector("#pantry-close-button")?.addEventListener("click", closePantryPanel);
     document.querySelector("#pantry-back-button")?.addEventListener("click", renderPantryComposer);
-    document.querySelector(".pantry-recipe-link")?.addEventListener("click", (event) => {
-      showRecipeDetail(event.currentTarget.dataset.recipeName);
+    document.querySelector("#pantry-open-button")?.addEventListener("click", () => {
+      showRecipeDetail(matched.name);
+      closePantryPanel();
+    });
+    document.querySelector("#pantry-save-button")?.addEventListener("click", async () => {
+      await savePantryRecipeToMenu(matched);
+    });
+    document.querySelector(".pantry-recipe-link")?.addEventListener("click", () => {
+      showRecipeDetail(matched.name);
     });
   };
 
@@ -1253,6 +1304,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 

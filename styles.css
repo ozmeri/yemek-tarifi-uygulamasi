@@ -3555,3 +3555,18 @@ body {
   }
 }
 
+
+.saved-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.saved-menu-card {
+  cursor: pointer;
+}
+
+.profile-nav-links {
+  align-items: center;
+}
+
