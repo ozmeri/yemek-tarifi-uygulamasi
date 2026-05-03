@@ -1002,6 +1002,39 @@ function renderDailyMealCards(plan = []) {
   `).join("");
 }
 
+function renderSavedMenuPage(profile) {
+  profilePage.innerHTML = `
+    <section class="saved-menu-page-shell">
+      <div class="profile-hero-card compact-profile-hero saved-menu-hero">
+        <p class="eyebrow compact">Benim menüm</p>
+        <h1>Kaydettiğin tarifler</h1>
+        <p>Dolap asistanından menüne eklediğin tarifleri burada toplu halde görebilirsin.</p>
+      </div>
+
+      <div class="profile-recommendations panel-block">
+        <div class="weekly-recipe-layout saved-menu-layout">
+          <div class="suggestion-list weekly-recipe-list saved-menu-list">
+            ${renderSavedMenuCards(profile.savedMenu)}
+          </div>
+          <aside class="recipe-detail-pane" id="recipe-detail-pane">
+            <p class="eyebrow compact">Tarif detayı</p>
+            <h2>Bir tarif seç</h2>
+            <p>Soldaki kayıtlı tariflerden birine tıklayınca malzemeler ve hazırlanış burada görünecek.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document.querySelectorAll(".saved-menu-card").forEach((card) => {
+    card.addEventListener("click", () => showRecipeDetail(card.dataset.recipeName));
+  });
+
+  if (profile.savedMenu.length) {
+    showRecipeDetail(profile.savedMenu[0].name);
+  }
+}
+
 function hasBrokenProfileRecipeData(recipeList = []) {
   return recipeList.some((recipe) => /Ã|Å|Ä|\uFFFD/.test(JSON.stringify(recipe)));
 }
@@ -1078,12 +1111,7 @@ if (!profile) {
           </div>
         </div>
 
-        <div class="profile-recommendations panel-block" id="saved-menu-section">
-          <div class="section-title"><h2>Benim menüm</h2></div>
-          <div class="saved-menu-grid">
-            ${renderSavedMenuCards(profile.savedMenu)}
-          </div>
-        </div>
+
       </div>
 
       <aside class="profile-side-panel">
@@ -1304,6 +1332,9 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
+
 
 
 
