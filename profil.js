@@ -1,4 +1,6 @@
 ﻿const profilePage = document.querySelector("#profile-page");
+const currentPage = document.body?.dataset?.page || "profile";
+const isSavedMenuPage = currentPage === "saved-menu";
 const profile = JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
 if (profile && (profile.startingWeight === undefined || profile.startingWeight === null || profile.startingWeight === "")) {
   profile.startingWeight = Number(profile.weight) || null;
@@ -1079,6 +1081,23 @@ if (!profile) {
   const dailyMealPlan = buildDailyMealPlan(profile.filteredRecommendations);
   generatedDailyMeals = dailyMealPlan.map((item) => item.recipe);
 
+  if (isSavedMenuPage) {
+    renderSavedMenuPage(profile);
+    const savedMenuLogout = async (event) => {
+      event?.preventDefault();
+      if (window.fitFirebase?.enabled) {
+        await window.fitFirebase.signOut();
+      }
+      localStorage.removeItem("fitTariflerMember");
+      localStorage.removeItem("fitTariflerProfile");
+      localStorage.removeItem("fitTariflerWeeklyChange");
+      window.location.href = "index.html";
+    };
+    document.querySelector("#logout")?.addEventListener("click", savedMenuLogout);
+    document.querySelector("#secure-logout-link")?.addEventListener("click", savedMenuLogout);
+    return;
+  }
+
   profilePage.innerHTML = `
     <section class="profile-dashboard">
       <div class="profile-main-panel">
@@ -1302,17 +1321,17 @@ if (!profile) {
     }
   };
 
-  document.querySelector("#pantry-button").addEventListener("click", () => {
-    topPantryPanel.classList.remove("hidden");
+  document.querySelector("#pantry-button")?.addEventListener("click", () => {
+    topPantryPanel?.classList.remove("hidden");
     renderPantryComposer();
   });
 
-  topPantryPanel.addEventListener("click", (event) => {
+  topPantryPanel?.addEventListener("click", (event) => {
     if (event.target === topPantryPanel) {
       closePantryPanel();
     }
   });
-  document.querySelector("#new-analysis").addEventListener("click", () => {
+  document.querySelector("#new-analysis")?.addEventListener("click", () => {
     sessionStorage.setItem("startProfileWizard", "1");
     window.location.href = "uyelik.html";
   });
@@ -1332,6 +1351,9 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
+
 
 
 
