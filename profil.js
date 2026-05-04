@@ -1261,7 +1261,7 @@ if (!profile) {
         }
       }
     }
-    window.location.reload();
+    window.location.href = "benim-menu.html";
   };
 
   const renderPantryResult = (matched, message) => {
@@ -1353,6 +1353,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 
