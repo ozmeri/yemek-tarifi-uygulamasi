@@ -156,7 +156,7 @@ function renderRecipeDetail(food) {
 }
 
 function showRecipeDetail(foodName) {
-  const food = [...generatedDailyMeals, ...generatedPantryRecipes, ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
+  const food = [...generatedDailyMeals, ...generatedPantryRecipes, ...(profile.savedMenu || []), ...(profile.filteredRecommendations || profile.recommendations || []), ...pantryRecipes, ...catalogRecipes].find((item) => item.name === foodName);
   if (!food || hasProfileConflict(food)) return;
   document.querySelector("#recipe-detail-pane").innerHTML = renderRecipeDetail(food);
 }
@@ -1351,6 +1351,7 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
 
 
 
