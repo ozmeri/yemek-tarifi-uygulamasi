@@ -361,7 +361,9 @@ function normalizePantryTerm(term) {
     "kirmizi lahana": "lahana",
     "yeşil fasulye": "yeşil fasulye",
     "tam buday lavas": "tam bugday lavas",
-    "tam buday ekmegi": "tam bugday ekmegi"
+    "tam buday ekmegi": "tam bugday ekmegi",
+    "esmer_bulgur": "esmer bulgur",
+    "esmer_pirinc": "esmer pirinc"
   };
   return aliases[term] || term;
 }
@@ -470,7 +472,7 @@ function findPantryRecipe(available) {
 function buildPantryRecipe(available) {
   const uniqueItems = [...new Set(available.map(normalizePantryTerm))];
   const proteinTerms = ["kiyma", "tavuk", "hindi", "yumurta", "balik", "somon", "ton", "yogurt", "peynir", "nohut", "mercimek", "fasulye"];
-  const carbTerms = ["tam bugday lavas", "tam bugday ekmegi", "tatli patates", "patates", "bulgur", "kinoa", "yulaf", "esmer pirinc"];
+  const carbTerms = ["tam bugday lavas", "tam bugday ekmegi", "tatli patates", "patates", "bulgur", "esmer bulgur", "kinoa", "yulaf", "esmer pirinc"];
   const proteins = uniqueItems.filter((item) => proteinTerms.includes(item));
   const carbsPantry = uniqueItems.filter((item) => carbTerms.includes(item));
   const vegetables = uniqueItems.filter((item) => !proteinTerms.includes(item) && !carbTerms.includes(item));
@@ -1351,6 +1353,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 
