@@ -88,7 +88,8 @@ async function handleSaveRecipeToMenu() {
 function ensureRecipeShape(recipe, index = 0) {
   const override = window.fitRecipeOverrides?.[recipe.name] || {};
   const inferredType = window.fitInferRecipeType?.({ ...recipe, ...override }) || recipe.type || "Ana yemek";
-  const type = override.type || inferredType;
+  const rawType = override.type || inferredType;
+  const type = rawType === "Aperatif" ? "Ana yemek" : rawType;
 
   return {
     ...recipe,
@@ -340,5 +341,9 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 bootRecipes();
+
+
+
+
 
 

@@ -226,7 +226,7 @@
     }
   ];
 
-  const orderedRecipeTypes = ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Aperatif", "Tatl\u0131"];
+  const orderedRecipeTypes = ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Tatl\u0131"];
 
   const recipeOverrides = {
     "Protein Omlet Bowl": { type: "Kahvalt\u0131", category: "Kahvalt\u0131" }
@@ -265,7 +265,7 @@
     if (hasTag(["salata"])) return "Salata";
     if (hasTag(["\u00e7orba", "corba"])) return "\u00c7orba";
     if (hasTag(["tatl\u0131", "tatli"])) return "Tatl\u0131";
-    if (hasTag(["ara \u00f6\u011f\u00fcn", "ara ogun", "aperatif", "at\u0131\u015ft\u0131rmal\u0131k", "atistirmalik"])) return "Aperatif";
+    if (hasTag(["ara \u00f6\u011f\u00fcn", "ara ogun", "aperatif", "at\u0131\u015ft\u0131rmal\u0131k", "atistirmalik"])) return "Ana yemek";
     if (nameText.includes("\u00e7orba") || nameText.includes("corba") || nameText.includes("soup")) return "\u00c7orba";
     if (nameText.includes("kahvalt\u0131") || nameText.includes("kahvalti") || nameText.includes("omlet")) return "Kahvalt\u0131";
 
@@ -280,10 +280,10 @@
     if (saladMatch && !breakfastMatch) return "Salata";
     if (dessertMatch && !breakfastMatch) return "Tatl\u0131";
     if (breakfastMatch) return "Kahvalt\u0131";
-    if (snackMatch || (recipe.calories <= 220 && recipe.protein <= 12 && !saladMatch && !soupMatch && !dessertMatch)) return "Aperatif";
+    if (snackMatch || (recipe.calories <= 220 && recipe.protein <= 12 && !saladMatch && !soupMatch && !dessertMatch)) return "Ana yemek";
     if (mainMealMatch) return "Ana yemek";
     if (recipe.protein >= 22 || recipe.calories >= 360) return "Ana yemek";
-    return "Aperatif";
+    return "Ana yemek";
   }
 
   function normalizeRecipe(recipe, index = 0) {
@@ -324,3 +324,4 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
