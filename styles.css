@@ -3570,3 +3570,36 @@ body {
   align-items: center;
 }
 
+
+.pantry-detail-modal-box {
+  width: min(760px, 100%);
+  max-height: min(82vh, 900px);
+}
+
+.pantry-inline-detail {
+  max-height: 52vh;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.pantry-inline-detail .eyebrow.compact {
+  display: none;
+}
+
+.pantry-inline-detail h2 {
+  margin: 0 0 10px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.96;
+}
+
+.pantry-inline-detail > p {
+  margin-bottom: 12px;
+}
+
+.pantry-inline-detail .detail-meta-row {
+  margin-bottom: 14px;
+}
+
+.pantry-inline-detail .detail-section {
+  margin-top: 12px;
+}

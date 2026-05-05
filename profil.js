@@ -1267,14 +1267,11 @@ if (!profile) {
   const renderPantryResult = (matched, message) => {
     topPantryPanel.innerHTML = matched
       ? `
-        <div class="top-pantry-box pantry-result-panel pantry-modal-box">
+        <div class="top-pantry-box pantry-result-panel pantry-modal-box pantry-detail-modal-box">
           <button class="pantry-close-button" id="pantry-close-button" type="button" aria-label="Kapat">×</button>
           <p class="eyebrow compact">Dolap Asistanı</p>
           <h3 class="pantry-modal-title">Bugün için önerim</h3>
-          <button class="pantry-recipe-link" type="button" data-recipe-name="${matched.name}">
-            <strong>${matched.name}</strong><br><span>${matched.calories} kcal - ${matched.protein} g protein</span>
-          </button>
-          <button class="secondary-link full-width pantry-open-button" id="pantry-open-button" type="button">Tarifi aç</button>
+          <div class="pantry-inline-detail">${renderRecipeDetail(matched)}</div>
           <button class="primary-link full-width pantry-save-button" id="pantry-save-button" type="button">Menüye kaydet</button>
         </div>
       `
@@ -1290,15 +1287,8 @@ if (!profile) {
 
     document.querySelector("#pantry-close-button")?.addEventListener("click", closePantryPanel);
     document.querySelector("#pantry-back-button")?.addEventListener("click", renderPantryComposer);
-    document.querySelector("#pantry-open-button")?.addEventListener("click", () => {
-      showRecipeDetail(matched.name);
-      closePantryPanel();
-    });
     document.querySelector("#pantry-save-button")?.addEventListener("click", async () => {
       await savePantryRecipeToMenu(matched);
-    });
-    document.querySelector(".pantry-recipe-link")?.addEventListener("click", () => {
-      showRecipeDetail(matched.name);
     });
   };
 
@@ -1318,9 +1308,6 @@ if (!profile) {
 
     renderPantryResult(matched, "Elindeki malzemelere göre net bir eşleşme bulamadım. Biraz daha malzeme yazmayı dene.");
 
-    if (matched) {
-      showRecipeDetail(matched.name);
-    }
   };
 
   document.querySelector("#pantry-button")?.addEventListener("click", () => {
@@ -1353,6 +1340,8 @@ if (!profile) {
   document.querySelector("#secure-logout-link")?.addEventListener("click", handleSecureLogout);
 }
 })();
+
+
 
 
 
