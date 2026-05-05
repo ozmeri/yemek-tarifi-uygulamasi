@@ -3603,3 +3603,26 @@ body {
 .pantry-inline-detail .detail-section {
   margin-top: 12px;
 }
+
+.detail-action-section {
+  display: grid;
+  gap: 10px;
+}
+
+.detail-save-action.is-busy {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.detail-action-feedback {
+  margin: 0;
+  color: #5f6a60;
+  font-family: Verdana, sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.detail-action-feedback a {
+  color: #203f33;
+  font-weight: 700;
+}

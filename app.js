@@ -16,6 +16,75 @@ const recipeDetail = document.querySelector("#recipe-detail");
 const activeCategoryLabel = document.querySelector("#active-category-label");
 const searchSummary = document.querySelector("#search-summary");
 
+function getStoredProfile() {
+  return JSON.parse(localStorage.getItem("fitTariflerProfile") || "null");
+}
+
+async function saveRecipeToSavedMenu(recipe) {
+  const profile = getStoredProfile();
+  if (!profile) {
+    return { ok: false, reason: "no-profile" };
+  }
+
+  profile.savedMenu = Array.isArray(profile.savedMenu) ? profile.savedMenu : [];
+  const exists = profile.savedMenu.some((item) => item.name === recipe.name);
+
+  if (!exists) {
+    profile.savedMenu.unshift({
+      name: recipe.name,
+      note: recipe.summary,
+      calories: recipe.calories,
+      protein: recipe.protein,
+      carbs: recipe.carbs,
+      fat: recipe.fat,
+      time: recipe.time,
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+      category: recipe.category,
+      type: recipe.type,
+      tags: recipe.tags,
+      mealType: recipe.mealType || recipe.type,
+      color: recipe.color
+    });
+
+    localStorage.setItem("fitTariflerProfile", JSON.stringify(profile));
+    if (window.fitFirebase?.enabled && typeof window.fitFirebase.saveProfile === "function") {
+      try {
+        await window.fitFirebase.saveProfile(profile);
+      } catch (error) {
+        console.error("Tarif kaydedilirken Firestore'a yazılamadı.", error);
+      }
+    }
+  }
+
+  return { ok: true, exists };
+}
+
+async function handleSaveRecipeToMenu() {
+  if (!selectedRecipe) return;
+
+  const action = document.querySelector("#save-to-menu-action");
+  const feedback = document.querySelector("#save-to-menu-feedback");
+  if (!action || !feedback) return;
+
+  action.textContent = "Kaydediliyor...";
+  action.classList.add("is-busy");
+
+  const result = await saveRecipeToSavedMenu(selectedRecipe);
+
+  action.classList.remove("is-busy");
+  action.textContent = "Benim menüme ekle";
+
+  if (!result.ok) {
+    feedback.innerHTML = `Bu tarifi kaydetmek için önce <a href="giris.html">üye girişi</a> yapmalısın.`;
+    return;
+  }
+
+  feedback.innerHTML = result.exists
+    ? `Bu tarif zaten <a href="benim-menu.html">Benim menüm</a> içinde kayıtlı.`
+    : `Tarif kaydedildi. <a href="benim-menu.html">Benim menüme git</a>.`;
+}
+
 function ensureRecipeShape(recipe, index = 0) {
   const override = window.fitRecipeOverrides?.[recipe.name] || {};
   const inferredType = window.fitInferRecipeType?.({ ...recipe, ...override }) || recipe.type || "Ana yemek";
@@ -198,6 +267,11 @@ function renderDetail() {
       <ol>${selectedRecipe.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
     </div>
 
+    <div class="detail-section detail-action-section">
+      <button class="secondary-link full-width detail-save-action" id="save-to-menu-action" type="button">Benim menüme ekle</button>
+      <p class="detail-action-feedback" id="save-to-menu-feedback">Beğendiğin bir tarifi kayıtlı menüne ekleyebilirsin.</p>
+    </div>
+
     <div class="detail-section">
       <h3>Etiketler</h3>
       <div class="detail-meta">${selectedRecipe.tags.map((tag) => `<span class="pill">${tag}</span>`).join("")}</div>
@@ -209,6 +283,7 @@ function renderApp() {
   renderFilters();
   renderRecipes();
   renderDetail();
+  document.querySelector("#save-to-menu-action")?.addEventListener("click", handleSaveRecipeToMenu);
 }
 
 function showLoadingState(message) {
@@ -265,3 +340,5 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 bootRecipes();
+
+
