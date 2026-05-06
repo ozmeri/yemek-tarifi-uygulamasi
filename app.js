@@ -132,8 +132,8 @@ function hasMisplacedCoreRecipes(recipeList = []) {
     const name = String(recipe.name || "").toLocaleLowerCase("tr-TR");
     if ((name.includes("çorba") || name.includes("corba") || name.includes("soup")) && recipe.type !== "Çorba") return true;
     if (name.includes("protein omlet bowl") && recipe.type !== "Kahvaltı") return true;
-    if ((name.includes("tatlı") || name.includes("tatli") || name.includes("kek") || name.includes("dondurma") || name.includes("pasta")) && recipe.type !== "Tatlı") return true;
-    return false;
+    const categoryText = String(recipe.category || "").toLocaleLowerCase("tr-TR");
+    if (((name.includes("tatlı") || name.includes("tatli") || name.includes("kek") || name.includes("dondurma") || name.includes("pasta") || name.includes("kup")) || categoryText.includes("tatlı") || categoryText.includes("tatli")) && recipe.type !== "Tatlı") return true;
   });
 }
 
@@ -342,6 +342,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 bootRecipes();
+
 
 
 

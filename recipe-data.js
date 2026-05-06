@@ -290,7 +290,9 @@
     "Fit Havuçlu Tarçınlı Kek": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
     "Muzlu Yoğurtlu Dondurma": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
     "Labneli Orman Meyveli Mini Pasta": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
-    "Kakaolu Yulaflı Mug Kek": { type: "Tatl\u0131", category: "Fit Tatl\u0131" }
+    "Kakaolu Yulaflı Mug Kek": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
+    "Yoğurtlu Chia Kup": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
+    "Kakaolu Protein Topları": { type: "Tatl\u0131", category: "Fit Tatl\u0131" }
   };
 
   function slugify(value = "") {
@@ -385,6 +387,7 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
 
 
 
