@@ -262,8 +262,9 @@
       time: 18,
       color: "#ead6eb",
       summary: "Pasta isteğini daha kontrollü karşılayan, porsiyonluk hafif tatlı.",
-      ingredients: ["2 dilim yulaflı kek tabanı", "3 yemek kaşığı labne", "2 yemek kaşığı süzme yoğurt", "orman meyveleri", "1 tatlı kaşığı bal"],
-      steps: ["Labne, yoğurt ve balı pürüzsüz hale gelene kadar karıştır.", "Kek tabanının üstüne kremayı yay.", "Orman meyvelerini ekle ve ikinci katı kapat.", "Buzdolabında kısa süre dinlendirip mini pasta gibi servis et."],
+      ingredients: ["4 yemek kaşığı yulaf unu", "1 yumurta", "2 yemek kaşığı yoğurt", "1 çay kaşığı kabartma tozu", "3 yemek kaşığı labne", "2 yemek kaşığı süzme yoğurt", "1 tatlı kaşığı bal", "yarım çay bardağı orman meyvesi"],
+      steps: ["Yulaf unu, yumurta, yoğurt ve kabartma tozunu karıştırıp küçük bir karışım hazırla.", "Karışımı yağlı kağıt serili küçük bir tavaya ya da kalıba ince kat halinde yay ve pişirerek iki mini kek tabanı çıkar.", "Labne, süzme yoğurt ve balı pürüzsüz bir krema haline getir.", "Soğuyan ilk tabanın üstüne kremanın yarısını sür ve orman meyvelerini yerleştir.", "İkinci tabanı kapatıp kalan kremayı çok ince yay, kısa süre dolapta dinlendir ve servis et."],
+      prepNotes: ["Hazır kek tabanı kullanmıyorsan, tarifteki yulaf unu, yumurta ve yoğurt karışımıyla iki ince mini taban hazırlayabilirsin.", "Orman meyveleri donmuşsa kullanmadan önce suyunu süzdür; böylece pasta sulanmaz."],
       tags: ["tatlı", "pasta", "porsiyon"]
     },
     {
@@ -380,6 +381,7 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
 
 
 
