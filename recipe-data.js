@@ -286,7 +286,11 @@
   const orderedRecipeTypes = ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Tatl\u0131"];
 
   const recipeOverrides = {
-    "Protein Omlet Bowl": { type: "Kahvalt\u0131", category: "Kahvalt\u0131" }
+    "Protein Omlet Bowl": { type: "Kahvalt\u0131", category: "Kahvalt\u0131" },
+    "Fit Havuçlu Tarçınlı Kek": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
+    "Muzlu Yoğurtlu Dondurma": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
+    "Labneli Orman Meyveli Mini Pasta": { type: "Tatl\u0131", category: "Fit Tatl\u0131" },
+    "Kakaolu Yulaflı Mug Kek": { type: "Tatl\u0131", category: "Fit Tatl\u0131" }
   };
 
   function slugify(value = "") {
@@ -381,6 +385,9 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
+
+
 
 
 
