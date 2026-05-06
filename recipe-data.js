@@ -262,8 +262,8 @@
     const mainMealWords = ["tavuk", "hindi", "somon", "bal\u0131k", "balik", "k\u0131yma", "kiyma", "k\u00f6fte", "kofte", "sote", "f\u0131r\u0131n", "firin", "pilav", "makarna", "\u0131zgara", "izgara", "ana yemek", "et", "g\u00fcve\u00e7", "guvec"];
 
     if (hasTag(["kahvalt\u0131", "kahvalti"])) return "Kahvalt\u0131";
-    if (hasTag(["salata"])) return "Salata";
     if (hasTag(["\u00e7orba", "corba"])) return "\u00c7orba";
+    if (hasTag(["salata"])) return "Salata";
     if (hasTag(["tatl\u0131", "tatli"])) return "Tatl\u0131";
     if (hasTag(["ara \u00f6\u011f\u00fcn", "ara ogun", "aperatif", "at\u0131\u015ft\u0131rmal\u0131k", "atistirmalik"])) return "Ana yemek";
     if (nameText.includes("\u00e7orba") || nameText.includes("corba") || nameText.includes("soup")) return "\u00c7orba";
@@ -324,4 +324,6 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
+
 

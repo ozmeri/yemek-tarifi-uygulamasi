@@ -1,4 +1,4 @@
-﻿const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Aperatif", "Tatl\u0131"];
+﻿const orderedRecipeTypes = window.fitOrderedRecipeTypes || ["Ana yemek", "Salata", "\u00c7orba", "Kahvalt\u0131", "Tatl\u0131"];
 const defaultRecipes = (window.fitDefaultRecipes || []).map((recipe) => ({ ...recipe }));
 const fallbackColors = ["#dcebd5", "#f3cf98", "#f1b08a", "#ead7f2", "#cfe4ee", "#d8e8c2"];
 const brokenTextPattern = /Ãƒ|Ã…|Ã„|ï¿½/;
@@ -341,6 +341,7 @@ recipeList.addEventListener("click", (event) => {
 searchInput.addEventListener("input", renderApp);
 
 bootRecipes();
+
 
 
 
