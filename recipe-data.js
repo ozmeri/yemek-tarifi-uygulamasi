@@ -223,6 +223,62 @@
       ingredients: ["140 g hindi k\u0131yma", "marul", "k\u0131rm\u0131z\u0131 lahana", "salatal\u0131k", "yo\u011furtlu sos", "kimyon"],
       steps: ["Hindi k\u0131ymay\u0131 baharatla yo\u011fur.", "K\u00fc\u00e7\u00fck k\u00f6fteler yap ve pi\u015fir.", "Sebzeleri taba\u011fa al.", "K\u00f6fteleri ve yo\u011furtlu sosu ekle."],
       tags: ["antrenman", "protein", "salata"]
+    },
+    {
+      name: "Fit Havuçlu Tarçınlı Kek",
+      category: "Fit Tatlı",
+      calories: 245,
+      protein: 13,
+      carbs: 28,
+      fat: 9,
+      time: 32,
+      color: "#e7c8a4",
+      summary: "Çay saatinde tatlı isteğini bastıran, daha hafif dilim kek alternatifi.",
+      ingredients: ["2 yumurta", "4 yemek kaşığı yulaf unu", "1 küçük havuç", "tarçın", "2 yemek kaşığı yoğurt", "1 tatlı kaşığı bal"],
+      steps: ["Yumurta ve yoğurdu çırp.", "Rendelenmiş havuç, yulaf unu ve tarçını ekle.", "Karışımı küçük kalıba aktar.", "Önceden ısıtılmış fırında kontrollü şekilde pişir ve dilimleyerek servis et."],
+      tags: ["tatlı", "kek", "çay saati"]
+    },
+    {
+      name: "Muzlu Yoğurtlu Dondurma",
+      category: "Fit Tatlı",
+      calories: 198,
+      protein: 11,
+      carbs: 24,
+      fat: 6,
+      time: 8,
+      color: "#f0dfb7",
+      summary: "Sıcak günlerde ferahlatan, ilave şekersiz pratik dondurma kasesi.",
+      ingredients: ["1 donmuş muz", "3 yemek kaşığı süzme yoğurt", "1 tatlı kaşığı kakao", "vanilya", "üstü için birkaç fındık"],
+      steps: ["Donmuş muzu birkaç dakika dışarıda beklet.", "Muz, yoğurt, kakao ve vanilyayı blenderdan geçir.", "Kremamsı kıvam alınca kaseye aktar.", "İstersen üstüne az miktarda fındık serpip hemen tüket."],
+      tags: ["tatlı", "dondurma", "ferah"]
+    },
+    {
+      name: "Labneli Orman Meyveli Mini Pasta",
+      category: "Fit Tatlı",
+      calories: 265,
+      protein: 15,
+      carbs: 27,
+      fat: 10,
+      time: 18,
+      color: "#ead6eb",
+      summary: "Pasta isteğini daha kontrollü karşılayan, porsiyonluk hafif tatlı.",
+      ingredients: ["2 dilim yulaflı kek tabanı", "3 yemek kaşığı labne", "2 yemek kaşığı süzme yoğurt", "orman meyveleri", "1 tatlı kaşığı bal"],
+      steps: ["Labne, yoğurt ve balı pürüzsüz hale gelene kadar karıştır.", "Kek tabanının üstüne kremayı yay.", "Orman meyvelerini ekle ve ikinci katı kapat.", "Buzdolabında kısa süre dinlendirip mini pasta gibi servis et."],
+      tags: ["tatlı", "pasta", "porsiyon"]
+    },
+    {
+      name: "Kakaolu Yulaflı Mug Kek",
+      category: "Fit Tatlı",
+      calories: 230,
+      protein: 14,
+      carbs: 23,
+      fat: 8,
+      time: 7,
+      color: "#dcb7a4",
+      summary: "Ani tatlı isteğinde dakikalar içinde hazırlanan porsiyonluk sağlıklı kek.",
+      ingredients: ["1 yumurta", "3 yemek kaşığı yulaf unu", "1 yemek kaşığı kakao", "2 yemek kaşığı süt", "1 tatlı kaşığı bal"],
+      steps: ["Tüm malzemeleri kupada pürüzsüz olana kadar karıştır.", "Karışımı taşmayacak seviyede bırak.", "Mikrodalgada ya da küçük fırında kısa sürede pişir.", "Biraz dinlendirip ılık şekilde tüket."],
+      tags: ["tatlı", "kek", "hızlı"]
     }
   ];
 
@@ -324,6 +380,7 @@
   window.fitOrderedRecipeTypes = orderedRecipeTypes;
   window.fitDefaultRecipes = prepareRecipeCollection(window.fitRecipeCatalog || []);
 })();
+
 
 
 
